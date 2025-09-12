@@ -33,6 +33,22 @@ För att klara av uppgiften måste ni använda er av Scanner samt variabler. Jag
 - Inkludera alla användarens svar i berättelsen
 - Gör berättelsen intressant och läsvärd
 
+## 🚀 Kom igång - Skapa ditt projekt
+
+Innan du börjar koda behöver du skapa ett nytt Java-projekt. Följ stegen nedan:
+
+### 1. Skapa ett nytt projekt
+![Nytt projekt](Images/New Project.png)
+*Skapa ett nytt Java-projekt i din utvecklingsmiljö*
+
+### 2. Bygg och testa projektet
+![Bygg projekt](Images/Build Project.png)
+*Se till att projektet kompilerar utan fel*
+
+### 3. Öppna och börja koda
+![Öppnat projekt](Images/Opened Project.png)
+*Nu är du redo att börja skriva din berättelsekod!*
+
 ## 🏗️ Förslag på struktur
 
 ### 1. Välkomstmeddelande

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Markdown Loading</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="js/markdown-loader.js"></script>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Test Markdown Loading</h1>
+        <div id="testContent" class="bg-white p-6 rounded-lg shadow">
+            <p>Loading content...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('DOM loaded, testing markdown loader...');
+            
+            try {
+                if (window.markdownLoader) {
+                    console.log('MarkdownLoader found, loading content...');
+                    const content = await window.markdownLoader.loadMarkdownContent('berattelse');
+                    document.getElementById('testContent').innerHTML = content;
+                    console.log('Content loaded successfully');
+                } else {
+                    console.error('MarkdownLoader not found');
+                    document.getElementById('testContent').innerHTML = '<p class="text-red-600">MarkdownLoader not found</p>';
+                }
+            } catch (error) {
+                console.error('Error testing markdown loader:', error);
+                document.getElementById('testContent').innerHTML = `<p class="text-red-600">Error: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
