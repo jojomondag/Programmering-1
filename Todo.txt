@@ -1,0 +1,3 @@
+Implement react components for different styles and tyoes of content that we will reuse on the page, For example we will have 2 components for syntax highlightning rendering.
+1. Is FreeFlow SyntaxHighlightning, this will be as it is now a box with syntac highlight ready to be copied.
+2.    InText SyntaxHighlightning this will be on a textrow so if we have a text like Efter public static void main(String[] args) ska du skapa tre minnesplatser av typen String. Ge minnesplatserna namnen: kyl, frys och skafferi the public static void main(String[] args) will be syntaxed highlighted but its bod will fit in / at the text position
