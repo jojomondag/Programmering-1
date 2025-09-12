@@ -1,83 +1,139 @@
-# Variabler / Minnesplatser
+# Variabler och Minnesplatser i Java
 
-*Används för att lagra data. Beroende på form av data skapas minnesplatser med anpassning för tänkt datainnehåll.*
+## Introduktion
 
-## Variabeltyper
+Variabler är som **etiketterade lådor** i datorns minne där vi kan lagra information. I Java måste vi alltid berätta vilken typ av data vi vill lagra.
 
-| Variabeltyp | Exempel | Förklaring |
-|-------------|---------|------------|
-| int = heltal | `int a = 2;` | positiva & negativa heltal |
-| float = decimaltal | `float b = 2.5f;` | positiva & negativa decimaltal |
-| double = decimaltal | `double c = 2.75;` | positiva & negativa decimaltal |
-| char = tecken | `char d = 's';` | tecken som finns på tangentbord |
-| String = textsträng | `String e = "Java";` | ord eller text |
-| boolean = sant eller falskt | `boolean f = true;` | kan endast vara true eller false |
+Efter [code]public static void main(String[] args)[/code] ska du skapa tre minnesplatser av typen String. Ge minnesplatserna namnen: kyl, frys och skafferi.
 
-## 💡 Tips
+## Grundläggande Datatyper
 
-- Skapa gärna alla minnesplatser precis efter `public static void main(String args[])`
-- Använd minnesplatsnamn som gör att du förstår vilken form av innehåll som lagras i minnesplatsen.
-- Ex. `int tal1 = 0;`
-- `String FirstName = "Albert";`
+### Heltal (int)
 
-> ⚠️ **Obs!** Det får i programmet inte finnas två Minnesplatser Variabler med samma namn!
+För att lagra heltal använder vi datatypen `int`. 
 
-## Uppgift 3 - Skapa minnesplatser av variabeltypen: String
-
-*Lär dig skapa och använda String-variabler för att lagra text.*
-
-### Steg 1: Skapa ett nytt projekt med namnet Uppgift_3
-Efter `public static void main(String[] args)` ska du skapa tre minnesplatser av typen String. Ge minnesplatserna namnen: **kyl**, **frys** och **skafferi**
-
-### Steg 2: Placera varor
-Tänk dig att du handlar följande varor: **bullar**, **mjölk** och **glass** (dessa är din data). Placera rätt vara (data) till rätt minnesplats enligt exempel ovan
-
-### Steg 3: Skriv ut innehåll
-Skriv ut vad du har i dina tre minnesplatser genom att använda dina minnesplatsnamn.
-
-## Uppgift 4 - Hämta data från användaren
-
-*Det är egentligen väldigt sällan att du i förväg vet vilken data ditt program ska arbeta med. Du ska därför nu skapa ett program som hämtar data när det startar från användaren.*
-
-### Steg 1: Skapa ett nytt projekt med namnet Uppgift_4
-
-### Steg 2: Importera Scanner
-Redan på rad 1 innan `public class Main` ska du skriva: `import java.util.Scanner;`
-
-### Steg 3: Skapa Scanner-objekt
-Skriv efter `public static void main(String[] args)`: `Scanner scan = new Scanner(System.in);`
-
-### Utökning - James Bond exempel
-Bygg på programmet så att följande information syns på skärmen:
-
-```
-Skriv ditt efternamn
-_ (användaren skriver som exempel Bond)
-Skriv ditt förnamn
-_ (användaren skriver som exempel James)
-Hello Mr Bond, James Bond (Programmet skriver ut)
+```react:freeflow title="Skapa en int-variabel" lineNumbers=true
+int antal = 5;
+int poäng = 100;
+int temperatur = -10;
 ```
 
-## Uppgift 5 - Skapa minnesplatser av variabeltypen: int
+### Text (String)
 
-*Lär dig arbeta med heltal och matematiska operationer.*
+Textvariabler skapas med datatypen `String`. Observera att texten måste vara inom citattecken.
 
-> **Obs!** vi använder inte " " vid tal. Exempel: ("17") ses som text och kan inte användas vid uträkning. (17) ses som tal och kan användas vid uträkning
+```react:demo title="String variabler"
+String namn = "Anna";
+String stad = "Stockholm";
+String meddelande = "Hej " + namn + "!";
 
-## Uppgift 6 - Skapa minnesplatser av variabeltypen: double
+System.out.println(meddelande);
+System.out.println("Du bor i " + stad);
+---
+Hej Anna!
+Du bor i Stockholm
+```
 
-*Lär dig arbeta med decimaltal och skapa en enkel miniräknare.*
+### Decimaltal (double)
 
-## 🎯 Inlämningsuppgift - Uppgift 7
-### Temperaturomvandlare: Fahrenheit till Celsius
+För decimaltal använder vi `double`:
 
-*I detta program ska du ge en användare möjligheten att omvandla en temperatur i Fahrenheit till Celsius. Använd kunskaper från tidigare uppgifter här.*
+```react:freeflow title="Double variabler"
+double pris = 29.90;
+double vikt = 1.5;
+double procent = 85.7;
+```
 
-**Krav:**
-- Skriv ut så att användaren förstår att en temperatur ska skrivas i Fahrenheit
-- När personen gjort detta använder du formeln `C = (F - 32) / 1.8` för att omvandla till Celsius
-- Skriv ut resultatet i minnesplats C och försök att göra det så det blir tydligt för användaren
+## Scanner - Läsa Input från Användaren
 
-**Formel:** `C = (F - 32) / 1.8`
+För att läsa data från användaren använder vi Scanner-klassen. Först måste vi importera den:
 
-**Inlämning:** Färdigt program lämnas in via Google ClassRoom: **Inlämning Uppgift_7**
+```react:freeflow title="Import och skapa Scanner"
+import java.util.Scanner;
+
+public class MinKlass {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Ange ditt namn: ");
+        String namn = scanner.nextLine();
+        
+        System.out.print("Ange din ålder: ");
+        int ålder = scanner.nextInt();
+        
+        System.out.println("Hej " + namn + ", du är " + ålder + " år gammal!");
+    }
+}
+```
+
+## Praktisk Uppgift
+
+Skapa ett program som frågar användaren efter tre olika saker och sedan skriver ut dem:
+
+```react:demo title="Komplett program med Scanner"
+import java.util.Scanner;
+
+public class VariabelDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Skapa tre String-variabler
+        String kyl, frys, skafferi;
+        
+        System.out.print("Vad har du i kylen? ");
+        kyl = scanner.nextLine();
+        
+        System.out.print("Vad har du i frysen? ");
+        frys = scanner.nextLine();
+        
+        System.out.print("Vad har du i skafferiet? ");
+        skafferi = scanner.nextLine();
+        
+        System.out.println("\nDin matinventering:");
+        System.out.println("Kyl: " + kyl);
+        System.out.println("Frys: " + frys);
+        System.out.println("Skafferi: " + skafferi);
+    }
+}
+---
+Vad har du i kylen? Mjölk
+Vad har du i frysen? Glass
+Vad har du i skafferiet? Pasta
+
+Din matinventering:
+Kyl: Mjölk
+Frys: Glass
+Skafferi: Pasta
+```
+
+## Viktiga Scanner-metoder
+
+| Metod | Beskrivning | Exempel |
+|-------|-------------|---------|
+| `nextLine()` | Läser en hel rad text | `String text = scanner.nextLine();` |
+| `nextInt()` | Läser ett heltal | `int nummer = scanner.nextInt();` |
+| `nextDouble()` | Läser ett decimaltal | `double värde = scanner.nextDouble();` |
+
+## Vanliga Misstag
+
+⚠️ **Varning:** När du använder [code]nextInt()[/code] följt av [code]nextLine()[/code] kan du få problem med radbrytningar. Använd en extra [code]scanner.nextLine()[/code] för att "äta upp" radbrytningen.
+
+```react:freeflow title="Lösning för Scanner-problem"
+Scanner scanner = new Scanner(System.in);
+
+System.out.print("Ange ett nummer: ");
+int nummer = scanner.nextInt();
+scanner.nextLine(); // Äter upp radbrytningen
+
+System.out.print("Ange ditt namn: ");
+String namn = scanner.nextLine();
+```
+
+## Sammanfattning
+
+1. **Variabler** lagrar data i datorns minne
+2. **int** för heltal, **String** för text, **double** för decimaltal
+3. **Scanner** låter oss läsa input från användaren
+4. Använd [code]nextLine()[/code] för text och [code]nextInt()[/code] för heltal
+
+Nästa steg är att lära sig om **utskrifter** och hur vi kan formatera vår output på olika sätt!
