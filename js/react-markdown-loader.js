@@ -12,6 +12,14 @@ class ReactMarkdownLoader extends MarkdownLoader {
         let html = markdown;
         const components = [];
         
+        // First, protect our [code] tokens from base markdown processing
+        const inlineCodeTokens = [];
+        html = html.replace(/\[code\](.*?)\[\/code\]/g, (match, code) => {
+            const tokenIndex = inlineCodeTokens.length;
+            inlineCodeTokens.push(code);
+            return `___INLINE_CODE_${tokenIndex}___`;
+        });
+        
         // Handle React code blocks with special syntax: ```react:component-type
         html = html.replace(/```react:freeflow(?:\s+(.+?))?\n([\s\S]*?)\n```/g, (match, options, code) => {
             const componentId = `freeflow-${components.length}`;
@@ -75,8 +83,11 @@ class ReactMarkdownLoader extends MarkdownLoader {
             return `<div id="${componentId}" class="react-component-mount"></div>`;
         });
 
-        // Enhanced inline code handling for InText components
-        html = html.replace(/\[code\]([^[]+)\[\/code\]/g, (match, code) => {
+        // Process regular markdown
+        html = super.markdownToHtml(html);
+
+        // Now restore and process our protected inline code tokens
+        inlineCodeTokens.forEach((code, index) => {
             const componentId = `inline-${components.length}`;
             components.push({
                 id: componentId,
@@ -86,11 +97,8 @@ class ReactMarkdownLoader extends MarkdownLoader {
                     language: 'java'
                 }
             });
-            return `<span id="${componentId}" class="react-component-mount inline"></span>`;
+            html = html.replace(`___INLINE_CODE_${index}___`, `<span id="${componentId}" class="react-component-mount inline"></span>`);
         });
-
-        // Process regular markdown
-        html = super.markdownToHtml(html);
 
         // Store components for mounting
         this.componentMountPoints.set('current', components);

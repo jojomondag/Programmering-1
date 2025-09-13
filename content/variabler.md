@@ -10,7 +10,7 @@ Efter [code]public static void main(String[] args)[/code] ska du skapa tre minne
 
 ### Heltal (int)
 
-För att lagra heltal använder vi datatypen `int`. 
+För att lagra heltal använder vi datatypen [code]int[/code]. 
 
 ```react:freeflow title="Skapa en int-variabel" lineNumbers=true
 int antal = 5;
@@ -20,7 +20,7 @@ int temperatur = -10;
 
 ### Text (String)
 
-Textvariabler skapas med datatypen `String`. Observera att texten måste vara inom citattecken.
+Textvariabler skapas med datatypen [code]String[/code]. Observera att texten måste vara inom citattecken.
 
 ```react:demo title="String variabler"
 String namn = "Anna";
@@ -36,7 +36,7 @@ Du bor i Stockholm
 
 ### Decimaltal (double)
 
-För decimaltal använder vi `double`:
+För decimaltal använder vi [code]double[/code]:
 
 ```react:freeflow title="Double variabler"
 double pris = 29.90;
