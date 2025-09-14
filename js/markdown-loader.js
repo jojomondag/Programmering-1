@@ -1,7 +1,6 @@
-// Simplified Markdown Loader - Browser Compatible
+// Simplified Markdown Loader - Browser Compatible (React removed)
 class MarkdownLoader {
     constructor() {
-        console.log('MarkdownLoader constructor called');
         this.cache = new Map();
     }
 
@@ -54,9 +53,22 @@ class MarkdownLoader {
         
         // Handle code blocks first (to avoid processing content inside them)
         const codeBlocks = [];
-        html = html.replace(/```(\w+)?\n([\s\S]*?)\n```/g, (match, lang, code) => {
+        // Accept any info string after the ``` (handles "react:..." tokens and normal languages)
+        html = html.replace(/```([^\n]*)\n([\s\S]*?)\n```/g, (match, info, code) => {
             const index = codeBlocks.length;
-            const langClass = lang ? `language-${lang}` : '';
+            let langClass = '';
+
+            if (info) {
+                // Extract the first token (e.g. "java", "react:freeflow", "react:demo language=java")
+                const token = info.trim().split(/\s+/)[0];
+                if (token.includes(':')) {
+                    // For react:<type> fences, default to java to keep examples highlighted
+                    langClass = 'language-java';
+                } else {
+                    langClass = `language-${token}`;
+                }
+            }
+
             codeBlocks.push(`<div class="code-container relative mb-6">
                 <button onclick="copyCode(this)" class="copy-button">Kopiera</button>
                 <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
@@ -86,8 +98,8 @@ class MarkdownLoader {
             </div>`;
         });
 
-        // Links
-        html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline">$1</a>');
+    // Links
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline">$1</a>');
 
         // Inline code
         html = html.replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono">$1</code>');
@@ -439,11 +451,9 @@ class MarkdownLoader {
 }
 
 // Create global instance
-console.log('Creating global MarkdownLoader instance...');
 window.markdownLoader = new MarkdownLoader();
-console.log('MarkdownLoader instance created:', window.markdownLoader);
 
-// Add CSS for gradients
+// Add CSS for gradients (kept small and local)
 const style = document.createElement('style');
 style.textContent = `
     .hero-gradient-blue {

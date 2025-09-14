@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <!-- Markdown loader -->
     <script defer src="js/markdown-loader.js"></script>
     <style>
         .copy-button {
@@ -250,6 +252,13 @@
         // Load content from markdown and render it
         async function initializePage() {
             try {
+                // Wait for the markdown loader to be ready
+                if (!window.markdownLoader || !window.markdownLoader.loadMarkdownContent) {
+                    console.log('Waiting for markdown loader to load...');
+                    setTimeout(initializePage, 100);
+                    return;
+                }
+
                 // Update page meta information
                 window.markdownLoader.updatePageMeta('utskrifter');
                 
@@ -292,7 +301,7 @@
                     // Also highlight any dynamically loaded content
                     setTimeout(() => {
                         Prism.highlightAll();
-                    }, 100);
+                    }, 300);
                 }
             } catch (error) {
                 console.error('Error initializing page:', error);

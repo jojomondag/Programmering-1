@@ -1,24 +1,24 @@
 {
   "name": "programmering-1",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Programming 1 course materials with interactive content",
+  "main": "index.html",
   "scripts": {
+    "start": "npx http-server -p 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jojomondag/Programmering-1.git"
   },
-  "keywords": [],
+  "keywords": ["java", "programming", "education", "course"],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/jojomondag/Programmering-1/issues"
   },
   "homepage": "https://github.com/jojomondag/Programmering-1#readme",
-  "dependencies": {
-    "markdowntorender": "^1.0.9"
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }

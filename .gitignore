@@ -1,4 +1,8 @@
-# macOS
+# Dependencies
+node_modules/
+package-lock.json
+
+# System files
 .DS_Store
 .DS_Store?
 ._*
@@ -7,15 +11,17 @@
 ehthumbs.db
 Thumbs.db
 
-# IDE
+# Editor files
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # Logs
-*.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Runtime data
 pids
@@ -23,11 +29,27 @@ pids
 *.seed
 *.pid.lock
 
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
 # Optional npm cache directory
 .npm
 
-# Optional eslint cache
-.eslintcache
+# Optional REPL history
+.node_repl_history
 
-# Node modules (if ever added back)
-node_modules/
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# Build outputs
+dist/
+build/

@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <!-- Markdown loader -->
     <script defer src="js/markdown-loader.js"></script>
     <style>
         .copy-button {
@@ -236,17 +238,14 @@
 
         // Load content from markdown and render it
         async function initializePage() {
-            console.log('Initializing page...');
             try {
-                // Wait a bit for markdown loader to be ready
-                await new Promise(resolve => setTimeout(resolve, 100));
-                
-                if (!window.markdownLoader) {
-                    throw new Error('MarkdownLoader not available');
+                // Wait for the markdown loader to be ready
+                if (!window.markdownLoader || !window.markdownLoader.loadMarkdownContent) {
+                    console.log('Waiting for markdown loader to load...');
+                    setTimeout(initializePage, 100);
+                    return;
                 }
-                
-                console.log('MarkdownLoader available, updating page...');
-                
+
                 // Update page meta information
                 window.markdownLoader.updatePageMeta('berattelse');
                 
@@ -265,10 +264,8 @@
                 // Load and render main content from markdown
                 const mainContent = document.getElementById('mainContent');
                 if (mainContent) {
-                    console.log('Loading markdown content for berattelse...');
                     const markdownContent = await window.markdownLoader.loadMarkdownContent('berattelse');
                     mainContent.innerHTML = markdownContent;
-                    console.log('Content loaded and rendered');
                 }
                 
                 // Render footer links
@@ -284,16 +281,20 @@
                 }
                 
                 // Initialize Prism.js for syntax highlighting
-                setTimeout(() => {
-                    if (window.Prism) {
+                if (window.Prism) {
+                    // Force re-highlighting of all code blocks
+                    Prism.highlightAll();
+                    
+                    // Also highlight any dynamically loaded content
+                    setTimeout(() => {
                         Prism.highlightAll();
-                    }
-                }, 200);
+                    }, 300);
+                }
             } catch (error) {
                 console.error('Error initializing page:', error);
                 const mainContent = document.getElementById('mainContent');
                 if (mainContent) {
-                    mainContent.innerHTML = '<div class="bg-red-50 border-l-4 border-red-500 p-4"><p class="text-red-800">Kunde inte ladda innehåll. Fel: ' + error.message + '</p></div>';
+                    mainContent.innerHTML = '<div class="bg-red-50 border-l-4 border-red-500 p-4"><p class="text-red-800">Kunde inte ladda innehåll. Kontrollera att markdown-filen finns.</p></div>';
                 }
             }
         }
