@@ -69,12 +69,108 @@ class MarkdownLoader {
                 }
             }
 
-            codeBlocks.push(`<div class="code-container relative mb-6">
-                <button onclick="copyCode(this)" class="copy-button">Kopiera</button>
-                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-                    <code class="${langClass} font-mono">${this.escapeHtml(code.trim())}</code>
-                </pre>
-            </div>`);
+            // Check if this is a react:demo block with terminal output
+            if (info && info.includes('react:demo')) {
+                const parts = code.split('---');
+                if (parts.length === 2) {
+                    // Clean up the Java code by normalizing indentation
+                    let javaCode = this.stripBoundaryNewlines(parts[0]);
+                    
+                    // Normalize indentation - find minimum indentation and adjust all lines
+                    const lines = javaCode.split('\n');
+                    const nonEmptyLines = lines.filter(line => line.trim().length > 0);
+                    
+                    if (nonEmptyLines.length > 0) {
+                        // Find minimum indentation
+                        const minIndent = Math.min(...nonEmptyLines.map(line => {
+                            const match = line.match(/^(\s*)/);
+                            return match ? match[1].length : 0;
+                        }));
+                        
+                        // Remove minimum indentation from all lines
+                        const normalizedLines = lines.map(line => {
+                            if (line.trim().length === 0) return line; // Keep empty lines as is
+                            return line.substring(minIndent);
+                        });
+                        
+                        javaCode = normalizedLines.join('\n').replace(/^\n+|\n+$/g, '');
+                    }
+                    
+                    const terminalOutput = this.stripBoundaryNewlines(parts[1]);
+                    
+                    codeBlocks.push(`<div class="demo-grid mb-8">
+<div class="code-container relative">
+<button onclick="copyCode(this)" class="copy-button">Kopiera</button>
+<pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto h-full">
+<code class="${langClass} font-mono">${this.escapeHtml(javaCode)}</code>
+</pre>
+</div>
+<div class="terminal-container">
+<div class="terminal-header">
+<div class="terminal-buttons">
+<span class="terminal-button close"></span>
+<span class="terminal-button minimize"></span>
+<span class="terminal-button maximize"></span>
+</div>
+<span class="terminal-title">Terminal</span>
+</div>
+<div class="terminal-body">
+<pre class="terminal-output">${this.escapeHtml(terminalOutput)}</pre>
+</div>
+</div>
+</div>`);
+                } else {
+                    // Fallback for react:demo without terminal output
+                    let cleanCode = this.stripBoundaryNewlines(code);
+                    const lines = cleanCode.split('\n');
+                    const nonEmptyLines = lines.filter(line => line.trim().length > 0);
+                    
+                    if (nonEmptyLines.length > 0) {
+                        const minIndent = Math.min(...nonEmptyLines.map(line => {
+                            const match = line.match(/^(\s*)/);
+                            return match ? match[1].length : 0;
+                        }));
+                        
+                        const normalizedLines = lines.map(line => {
+                            if (line.trim().length === 0) return line;
+                            return line.substring(minIndent);
+                        });
+                        
+                        cleanCode = normalizedLines.join('\n').replace(/^\n+|\n+$/g, '');
+                    }
+                    codeBlocks.push(`<div class="code-container relative mb-6">
+<button onclick="copyCode(this)" class="copy-button">Kopiera</button>
+<pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+<code class="${langClass} font-mono">${this.escapeHtml(cleanCode)}</code>
+</pre>
+</div>`);
+                }
+            } else {
+                // Regular code block
+                let cleanCode = this.stripBoundaryNewlines(code);
+                const lines = cleanCode.split('\n');
+                const nonEmptyLines = lines.filter(line => line.trim().length > 0);
+                
+                if (nonEmptyLines.length > 0) {
+                    const minIndent = Math.min(...nonEmptyLines.map(line => {
+                        const match = line.match(/^(\s*)/);
+                        return match ? match[1].length : 0;
+                    }));
+                    
+                    const normalizedLines = lines.map(line => {
+                        if (line.trim().length === 0) return line;
+                        return line.substring(minIndent);
+                    });
+                    
+                    cleanCode = normalizedLines.join('\n').replace(/^\n+|\n+$/g, '');
+                }
+                codeBlocks.push(`<div class="code-container relative mb-6">
+<button onclick="copyCode(this)" class="copy-button">Kopiera</button>
+<pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+<code class="${langClass} font-mono">${this.escapeHtml(cleanCode)}</code>
+</pre>
+</div>`);
+            }
             return `___CODE_BLOCK_${index}___`;
         });
 
@@ -177,6 +273,16 @@ class MarkdownLoader {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    /**
+     * Strip only leading and trailing newlines, preserving leading spaces
+     * inside the first/last lines. This prevents wiping first-line indentation
+     * before we run common-indent normalization.
+     */
+    stripBoundaryNewlines(text) {
+        if (typeof text !== 'string') return text;
+        return text.replace(/^\n+|\n+$/g, '');
     }
 
     /**
@@ -453,7 +559,7 @@ class MarkdownLoader {
 // Create global instance
 window.markdownLoader = new MarkdownLoader();
 
-// Add CSS for gradients (kept small and local)
+// Add CSS for gradients and terminal styling (kept small and local)
 const style = document.createElement('style');
 style.textContent = `
     .hero-gradient-blue {
@@ -464,6 +570,100 @@ style.textContent = `
     }
     .hero-gradient-green {
         background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+    
+    /* Terminal styling */
+    .demo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    @media (max-width: 1024px) {
+        .demo-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .terminal-container {
+        background: #1a1a1a;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid #333;
+    }
+    
+    .terminal-header {
+        background: #2d2d2d;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #333;
+    }
+    
+    .terminal-buttons {
+        display: flex;
+        gap: 6px;
+    }
+    
+    .terminal-button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    
+    .terminal-button.close {
+        background: #ff5f56;
+    }
+    
+    .terminal-button.minimize {
+        background: #ffbd2e;
+    }
+    
+    .terminal-button.maximize {
+        background: #27ca3f;
+    }
+    
+    .terminal-title {
+        color: #ccc;
+        font-size: 12px;
+        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    }
+    
+    .terminal-body {
+        padding: 16px;
+        background: #1a1a1a;
+        min-height: 120px;
+    }
+    
+    .terminal-output {
+        color: #00ff00;
+        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    
+    .terminal-output::before {
+        content: "> ";
+        color: #00ff00;
+    }
+    
+    /* Ensure code blocks have no unwanted indentation */
+    .code-container pre {
+        margin: 0;
+        padding: 1rem;
+    }
+    
+    .code-container code {
+        display: block;
+        white-space: pre;
+        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
     }
 `;
 document.head.appendChild(style);

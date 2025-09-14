@@ -2,7 +2,7 @@
 
 ## Uppgiftsbeskrivning
 
-Din uppgift är att skapa ett interaktivt Java-program som bygger en personlig berättelse baserat på användarens inmatningar. Programmet ska kombinera [code]Scanner[/code] för att läsa input och [code]String[/code]-variabler för att lagra och manipulera data.
+Din uppgift är att skapa ett interaktivt Java-program som bygger en personlig berättelse baserat på användarens inmatningar. Programmet ska kombinera `Scanner` för att läsa input och `String`-variabler för att lagra och manipulera data.
 
 ## Krav på programmet
 
@@ -112,9 +112,13 @@ Tack för att du skapade en berättelse!
 ## Kreativa utmaningar (för högre betyg)
 
 ### Utmaning 1: Villkorad berättelse
-Använd [code]if[/code]-satser för att skapa olika varianter baserat på input:
+Använd `if`-satser för att skapa olika varianter baserat på input:
 
-```react:freeflow title="Villkorad berättelse"
+```react:demo title="Villkorad berättelse"
+String namn = "Alex";
+int ålder = 16;
+String djur = "katt";
+
 if (ålder < 18) {
     System.out.println(namn + " gick till skolan som vanligt när...");
 } else {
@@ -128,12 +132,22 @@ if (djur.equals("hund")) {
 } else {
     System.out.println(djur + "et såg förvånat ut!");
 }
+---
+Alex gick till skolan som vanligt när...
+Katten spann mystiskt!
 ```
 
 ### Utmaning 2: Formaterad presentation
 Använd Unicode-tecken och formatering för snyggare output:
 
-```react:freeflow title="Formaterad berättelse"
+```react:demo title="Formaterad berättelse"
+String namn = "Alex";
+String stad = "Stockholm";
+int ålder = 16;
+String färg = "lila";
+String djur = "katt";
+String föremål = "spegel";
+
 System.out.println("\n\u2728 " + "★".repeat(20) + " \u2728");
 System.out.println("    \uD83D\uDCDA " + namn.toUpperCase() + "S ÄVENTYR \uD83D\uDCDA");
 System.out.println("\u2728 " + "★".repeat(20) + " \u2728\n");
@@ -142,22 +156,34 @@ System.out.printf("📍 Plats: %s\n", stad);
 System.out.printf("👤 Huvudperson: %s (%d år)\n", namn, ålder);
 System.out.printf("🐾 Kompis: %s %s\n", färg, djur);
 System.out.printf("✨ Magiskt föremål: %s\n\n", föremål);
+---
+✨ ★★★★★★★★★★★★★★★★★★★★ ✨
+    📚 ALEXS ÄVENTYR 📚
+✨ ★★★★★★★★★★★★★★★★★★★★ ✨
+
+📍 Plats: Stockholm
+👤 Huvudperson: Alex (16 år)
+🐾 Kompis: lila katt
+✨ Magiskt föremål: spegel
 ```
 
 ### Utmaning 3: Slumpmässiga element
 Lägg till slumpmässighet för variation:
 
-```react:freeflow title="Slumpmässiga element"
+```react:demo title="Slumpmässiga element"
 import java.util.Random;
 
 Random random = new Random();
 String[] väder = {"soligt", "regnigt", "snöigt", "dimmigt"};
 String[] tider = {"morgon", "eftermiddag", "kväll", "natt"};
+String namn = "Alex";
 
 String valdVäder = väder[random.nextInt(väder.length)];
 String valdTid = tider[random.nextInt(tider.length)];
 
 System.out.println("Det var en " + valdVäder + " " + valdTid + " när " + namn + "...");
+---
+Det var en soligt morgon när Alex...
 ```
 
 ## Bedömningskriterier

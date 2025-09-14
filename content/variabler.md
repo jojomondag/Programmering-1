@@ -4,31 +4,39 @@
 
 Variabler är som **etiketterade lådor** i datorns minne där vi kan lagra information. I Java måste vi alltid berätta vilken typ av data vi vill lagra.
 
-Efter [code]public static void main(String[] args)[/code] ska du skapa tre minnesplatser av typen String. Ge minnesplatserna namnen: kyl, frys och skafferi.
+Efter `public static void main(String[] args)` ska du skapa tre minnesplatser av typen String. Ge minnesplatserna namnen: kyl, frys och skafferi.
 
 ## Grundläggande Datatyper
 
 ### Heltal (int)
 
-För att lagra heltal använder vi datatypen [code]int[/code]. 
+För att lagra heltal använder vi datatypen `int`. 
 
-```react:freeflow title="Skapa en int-variabel" lineNumbers=true
-int antal = 5;
-int poäng = 100;
-int temperatur = -10;
+```react:demo title="Skapa en int-variabel"
+    int antal = 5;
+    int poäng = 100;
+    int temperatur = -10;
+
+    System.out.println("Antal: " + antal);
+    System.out.println("Poäng: " + poäng);
+    System.out.println("Temperatur: " + temperatur + "°C");
+---
+Antal: 5
+Poäng: 100
+Temperatur: -10°C
 ```
 
 ### Text (String)
 
-Textvariabler skapas med datatypen [code]String[/code]. Observera att texten måste vara inom citattecken.
+Textvariabler skapas med datatypen `String`. Observera att texten måste vara inom citattecken.
 
 ```react:demo title="String variabler"
-String namn = "Anna";
-String stad = "Stockholm";
-String meddelande = "Hej " + namn + "!";
+    String namn = "Anna";
+    String stad = "Stockholm";
+    String meddelande = "Hej " + namn + "!";
 
-System.out.println(meddelande);
-System.out.println("Du bor i " + stad);
+    System.out.println(meddelande);
+    System.out.println("Du bor i " + stad);
 ---
 Hej Anna!
 Du bor i Stockholm
@@ -36,19 +44,27 @@ Du bor i Stockholm
 
 ### Decimaltal (double)
 
-För decimaltal använder vi [code]double[/code]:
+För decimaltal använder vi `double`:
 
-```react:freeflow title="Double variabler"
-double pris = 29.90;
-double vikt = 1.5;
-double procent = 85.7;
+```react:demo title="Double variabler"
+    double pris = 29.90;
+    double vikt = 1.5;
+    double procent = 85.7;
+
+    System.out.println("Pris: " + pris + " kr");
+    System.out.println("Vikt: " + vikt + " kg");
+    System.out.println("Procent: " + procent + "%");
+---
+Pris: 29.9 kr
+Vikt: 1.5 kg
+Procent: 85.7%
 ```
 
 ## Scanner - Läsa Input från Användaren
 
 För att läsa data från användaren använder vi Scanner-klassen. Först måste vi importera den:
 
-```react:freeflow title="Import och skapa Scanner"
+```react:demo title="Import och skapa Scanner"
 import java.util.Scanner;
 
 public class MinKlass {
@@ -64,6 +80,10 @@ public class MinKlass {
         System.out.println("Hej " + namn + ", du är " + ålder + " år gammal!");
     }
 }
+---
+Ange ditt namn: Erik
+Ange din ålder: 25
+Hej Erik, du är 25 år gammal!
 ```
 
 ## Praktisk Uppgift
@@ -116,9 +136,9 @@ Skafferi: Pasta
 
 ## Vanliga Misstag
 
-⚠️ **Varning:** När du använder [code]nextInt()[/code] följt av [code]nextLine()[/code] kan du få problem med radbrytningar. Använd en extra [code]scanner.nextLine()[/code] för att "äta upp" radbrytningen.
+⚠️ **Varning:** När du använder `nextInt()` följt av `nextLine()` kan du få problem med radbrytningar. Använd en extra `scanner.nextLine()` för att "äta upp" radbrytningen.
 
-```react:freeflow title="Lösning för Scanner-problem"
+```react:demo title="Lösning för Scanner-problem"
 Scanner scanner = new Scanner(System.in);
 
 System.out.print("Ange ett nummer: ");
@@ -127,6 +147,14 @@ scanner.nextLine(); // Äter upp radbrytningen
 
 System.out.print("Ange ditt namn: ");
 String namn = scanner.nextLine();
+
+System.out.println("Nummer: " + nummer);
+System.out.println("Namn: " + namn);
+---
+Ange ett nummer: 42
+Ange ditt namn: Anna
+Nummer: 42
+Namn: Anna
 ```
 
 ## Sammanfattning
@@ -134,6 +162,6 @@ String namn = scanner.nextLine();
 1. **Variabler** lagrar data i datorns minne
 2. **int** för heltal, **String** för text, **double** för decimaltal
 3. **Scanner** låter oss läsa input från användaren
-4. Använd [code]nextLine()[/code] för text och [code]nextInt()[/code] för heltal
+4. Använd `nextLine()` för text och `nextInt()` för heltal
 
 Nästa steg är att lära sig om **utskrifter** och hur vi kan formatera vår output på olika sätt!

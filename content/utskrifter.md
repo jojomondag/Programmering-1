@@ -2,7 +2,7 @@
 
 ## Introduktion
 
-I Java använder vi olika metoder för att visa information till användaren. Den mest grundläggande metoden är [code]System.out.println()[/code] som skriver ut text på en ny rad.
+I Java använder vi olika metoder för att visa information till användaren. Den mest grundläggande metoden är `System.out.println()` som skriver ut text på en ny rad.
 
 ## Grundläggande Utskrifter
 
@@ -26,7 +26,7 @@ Nu kommer en ny rad
 
 Du kan enkelt skriva ut variabler genom att lägga till dem i utskriften:
 
-```react:freeflow title="Skriva ut variabler"
+```react:demo title="Skriva ut variabler"
 String namn = "Anna";
 int ålder = 25;
 double längd = 1.68;
@@ -34,6 +34,10 @@ double längd = 1.68;
 System.out.println("Namn: " + namn);
 System.out.println("Ålder: " + ålder + " år");
 System.out.println("Längd: " + längd + " meter");
+---
+Namn: Anna
+Ålder: 25 år
+Längd: 1.68 meter
 ```
 
 ## Specialtecken och Escape-sekvenser
@@ -80,9 +84,9 @@ Pil: →
 
 ## Formaterad utskrift med printf
 
-För mer avancerad formatering kan du använda [code]System.out.printf()[/code]:
+För mer avancerad formatering kan du använda `System.out.printf()`:
 
-```react:freeflow title="Printf formatering"
+```react:demo title="Printf formatering"
 String namn = "Erik";
 int ålder = 22;
 double betyg = 4.75;
@@ -92,13 +96,18 @@ System.out.printf("Ålder: %d år%n", ålder);
 System.out.printf("Betyg: %.2f%n", betyg);
 System.out.printf("Hej %s, du är %d år och har betyget %.1f%n", 
                   namn, ålder, betyg);
+---
+Namn: Erik
+Ålder: 22 år
+Betyg: 4.75
+Hej Erik, du är 22 år och har betyget 4.8
 ```
 
 ## JOptionPane - GUI-dialoger
 
-För grafiska program kan du använda [code]JOptionPane[/code]:
+För grafiska program kan du använda `JOptionPane`:
 
-```react:freeflow title="JOptionPane exempel"
+```react:demo title="JOptionPane exempel"
 import javax.swing.JOptionPane;
 
 public class GUIDemo {
@@ -118,6 +127,8 @@ public class GUIDemo {
         }
     }
 }
+---
+[Shows GUI dialogs - user input and message boxes]
 ```
 
 ## Praktisk Uppgift
@@ -173,7 +184,7 @@ Hej Lisa! ☺
 
 För att göra output mer visuellt tilltalande kan du använda ANSI-färgkoder:
 
-```react:freeflow title="ANSI färgkoder"
+```react:demo title="ANSI färgkoder"
 public class FärgadText {
     public static void main(String[] args) {
         // ANSI färgkoder
@@ -191,6 +202,11 @@ public class FärgadText {
         System.out.println(gul + "Gul bakgrund" + reset);
     }
 }
+---
+Röd text
+Grön text
+Blå text
+Gul bakgrund
 ```
 
 ## Sammanfattning
