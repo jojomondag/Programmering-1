@@ -440,7 +440,7 @@ class MarkdownLoader {
                             </div>
                         </div>
                         <div class="lg:flex-shrink-0">
-                            <div class="w-64 h-32 bg-blue-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
+                            <div class="w-64 h-48 bg-blue-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
                                 <span class="text-6xl">🧠</span>
                             </div>
                         </div>
@@ -461,7 +461,7 @@ class MarkdownLoader {
                         </div>
                         <div class="lg:flex-shrink-0">
                             <img src="Images/Teckenuppsättning.png" alt="Teckenuppsättning Illustration" 
-                                 class="w-64 h-auto rounded-lg shadow-lg border-4 border-white border-opacity-20 hover:scale-105 transition-transform duration-300">
+                                 class="w-64 h-48 object-cover rounded-lg shadow-lg border-4 border-white border-opacity-20 hover:scale-105 transition-transform duration-300">
                         </div>
                     </div>
                 </div>
@@ -480,7 +480,7 @@ class MarkdownLoader {
                         </div>
                         <div class="lg:flex-shrink-0">
                             <img src="Images/Berättelse.png" alt="Berättelse Illustration" 
-                                 class="w-64 h-auto rounded-lg shadow-lg border-4 border-white border-opacity-20 hover:scale-105 transition-transform duration-300">
+                                 class="w-64 h-48 object-cover rounded-lg shadow-lg border-4 border-white border-opacity-20 hover:scale-105 transition-transform duration-300">
                         </div>
                     </div>
                 </div>
@@ -495,8 +495,8 @@ class MarkdownLoader {
      */
     renderNavigation(currentPage) {
         const pages = [
-            { name: 'variabler', title: 'Variabler', emoji: '🧠', color: 'blue' },
             { name: 'utskrifter', title: 'Utskrifter', emoji: '📺', color: 'purple' },
+            { name: 'variabler', title: 'Variabler', emoji: '🧠', color: 'blue' },
             { name: 'berattelse', title: 'Berättelse', emoji: '📖', color: 'green' }
         ];
 
@@ -522,8 +522,8 @@ class MarkdownLoader {
      */
     renderFooterLinks(currentPage) {
         const pages = [
-            { name: 'variabler', title: 'Variabler', color: 'blue' },
             { name: 'utskrifter', title: 'Utskrifter', color: 'purple' },
+            { name: 'variabler', title: 'Variabler', color: 'blue' },
             { name: 'berattelse', title: 'Berättelse', color: 'green' }
         ];
 
@@ -545,18 +545,76 @@ class MarkdownLoader {
             'variabler': `
                 <div class="space-y-4">
                     <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-900 mb-2">📹 Introduktion till Variabler</h4>
-                        <p class="text-blue-800 text-sm mb-3">Grundläggande koncept och syntax</p>
-                        <div class="bg-blue-100 p-2 rounded text-blue-700 text-xs">
-                            Videolektion kommer snart...
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-blue-900">Vid 8 - Variabler som koncept</h4>
+                            <button onclick="toggleDescription('desc8')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                <svg id="arrow8" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
                         </div>
+                        <div id="desc8" class="hidden text-blue-800 text-sm mb-3">I denna video pratar jag och visar exempel på programmeringens kanske viktigaste byggsten. Förhoppningen med denna video är att det skall bli lättare att förstå varför vi använder oss av Variablar inom programmering.</div>
+                        <a href="https://www.youtube.com/watch?v=4VXf87Xi7Wc&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=8" 
+                           target="_blank" 
+                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/4VXf87Xi7Wc/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Variabler del 8</div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                     <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-900 mb-2">🎯 Scanner och Input</h4>
-                        <p class="text-blue-800 text-sm mb-3">Läsa data från användaren</p>
-                        <div class="bg-blue-100 p-2 rounded text-blue-700 text-xs">
-                            Videolektion kommer snart...
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-blue-900">Vid 9 - Variabler och hur man skapar och använder dem</h4>
+                            <button onclick="toggleDescription('desc9')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                <svg id="arrow9" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
                         </div>
+                        <div id="desc9" class="hidden text-blue-800 text-sm mb-3">I denna video bygger jag vidare på konceptet Variabler och visar hur man skapar dessa med kod, och sedan använder sig av dem.</div>
+                        <a href="https://www.youtube.com/watch?v=wwhqgfw_gYE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=9" 
+                           target="_blank" 
+                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/wwhqgfw_gYE/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Variabler del 9</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-blue-900">Vid 10 - Variabler och Scanner</h4>
+                            <button onclick="toggleDescription('desc10')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                <svg id="arrow10" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc10" class="hidden text-blue-800 text-sm mb-3">I denna video försöker jag knyta ihop 3 koncept som jag har gått igenom i videorna innan och visar hur allt hänger ihop. Variabler, Scanner, och System.out.Println</div>
+                        <a href="https://www.youtube.com/watch?v=ReIa3r_b2z4&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=10" 
+                           target="_blank" 
+                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/ReIa3r_b2z4/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Variabler del 10</div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             `,
@@ -735,18 +793,28 @@ class MarkdownLoader {
             'berattelse': `
                 <div class="space-y-4">
                     <div class="bg-green-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-900 mb-2">📹 Planera din berättelse</h4>
-                        <p class="text-green-800 text-sm mb-3">Strukturera uppgiften</p>
-                        <div class="bg-green-100 p-2 rounded text-green-700 text-xs">
-                            Videolektion kommer snart...
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-green-900">Vid 11 - Projekt 1 Berättelsen</h4>
+                            <button onclick="toggleDescription('desc11')" class="text-green-600 hover:text-green-800 transition-colors">
+                                <svg id="arrow11" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
                         </div>
-                    </div>
-                    <div class="bg-green-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-900 mb-2">🎯 Implementering</h4>
-                        <p class="text-green-800 text-sm mb-3">Kodning steg för steg</p>
-                        <div class="bg-green-100 p-2 rounded text-green-700 text-xs">
-                            Videolektion kommer snart...
-                        </div>
+                        <div id="desc11" class="hidden text-green-800 text-sm mb-3">I denna video summerar jag videorna 1 - 10 i detta projektet och visar hur alla bitar samarbetar och hur man med denna kunskap kan skapa något mindre program som faktiskt gör något.</div>
+                        <a href="https://www.youtube.com/watch?v=2Pse_BAay04&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=11" 
+                           target="_blank" 
+                           class="block bg-green-100 hover:bg-green-200 p-3 rounded text-green-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/2Pse_BAay04/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Berättelse del 11</div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             `

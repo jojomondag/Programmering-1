@@ -130,6 +130,8 @@ Sökväg: C:\Users\Anna\Dokument\
 
 Specialtecken går inte alltid att hitta direkt från tangentbordet. Utan de behöver skrivas med "formel för char". char är lika med tecken.
 
+> **💡 Läs mer**: [Infoga latinska symboler och tecken med ASCII eller Unicode](https://support.microsoft.com/sv-se/office/infoga-latinska-symboler-och-tecken-med-ascii-eller-unicode-d13f58d3-7bcb-44a7-a4d5-972ee12e50e0) - Microsofts guide för att använda Teckenuppsättning och Unicode-koder
+
 ### Hitta Unicode-koder med Teckenuppsättning
 
 För att hitta formeln för ett visst tecken. Gör enligt följande:
