@@ -1,8 +1,32 @@
 # Utskrifter i Java
 
-## Introduktion
+## Grund-syntaxen för utskrifter
 
-I Java använder vi olika metoder för att visa information till användaren. Den mest grundläggande metoden är `System.out.println()` som skriver ut text på en ny rad.
+Grund-syntaxen som används för att "skriva ut data på skärmen" från ett program som exekveras är:
+
+```java
+System.out.println(); // Skriver du denna syntax kommer du få en radbrytning
+System.out.println("Använd citationstecken vid utskrift av text");
+System.out.println(Tal1); // Skriver ut vad som finns i minnesplats med namnet Tal1
+System.out.println(3.14); // Skriver ut decimalvärdet / talet
+```
+
+## Skapa ett nytt projekt i IntelliJ
+
+För att komma igång med Java-programmering behöver du först skapa ett nytt projekt i IntelliJ IDEA.
+
+![Skapa nytt projekt](Images/New%20Project.png)
+
+### Steg-för-steg instruktioner:
+
+1. **Skapa nytt projekt**: File → New Project
+2. **Ge projektet namnet**: `Uppgift_1`
+3. **Se till att "Add sample code" är markerat**
+4. **Klicka på "Create"**
+
+![Öppnat projekt](Images/Opened%20Project.png)
+
+I fönstret som öppnas klickar du fram och markerar `Main.java` i projektstrukturen.
 
 ## Grundläggande Utskrifter
 
@@ -40,6 +64,44 @@ Namn: Anna
 Längd: 1.68 meter
 ```
 
+## Uppgift_1 - Dina första utskrifter
+
+Nu är det dags att göra ändringar i koden! Följ dessa steg:
+
+### Steg 1: Kopiera utskriftsrader
+- Markera och kopiera raden: `System.out.println("Hello world!");`
+- Klistra in koden under den första raden så att du har minst tre rader av denna kod
+- Kompilera och exekvera programmet! Granska resultatet.
+
+### Steg 2: Ändra texten
+- Ändra nu texten "Hello World!" till en frivillig trevlig text.
+- Kompilera och exekvera programmet!
+
+### Steg 3: Testa print istället för println
+- `System.out.println` kan ändras till `System.out.print` – Gör detta för alla dina rader av kod.
+- Kompilera och exekvera programmet! Reflektera över resultatet.
+- Från nu och framåt bestämmer du själv om du vill använda `print` eller `println`
+
+### Steg 4: Citattecken i utskrift
+
+**Fråga**: Hur gör du om du vill att utskriften ska se ut såhär: `"Hello world!"`?
+
+**Förklaring**: 
+- Syntaxen `System.out.println("Hello world!");` ger utskrift: `Hello world!`
+- Men du vill ha: `"Hello world!"` (med citattecken synliga)
+
+**Svar**: Lägg till `\` (backslash) före citattecknen:
+
+```java
+System.out.print("\"Hello world!\"");
+```
+
+**Testa själv** med syntaxen ovan!
+
+### Steg 5: Andra escape-sekvenser
+- **`\n`**: Testa med detta mellan två ord i en text. Vad blir resultatet?
+- **`\t`**: Om igen... vad blir resultatet?
+
 ## Specialtecken och Escape-sekvenser
 
 Java använder speciella tecken för att formatera text:
@@ -64,22 +126,62 @@ Han sa "Hej världen!"
 Sökväg: C:\Users\Anna\Dokument\
 ```
 
-## Unicode-tecken
+## Unicode-tecken och Teckenuppsättning
 
-Java stöder Unicode-tecken som låter dig skriva ut specialsymboler:
+Specialtecken går inte alltid att hitta direkt från tangentbordet. Utan de behöver skrivas med "formel för char". char är lika med tecken.
 
-```react:demo title="Unicode-tecken"
+### Hitta Unicode-koder med Teckenuppsättning
+
+För att hitta formeln för ett visst tecken. Gör enligt följande:
+
+1. Sök i datorn efter: "Teckenuppsättning"
+2. Markera ett tecken och se sedan "koden för tecknet"
+
+> **💡 Läs mer**: [Unicode-koder förklaras på svenska](https://sv.wikipedia.org/wiki/Unicode) - Lär dig mer om Unicode och hur det fungerar
+
+![Teckenuppsättning](Images/Teckenuppsättning.png)
+
+### Exempel: Från Teckenuppsättning till Java-kod
+
+I exemplet ovan är koden **`U+0026`** för `&`-tecknet.
+
+**I Java-programmet skrivs:**
+```java
+System.out.println('\u0026');
+```
+
+### ⚠️ Viktiga ändringar när du skriver i Java:
+
+1. **Citattecken**: `" "` → `' '` (enkla citattecken istället för dubbla)
+2. **Plus-tecken**: Ta bort `+` från Unicode-koden
+   - Teckenuppsättning visar: `U+0026`
+   - Java-kod skriver: `\u0026` (utan `+`)
+
+### Sammanfattning av ändringar:
+| Teckenuppsättning | Java-kod |
+|-------------------|----------|
+| `U+0026` | `\u0026` |
+| `" "` | `' '` |
+
+### Uppgift: Skriv ut specialtecken
+Skriv ut i ditt program följande tecken:
+- € (euro)
+- © 
+- Ω 
+- En efter eget frivilligt val
+
+```react:demo title="Unicode-tecken exempel"
+System.out.println("Euro: \u20AC");
+System.out.println("Copyright: \u00A9");
+System.out.println("Omega: \u03A9");
 System.out.println("Hjärta: \u2665");
 System.out.println("Stjärna: \u2605");
-System.out.println("Musiknot: \u266B");
-System.out.println("Smiley: \u263A");
-System.out.println("Pil: \u2192");
 ---
+Euro: €
+Copyright: ©
+Omega: Ω
 Hjärta: ♥
 Stjärna: ★
-Musiknot: ♫
-Smiley: ☺
-Pil: →
 ```
 
 ## Formaterad utskrift med printf
@@ -182,7 +284,28 @@ Hej Lisa! ☺
 
 ## Färgad text i terminalen
 
-För att göra output mer visuellt tilltalande kan du använda ANSI-färgkoder:
+Följande kod fungerar inte med alla kompilatorer men det ska fungera i IntelliJ:
+
+```java
+System.out.println("\033[1;92m");
+// och så behöver du ytterligare en utskrift med frivillig text
+```
+
+### Vad händer?
+
+Granska resultatet. Det vi skapar här är mest för skoj och inte vanligt förekommande inom programmering. Men som du sett blir det ett annorlunda resultat som kommer på alla rader efter.
+
+### Återställa till normal färg
+
+Vill du återställa till "default" använder du:
+```java
+System.out.println("\033[0m");
+```
+varpå alla efterföljande utskrifter påverkas.
+
+### Läs mer om färgkoder
+
+Vill du experimentera mer med detta kan du se: [Stack Overflow - Färgkoder i konsolen](https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println)
 
 ```react:demo title="ANSI färgkoder"
 public class FärgadText {
@@ -209,6 +332,98 @@ Blå text
 Gul bakgrund
 ```
 
+## Skriva ut siffror
+
+För att skriva ut siffror används samma syntax som tidigare men utan `" "`-tecken.
+
+### Uppgift: Testa siffror
+- Skriv och testa: `System.out.println(3.14);`
+- Testa nu följande: `System.out.println(3 + 14);`
+- Vad blir resultatet? (Du får gärna testa med övriga räknesätt med)
+
+### Kombinera siffror med text
+Om du vill att resultatet på skärmen ska se ut som `3 14` behöver du kombinera din syntax med text: 
+```java
+System.out.println(3 + " & " + 14); // Du skriver tal + text + tal
+```
+
+### Utmaning
+Skapa en syntax som skriver ut på skärmen: `Agent 007 - James Bond.` (minst en siffra ska vara utskrivet som ett tal)
+
+## Hämta data från minne / variabler
+
+Ett program har inte alltid full koll på data som ska användas. Så därför behövs det möjlighet för att lagra data i en minnesplats och vid behov hämta och använda data som är lagrad.
+
+Längre fram i kursen arbetar vi mycket med detta men här kommer ett första exempel:
+
+### Uppgift: Variabler och utskrift
+Skapa följande rader med kod:
+```java
+String namn = "NTI Gymnasiet";
+int year = 2025;
+System.out.println(namn + year);
+```
+
+Kompilera och exekvera programmet! Granska resultatet och se om du kan snygga till utskriften.
+
+## Att spara och skicka in fil för redovisning
+
+Ta reda på var i datorn ditt projekt sparats.
+Gå till mappen och klicka dig fram till din fil med namn `Main.java`
+Ex. på sökväg: `Programmering > Uppgift_1 > src > Main.java`
+
+Filen `Main.java` vill jag nu att du ska redovisa genom att ladda upp den i ClassRoom för programmering.
+
+## Uppgift_2 - Berättelse
+
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Uppgift_2`
+
+Du ska nu med de kunskaper du fått i tidigare uppgifter ta dig an följande utmaning:
+
+Skriv en kort berättelse med följande innehåll och utseende:
+```
+Det var en gång en kalv.
+Så var sagan halv.
+Så gick kalven ut...
+Och så var sagan slut!
+© JN 2025
+```
+
+**Svårigheten i denna uppgift**: Du får bara göra en `System.out.println();` 😉
+
+Lycka till!
+
+Färdig uppgift sparas och skickas in för redovisning i classRoom: `Uppgift_2`
+
+## Uppgift_3 - GUI med JOptionPane
+
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Uppgift_3`
+
+Skriv nu till helt i början av din programkod (allra längst upp i arbetsytan):
+```java
+import javax.swing.JOptionPane;
+```
+
+Ersätt `System.out.println` raden med:
+```java
+JOptionPane.showMessageDialog(null, "Hello World!");
+System.exit(0);
+```
+
+Kompilera och exekvera programmet. Vad händer?
+
+## Kompilera och exekvera
+
+För att se resultat av koden du skapar klickar du på den gröna pilen i menyn.
+
+![Kompilera projekt](Images/Build%20Project.png)
+
+Du kompilerar (rättar) då koden och om koden är utan fel exekveras (körs) koden och visar resultatet av din kodning. 
+
+**OBS!** Var gång du gör ändring eller tillägg i koden måste du köra denna process!
+
+Alla ändringar eller tillägg i koden måste ske mellan de två mittersta `{ }`
+
 ## Sammanfattning
 
 1. **println()** skriver ut text med radbrytning
@@ -217,5 +432,6 @@ Gul bakgrund
 4. **Unicode** (\uXXXX) för symboler och specialtecken
 5. **printf()** för formaterad utskrift
 6. **JOptionPane** för grafiska dialoger
+7. **Variabler** för att lagra och använda data
 
 Nästa steg är att kombinera detta med **variabler** för att skapa interaktiva program!

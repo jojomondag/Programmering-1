@@ -167,46 +167,6 @@ System.out.printf("✨ Magiskt föremål: %s\n\n", föremål);
 ✨ Magiskt föremål: spegel
 ```
 
-### Utmaning 3: Slumpmässiga element
-Lägg till slumpmässighet för variation:
-
-```react:demo title="Slumpmässiga element"
-import java.util.Random;
-
-Random random = new Random();
-String[] väder = {"soligt", "regnigt", "snöigt", "dimmigt"};
-String[] tider = {"morgon", "eftermiddag", "kväll", "natt"};
-String namn = "Alex";
-
-String valdVäder = väder[random.nextInt(väder.length)];
-String valdTid = tider[random.nextInt(tider.length)];
-
-System.out.println("Det var en " + valdVäder + " " + valdTid + " när " + namn + "...");
----
-Det var en soligt morgon när Alex...
-```
-
-## Bedömningskriterier
-
-### Godkänt (E)
-- ✅ Programmet kompilerar och körs utan fel
-- ✅ Använder Scanner för att läsa minst 5 inputs
-- ✅ Skapar en sammanhängande berättelse
-- ✅ Använder både String- och int-variabler
-- ✅ Tydlig och läsbar kod med kommentarer
-
-### Väl godkänt (C)
-- ✅ Alla krav för godkänt uppfylls
-- ✅ Kreativ och engagerande berättelse
-- ✅ Använder villkor eller formatering för variation
-- ✅ Bra struktur och läsbarhet i koden
-
-### Mycket väl godkänt (A)
-- ✅ Alla krav för väl godkänt uppfylls
-- ✅ Avancerad formatering och presentation
-- ✅ Implementerar flera kreativa funktioner
-- ✅ Exceptionell kodkvalitet och kreativitet
-
 ## Tips för utveckling
 
 1. **Planera först** - Skissa din berättelse på papper innan du kodar
@@ -222,4 +182,4 @@ Det var en soligt morgon när Alex...
 - **Deadline:** Se Classroom för datum
 - **Dokumentation:** Inkludera kommentarer som förklarar din kod
 
-Lycka till med att skapa din berättelse! 📖✨
+Lycka till med att skapa din berättelse!

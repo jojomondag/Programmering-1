@@ -200,48 +200,93 @@ class MarkdownLoader {
         // Inline code
         html = html.replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono">$1</code>');
 
-        // Tables
-        html = html.replace(/\|(.+)\|\n\|[-\s|:]+\|\n((?:\|.+\|\n?)*)/g, (match, header, rows) => {
-            const headerCells = header.split('|').map(cell => cell.trim()).filter(cell => cell);
-            const rowsArray = rows.trim().split('\n').map(row => 
-                row.split('|').map(cell => cell.trim()).filter(cell => cell)
-            );
+        // Tables - more robust approach using line-by-line processing
+        const lines = html.split('\n');
+        const processedLines = [];
+        let i = 0;
+        
+        while (i < lines.length) {
+            const line = lines[i];
             
-            let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse border border-gray-300">';
-            tableHtml += '<thead class="bg-gray-50"><tr>';
-            headerCells.forEach(cell => {
-                tableHtml += `<th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-900">${cell}</th>`;
-            });
-            tableHtml += '</tr></thead><tbody>';
-            
-            rowsArray.forEach(row => {
-                if (row.length > 0) {
-                    tableHtml += '<tr>';
-                    row.forEach((cell, index) => {
-                        if (index < headerCells.length) {
-                            tableHtml += `<td class="border border-gray-300 px-4 py-2 text-gray-700">${cell}</td>`;
-                        }
-                    });
-                    tableHtml += '</tr>';
+            // Check if this line starts a table (contains | characters)
+            if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+                const tableLines = [];
+                let j = i;
+                
+                // Collect all table lines
+                while (j < lines.length && lines[j].trim().startsWith('|') && lines[j].trim().endsWith('|')) {
+                    tableLines.push(lines[j]);
+                    j++;
                 }
-            });
+                
+                // Check if we have at least 3 lines (header, separator, data)
+                if (tableLines.length >= 3) {
+                    // Check if second line is a separator (contains dashes)
+                    const separatorLine = tableLines[1];
+                    if (separatorLine.includes('-') && separatorLine.includes('|')) {
+                        // Process the table
+                        const headerCells = tableLines[0].split('|').map(cell => cell.trim()).filter(cell => cell);
+                        const dataRows = tableLines.slice(2).map(row => 
+                            row.split('|').map(cell => cell.trim()).filter(cell => cell)
+                        );
+                        
+                        let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse border border-gray-300">';
+                        tableHtml += '<thead class="bg-gray-50"><tr>';
+                        headerCells.forEach(cell => {
+                            tableHtml += `<th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-900">${cell}</th>`;
+                        });
+                        tableHtml += '</tr></thead><tbody>';
+                        
+                        dataRows.forEach(row => {
+                            if (row.length > 0) {
+                                tableHtml += '<tr>';
+                                row.forEach((cell, index) => {
+                                    if (index < headerCells.length) {
+                                        tableHtml += `<td class="border border-gray-300 px-4 py-2 text-gray-700">${cell}</td>`;
+                                    }
+                                });
+                                tableHtml += '</tr>';
+                            }
+                        });
+                        
+                        tableHtml += '</tbody></table></div>';
+                        processedLines.push(tableHtml);
+                        i = j; // Skip the processed table lines
+                        continue;
+                    }
+                }
+            }
             
-            tableHtml += '</tbody></table></div>';
-            return tableHtml;
-        });
+            processedLines.push(line);
+            i++;
+        }
+        
+        html = processedLines.join('\n');
 
         // Blockquotes
         html = html.replace(/^> (.+)$/gm, '<blockquote class="border-l-4 border-yellow-400 bg-yellow-50 p-4 italic mb-4 text-gray-700">$1</blockquote>');
 
-        // Lists - handle bullet points
-        html = html.replace(/^[-*] (.+)$/gm, '<li class="text-gray-700 mb-2">$1</li>');
-        
-        // Wrap consecutive list items in ul tags
-        html = html.replace(/(<li class="text-gray-700 mb-2">.*?<\/li>\s*)+/gs, (match) => {
-            return `<ul class="list-disc list-inside space-y-2 mb-6 ml-4">${match}</ul>`;
+        // Lists - handle unordered (-, *) and ordered (1., 2.) items
+        // Unordered list items
+        html = html.replace(/^\s*[-*] (.+)$/gm, '<li data-ul="1" class="text-gray-700 mb-2">$1<\/li>');
+
+        // Ordered list items (supports 1. item or 1) item)
+        html = html.replace(/^\s*\d+[\.)] (.+)$/gm, '<li data-ol="1" class="text-gray-700 mb-2">$1<\/li>');
+
+        // Wrap consecutive unordered list items in <ul>
+        html = html.replace(/(<li[^>]*data-ul="1"[^>]*>[\s\S]*?<\/li>(?:\s*<li[^>]*data-ul="1"[^>]*>[\s\S]*?<\/li>)*)/g, (match) => {
+            return `<ul class="list-disc list-inside space-y-2 mb-6 ml-4">${match}<\/ul>`;
         });
 
-        // Handle emoji and special formatting
+        // Wrap consecutive ordered list items in <ol>
+        html = html.replace(/(<li[^>]*data-ol="1"[^>]*>[\s\S]*?<\/li>(?:\s*<li[^>]*data-ol="1"[^>]*>[\s\S]*?<\/li>)*)/g, (match) => {
+            return `<ol class="list-decimal list-inside space-y-2 mb-6 ml-4">${match}<\/ol>`;
+        });
+
+    // Ensure content after a list starts a new paragraph
+    html = html.replace(/(<\/ul>|<\/ol>)(\s*)(?=\S)/g, '$1\n\n');
+
+    // Handle emoji and special formatting
         html = html.replace(/^(\*.*?\*)$/gm, '<p class="text-gray-600 italic mb-4">$1</p>');
 
         // Convert line breaks to paragraphs
@@ -251,6 +296,7 @@ class MarkdownLoader {
                 !paragraph.includes('<h') && 
                 !paragraph.includes('<div') && 
                 !paragraph.includes('<ul') && 
+                !paragraph.includes('<ol') && 
                 !paragraph.includes('<blockquote') &&
                 !paragraph.includes('___CODE_BLOCK_')) {
                 return `<p class="mb-4 text-gray-700 leading-relaxed">${paragraph}</p>`;
@@ -517,18 +563,172 @@ class MarkdownLoader {
             'utskrifter': `
                 <div class="space-y-4">
                     <div class="bg-purple-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-900 mb-2">📹 System.out.println()</h4>
-                        <p class="text-purple-800 text-sm mb-3">Grundläggande utskrifter</p>
-                        <div class="bg-purple-100 p-2 rounded text-purple-700 text-xs">
-                            Videolektion kommer snart...
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 1 - Introduktion</h4>
+                            <button onclick="toggleDescription('desc1')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow1" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
                         </div>
+                        <div id="desc1" class="hidden text-purple-800 text-sm mb-3">I denna video presenterar jag mig själv och vad tanken med dessa videos är. Om ni ser något i någon av de videos som jag skapat som är konstigt eller fel får ni gärna kommentera videon. </div>
+                        <a href="https://www.youtube.com/watch?v=2KLolyXLdVk&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=1" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/2KLolyXLdVk/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Utskrifter del 1</div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                     <div class="bg-purple-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-900 mb-2">🎨 Specialtecken</h4>
-                        <p class="text-purple-800 text-sm mb-3">Unicode och formatering</p>
-                        <div class="bg-purple-100 p-2 rounded text-purple-700 text-xs">
-                            Videolektion kommer snart...
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 2 - Installation av IntelliJ</h4>
+                            <button onclick="toggleDescription('desc2')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow2" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
                         </div>
+                        <div id="desc2" class="hidden text-purple-800 text-sm mb-3">I denna video går jag igenom Intellij som är en IDE för att skriva Java kod. Jag visar hur man installerar Intellij och pratar lite om programmet.</div>
+                        <a href="https://www.youtube.com/watch?v=oV_fPt2FXcg&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=2" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/oV_fPt2FXcg/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Utskrifter del 2</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 3 - Genomgång av IntelliJ</h4>
+                            <button onclick="toggleDescription('desc3')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow3" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc3" class="hidden text-purple-800 text-sm mb-3">I denna Video går jag igenom de olika fönstren man kan hitta i IntelliJ och förklarar deras användningsområden.</div>
+                        <a href="https://www.youtube.com/watch?v=RcYz60rj5Q4&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=3" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/RcYz60rj5Q4/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Utskrifter del 3</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 4 - Genomgång av Koden i startprojektet</h4>
+                            <button onclick="toggleDescription('desc4')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow4" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc4" class="hidden text-purple-800 text-sm mb-3">I denna video går jag igenom den kod vi ser framför oss i IntelliJ när vi har bett IntelliJ generera lite samplekod.</div>
+                        <a href="https://www.youtube.com/watch?v=3Po3tLIP1o4&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=4" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/3Po3tLIP1o4/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Utskrifter del 4</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 5 - Att Skriva ut text i Consolen</h4>
+                            <button onclick="toggleDescription('desc5')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow5" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc5" class="hidden text-purple-800 text-sm mb-3">I denna Video går jag igenom olika sätt att skriva ut Nummer och text i terminal fönstret i IntelliJ.</div>
+                        <a href="https://www.youtube.com/watch?v=CN8L23L3_Wk&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=5" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/CN8L23L3_Wk/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Utskrifter del 5</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 6 - Att Skriva in text till Consolen</h4>
+                            <button onclick="toggleDescription('desc6')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow6" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc6" class="hidden text-purple-800 text-sm mb-3">Om man vill kunna mata in text till terminalen i Java måste man använda sig av något som heter Scanner. I denna video går jag igenom vad Scanner är för något och hur man använder sig av denna.</div>
+                        <a href="https://www.youtube.com/watch?v=lC70-P36NNE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=6" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/lC70-P36NNE/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Utskrifter del 6</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 7 - Kommentarer i kod</h4>
+                            <button onclick="toggleDescription('desc7')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow7" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc7" class="hidden text-purple-800 text-sm mb-3">Att kommentera den kod man skriver kan ofta vara en bra sak. I denna video går jag igenom hur man skriver kommentarer och deras vanligaste syfte.</div>
+                        <a href="https://www.youtube.com/watch?v=n7hRQ3qT92Q&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=7" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/n7hRQ3qT92Q/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Utskrifter del 7</div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             `,
@@ -559,9 +759,243 @@ class MarkdownLoader {
 // Create global instance
 window.markdownLoader = new MarkdownLoader();
 
+// Function to toggle video descriptions
+function toggleDescription(descId) {
+    const description = document.getElementById(descId);
+    const arrowId = descId.replace('desc', 'arrow');
+    const arrow = document.getElementById(arrowId);
+    
+    if (description.classList.contains('hidden')) {
+        description.classList.remove('hidden');
+        arrow.style.transform = 'rotate(180deg)';
+    } else {
+        description.classList.add('hidden');
+        arrow.style.transform = 'rotate(0deg)';
+    }
+}
+
 // Add CSS for gradients and terminal styling (kept small and local)
 const style = document.createElement('style');
 style.textContent = `
+    /* Responsive container improvements */
+    .container {
+        max-width: 100% !important;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    @media (min-width: 640px) {
+        .container {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        .container {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .container {
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
+    }
+    
+    @media (min-width: 1280px) {
+        .container {
+            padding-left: 6rem;
+            padding-right: 6rem;
+        }
+    }
+    
+    @media (min-width: 1536px) {
+        .container {
+            padding-left: 8rem;
+            padding-right: 8rem;
+        }
+    }
+    
+    /* Responsive video panel */
+    #videoPanel {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    @media (min-width: 640px) {
+        #videoPanel {
+            width: 320px;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        #videoPanel {
+            width: 360px;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        #videoPanel {
+            width: 400px;
+        }
+    }
+    
+    /* Responsive hero sections */
+    .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green {
+        padding: 2rem 1rem;
+    }
+    
+    @media (min-width: 640px) {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green {
+            padding: 3rem 2rem;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green {
+            padding: 4rem 3rem;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green {
+            padding: 6rem 4rem;
+        }
+    }
+    
+    /* Responsive text sizes */
+    h1 {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+    
+    @media (min-width: 640px) {
+        h1 {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        h1 {
+            font-size: 3rem;
+            line-height: 1;
+        }
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+    
+    @media (min-width: 640px) {
+        h2 {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        h2 {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+        }
+    }
+    
+    /* Responsive code blocks */
+    pre {
+        font-size: 0.75rem;
+        padding: 0.75rem;
+    }
+    
+    @media (min-width: 640px) {
+        pre {
+            font-size: 0.875rem;
+            padding: 1rem;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        pre {
+            font-size: 0.875rem;
+            padding: 1.25rem;
+        }
+    }
+    
+    /* Responsive tables */
+    .overflow-x-auto {
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    @media (min-width: 640px) {
+        .overflow-x-auto {
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    
+    /* Responsive demo grid */
+    .demo-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    @media (min-width: 1024px) {
+        .demo-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+    }
+    
+    /* Responsive images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Responsive navigation */
+    nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    @media (min-width: 640px) {
+        nav {
+            gap: 1rem;
+        }
+    }
+    
+    /* Responsive spacing */
+    .space-y-8 > * + * {
+        margin-top: 1.5rem;
+    }
+    
+    @media (min-width: 640px) {
+        .space-y-8 > * + * {
+            margin-top: 2rem;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        .space-y-8 > * + * {
+            margin-top: 2.5rem;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .space-y-8 > * + * {
+            margin-top: 3rem;
+        }
+    }
+    
     .hero-gradient-blue {
         background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
     }
