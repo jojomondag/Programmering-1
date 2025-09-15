@@ -414,7 +414,8 @@ class MarkdownLoader {
         const titles = {
             'variabler': 'Programmering 1 - Variabler / Minnesplatser',
             'utskrifter': 'Programmering 1 - Utskrifter i Java',
-            'berattelse': 'Programmering 1 - Inlämningsuppgift 3: Berättelse'
+            'berattelse': 'Programmering 1 - Inlämningsuppgift 3: Berättelse',
+            'ifsatser': 'Programmering 1 - If-satser'
         };
 
         if (titles[pageName]) {
@@ -484,6 +485,26 @@ class MarkdownLoader {
                         </div>
                     </div>
                 </div>
+            `,
+            'ifsatser': `
+                <div class="hero-gradient-orange text-white rounded-2xl p-12 mb-12">
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                        <div class="text-center lg:text-left lg:flex-1">
+                            <h1 class="text-4xl font-bold text-white mb-4">🔀 If-satser</h1>
+                            <p class="text-xl text-orange-100 mb-6">Lär dig få programmet att välja mellan olika alternativ</p>
+                            <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+                                <span class="bg-orange-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">if-else</span>
+                                <span class="bg-orange-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Villkor</span>
+                                <span class="bg-orange-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Relationsoperatorer</span>
+                            </div>
+                        </div>
+                        <div class="lg:flex-shrink-0">
+                            <div class="w-64 h-48 bg-orange-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
+                                <span class="text-6xl">🔀</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `
         };
 
@@ -497,6 +518,7 @@ class MarkdownLoader {
         const pages = [
             { name: 'utskrifter', title: 'Utskrifter', emoji: '📺', color: 'purple' },
             { name: 'variabler', title: 'Variabler', emoji: '🧠', color: 'blue' },
+            { name: 'ifsatser', title: 'If-satser', emoji: '🔀', color: 'orange' },
             { name: 'berattelse', title: 'Berättelse', emoji: '📖', color: 'green' }
         ];
 
@@ -524,6 +546,7 @@ class MarkdownLoader {
         const pages = [
             { name: 'utskrifter', title: 'Utskrifter', color: 'purple' },
             { name: 'variabler', title: 'Variabler', color: 'blue' },
+            { name: 'ifsatser', title: 'If-satser', color: 'orange' },
             { name: 'berattelse', title: 'Berättelse', color: 'green' }
         ];
 
@@ -542,6 +565,34 @@ class MarkdownLoader {
      */
     renderVideoPanel(pageName) {
         const videoContent = {
+            'ifsatser': `
+                <div class="space-y-4">
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-orange-900">Vid 12 - Operatörer</h4>
+                            <button onclick="toggleDescription('desc12')" class="text-orange-600 hover:text-orange-800 transition-colors">
+                                <svg id="arrow12" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc12" class="hidden text-orange-800 text-sm mb-3">I denna går jag igenom vad Operatörer inom programmering är för något. Operatörer finns i så gott som alla programmeringsspråk och tecknen vi använder oss av skiljer sig ofta inte så mycket. Så har man förstått dessa i ett språk kan man använda samma koncept i andra programmeringsspråk.</div>
+                        <a href="https://www.youtube.com/watch?v=P4-O5PUDsPA&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=12" 
+                           target="_blank" 
+                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/P4-O5PUDsPA/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - If-satser del 12</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            `,
             'variabler': `
                 <div class="space-y-4">
                     <div class="bg-blue-50 p-4 rounded-lg">
@@ -1072,6 +1123,9 @@ style.textContent = `
     }
     .hero-gradient-green {
         background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+    .hero-gradient-orange {
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
     }
     
     /* Terminal styling */
