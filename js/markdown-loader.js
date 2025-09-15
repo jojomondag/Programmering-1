@@ -417,7 +417,8 @@ class MarkdownLoader {
             'variabler': 'Programmering 1 - Variabler / Minnesplatser',
             'utskrifter': 'Programmering 1 - Utskrifter i Java',
             'berattelse': 'Programmering 1 - Inlämningsuppgift 3: Berättelse',
-            'ifsatser': 'Programmering 1 - If-satser'
+            'ifsatser': 'Programmering 1 - If-satser',
+            'loopar': 'Programmering 1 - Iterationer / Loopar'
         };
 
         if (titles[pageName]) {
@@ -507,6 +508,26 @@ class MarkdownLoader {
                         </div>
                     </div>
                 </div>
+            `,
+            'loopar': `
+                <div class="hero-gradient-indigo text-white rounded-2xl p-12 mb-12">
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                        <div class="text-center lg:text-left lg:flex-1">
+                            <h1 class="text-4xl font-bold text-white mb-4">🔄 Iterationer / Loopar</h1>
+                            <p class="text-xl text-indigo-100 mb-6">Upprepa kod effektivt med for, while och do-while</p>
+                            <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+                                <span class="bg-indigo-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">for-loop</span>
+                                <span class="bg-indigo-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">while & do-while</span>
+                                <span class="bg-indigo-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Nästlade loopar</span>
+                            </div>
+                        </div>
+                        <div class="lg:flex-shrink-0">
+                            <div class="w-64 h-48 bg-indigo-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
+                                <span class="text-6xl">🔄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `
         };
 
@@ -520,8 +541,9 @@ class MarkdownLoader {
         const pages = [
             { name: 'utskrifter', title: 'Utskrifter', emoji: '📺', color: 'purple' },
             { name: 'variabler', title: 'Variabler', emoji: '🧠', color: 'blue' },
-            { name: 'berattelse', title: 'Berättelse', emoji: '📖', color: 'green' },
-            { name: 'ifsatser', title: 'If-satser', emoji: '🔀', color: 'orange' }
+            { name: 'ifsatser', title: 'If-satser', emoji: '�', color: 'orange' },
+            { name: 'loopar', title: 'Loopar', emoji: '🔄', color: 'indigo' },
+            { name: 'berattelse', title: 'Berättelse', emoji: '�', color: 'green' }
         ];
 
         let nav = '<nav class="flex flex-wrap justify-center gap-4 mb-8">';
@@ -548,8 +570,9 @@ class MarkdownLoader {
         const pages = [
             { name: 'utskrifter', title: 'Utskrifter', color: 'purple' },
             { name: 'variabler', title: 'Variabler', color: 'blue' },
-            { name: 'berattelse', title: 'Berättelse', color: 'green' },
-            { name: 'ifsatser', title: 'If-satser', color: 'orange' }
+            { name: 'ifsatser', title: 'If-satser', color: 'orange' },
+            { name: 'loopar', title: 'Loopar', color: 'indigo' },
+            { name: 'berattelse', title: 'Berättelse', color: 'green' }
         ];
 
         let links = [];
@@ -942,6 +965,76 @@ class MarkdownLoader {
                         </a>
                     </div>
                 </div>
+            `,
+            'loopar': `
+                <div class="space-y-4">
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-indigo-900">For-loopar</h4>
+                            <button onclick="toggleDescription('descFor')" class="text-indigo-600 hover:text-indigo-800 transition-colors">
+                                <svg id="arrowFor" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="descFor" class="hidden text-indigo-800 text-sm mb-3">Lär dig använda for-loopar för att upprepa kod ett bestämt antal gånger. Perfekt när du vet i förväg hur många iterationer som behövs.</div>
+                        <div class="block bg-indigo-100 p-3 rounded text-indigo-700 text-xs">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-16 h-12 bg-indigo-200 rounded flex items-center justify-center">
+                                    <span class="text-2xl">🔄</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium">📚 Övningar</div>
+                                    <div class="text-xs opacity-75">Träna med övning 2.1 - 2.3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-indigo-900">While-loopar</h4>
+                            <button onclick="toggleDescription('descWhile')" class="text-indigo-600 hover:text-indigo-800 transition-colors">
+                                <svg id="arrowWhile" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="descWhile" class="hidden text-indigo-800 text-sm mb-3">Använd while och do-while loopar när du inte vet exakt antal iterationer i förväg. Villkoret styr när loopen ska avslutas.</div>
+                        <div class="block bg-indigo-100 p-3 rounded text-indigo-700 text-xs">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-16 h-12 bg-indigo-200 rounded flex items-center justify-center">
+                                    <span class="text-2xl">🔁</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium">📚 Övningar</div>
+                                    <div class="text-xs opacity-75">Träna med övning 2.4 - 2.5b</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-indigo-900">Avancerade loopar</h4>
+                            <button onclick="toggleDescription('descAdvanced')" class="text-indigo-600 hover:text-indigo-800 transition-colors">
+                                <svg id="arrowAdvanced" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="descAdvanced" class="hidden text-indigo-800 text-sm mb-3">Nästlade loopar och multiplikationstabeller. För den som siktar på högre betyg och vill utmana sig själv.</div>
+                        <div class="block bg-indigo-100 p-3 rounded text-indigo-700 text-xs">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-16 h-12 bg-indigo-200 rounded flex items-center justify-center">
+                                    <span class="text-2xl">⭐</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium">📚 Övningar</div>
+                                    <div class="text-xs opacity-75">Träna med övning 2.6 - 2.7</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `
         };
 
@@ -1037,24 +1130,24 @@ style.textContent = `
     }
     
     /* Responsive hero sections */
-    .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green {
+    .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo {
         padding: 2rem 1rem;
     }
     
     @media (min-width: 640px) {
-        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo {
             padding: 3rem 2rem;
         }
     }
     
     @media (min-width: 768px) {
-        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo {
             padding: 4rem 3rem;
         }
     }
     
     @media (min-width: 1024px) {
-        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo {
             padding: 6rem 4rem;
         }
     }
@@ -1224,6 +1317,9 @@ style.textContent = `
     }
     .hero-gradient-orange {
         background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    }
+    .hero-gradient-indigo {
+        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
     }
     
     /* Terminal styling */
