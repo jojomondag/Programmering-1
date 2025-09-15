@@ -174,7 +174,8 @@ class MarkdownLoader {
             return `___CODE_BLOCK_${index}___`;
         });
 
-        // Headers
+        // Headers (process from most specific to least specific)
+        html = html.replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold text-gray-900 mb-3 mt-5">$1</h4>');
         html = html.replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 mb-4 mt-6">$1</h3>');
         html = html.replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 mb-6 mt-8">$1</h2>');
         html = html.replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-gray-900 mb-8 mt-8">$1</h1>');
@@ -224,10 +225,10 @@ class MarkdownLoader {
                     // Check if second line is a separator (contains dashes)
                     const separatorLine = tableLines[1];
                     if (separatorLine.includes('-') && separatorLine.includes('|')) {
-                        // Process the table
-                        const headerCells = tableLines[0].split('|').map(cell => cell.trim()).filter(cell => cell);
+                        // Process the table - handle escaped pipes
+                        const headerCells = tableLines[0].replace(/\\\|/g, '&#124;').split('|').map(cell => cell.trim()).filter(cell => cell);
                         const dataRows = tableLines.slice(2).map(row => 
-                            row.split('|').map(cell => cell.trim()).filter(cell => cell)
+                            row.replace(/\\\|/g, '&#124;').split('|').map(cell => cell.trim()).filter(cell => cell)
                         );
                         
                         let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse border border-gray-300">';
@@ -336,7 +337,8 @@ class MarkdownLoader {
      */
     basicMarkdownToHtml(markdown) {
         let html = markdown
-            // Headers
+            // Headers (process from most specific to least specific)
+            .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold text-gray-900 mb-3 mt-5">$1</h4>')
             .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 mb-4 mt-6">$1</h3>')
             .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 mb-6 mt-8">$1</h2>')
             .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-gray-900 mb-8">$1</h1>')
@@ -518,8 +520,8 @@ class MarkdownLoader {
         const pages = [
             { name: 'utskrifter', title: 'Utskrifter', emoji: '📺', color: 'purple' },
             { name: 'variabler', title: 'Variabler', emoji: '🧠', color: 'blue' },
-            { name: 'ifsatser', title: 'If-satser', emoji: '🔀', color: 'orange' },
-            { name: 'berattelse', title: 'Berättelse', emoji: '📖', color: 'green' }
+            { name: 'berattelse', title: 'Berättelse', emoji: '📖', color: 'green' },
+            { name: 'ifsatser', title: 'If-satser', emoji: '🔀', color: 'orange' }
         ];
 
         let nav = '<nav class="flex flex-wrap justify-center gap-4 mb-8">';
@@ -546,8 +548,8 @@ class MarkdownLoader {
         const pages = [
             { name: 'utskrifter', title: 'Utskrifter', color: 'purple' },
             { name: 'variabler', title: 'Variabler', color: 'blue' },
-            { name: 'ifsatser', title: 'If-satser', color: 'orange' },
-            { name: 'berattelse', title: 'Berättelse', color: 'green' }
+            { name: 'berattelse', title: 'Berättelse', color: 'green' },
+            { name: 'ifsatser', title: 'If-satser', color: 'orange' }
         ];
 
         let links = [];
@@ -587,6 +589,78 @@ class MarkdownLoader {
                                 <div>
                                     <div class="font-medium">▶️ Titta på videon</div>
                                     <div class="text-xs opacity-75">YouTube - If-satser del 12</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-orange-900">Vid 13 - IfSatser</h4>
+                            <button onclick="toggleDescription('desc13')" class="text-orange-600 hover:text-orange-800 transition-colors">
+                                <svg id="arrow13" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc13" class="hidden text-orange-800 text-sm mb-3">Ibland behöver våran kod kunna ta olika vägar för att kunna avgöra vad den skall eller inte skall göra. För detta använder vi If-Satser. I denna videon går jag igenom vad If-Satser är för något och hur vi skriver dessa i Java.</div>
+                        <a href="https://www.youtube.com/watch?v=FQ5pAWibG7w&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=13&t=72s" 
+                           target="_blank" 
+                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/FQ5pAWibG7w/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - If-satser del 13</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-orange-900">Vid 14 - Projekt Frågesport</h4>
+                            <button onclick="toggleDescription('desc14')" class="text-orange-600 hover:text-orange-800 transition-colors">
+                                <svg id="arrow14" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc14" class="hidden text-orange-800 text-sm mb-3">Efter att vi har lärt oss om If-Satser kan vi skapa ett frågesports spel till oss själv eller till någon annan. I denna video visar jag hur man skulle kunna skapa ett sådant i Java.</div>
+                        <a href="https://www.youtube.com/watch?v=jDcItHE5ABE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=14" 
+                           target="_blank" 
+                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/jDcItHE5ABE/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - If-satser del 14</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-orange-900">Vid 15 - Filstruktur Studieteknik och Backup</h4>
+                            <button onclick="toggleDescription('desc15')" class="text-orange-600 hover:text-orange-800 transition-colors">
+                                <svg id="arrow15" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc15" class="hidden text-orange-800 text-sm mb-3">Att ha koll på sina filer när man jobbar med datorer är oerhört viktigt. För oss som programmerar är det extra viktigt då vi inte har råd med att ha det stökigt vi måste ha ordning och struktur på våra filer och våran kod. I denna videon går jag igenom hur man bör tänka när man arbetar med kod/filer på sin dator.</div>
+                        <a href="https://www.youtube.com/watch?v=Nxk_6SbF5HE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=15" 
+                           target="_blank" 
+                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/Nxk_6SbF5HE/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - If-satser del 15</div>
                                 </div>
                             </div>
                         </a>
@@ -1021,6 +1095,30 @@ style.textContent = `
         h2 {
             font-size: 2.25rem;
             line-height: 2.5rem;
+        }
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+    
+    @media (min-width: 640px) {
+        h3 {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+    }
+    
+    h4 {
+        font-size: 1.125rem;
+        line-height: 1.5rem;
+    }
+    
+    @media (min-width: 640px) {
+        h4 {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
         }
     }
     

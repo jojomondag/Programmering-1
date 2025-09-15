@@ -103,7 +103,7 @@ Antingen är A lika med B ELLER så är A lika med 3
 | Operator | Symbol | Förklaring |
 |----------|--------|------------|
 | OCH | `&&` | Båda villkoren måste vara sanna |
-| ELLER | `||` | Minst ett villkor måste vara sant |
+| ELLER | `\|\|` | Minst ett villkor måste vara sant |
 
 **Tip:** Eller-symbol `||` får du genom tangentkombination: Alt GR + < >-knapp ...två gånger
 
@@ -114,7 +114,7 @@ Antingen är A lika med B ELLER så är A lika med 3
 - `A == 12` - **Kontroll** om innehållet i minnesplats A är lika med 12 (jämförelse)
 - `A = 12` - **Lagra** talet 12 i minnesplats A (tilldelning)
 
-## Övning 3_1: Högt-Lågt-Spel
+## Övning 1: Högt-Lågt-Spel
 
 Du ska skapa ett högt-lågt-spel. Datorn ska först slumpa fram ett tal mellan 0 och 100. Sedan gissar spelaren vilket tal det är, varefter datorn svarar med "för högt" eller "för lågt". Programmet fortsätter tills spelaren har gissat rätt.
 
@@ -184,9 +184,9 @@ Rätt gissat!
 Du behövde 4 gissningar
 ```
 
-## Övning 3_2: Fortsätta-funktion
+## Övning 2: Fortsätta-funktion
 
-Lägg till följande steg i Övning 3_1:
+Lägg till följande steg i Övning 1:
 
 1. Skapa en egen minnesplats för text med namnet: `svar`
 2. Skapa ytterligare en Scanner: `Scanner scan2 = new Scanner(System.in);`
@@ -236,7 +236,7 @@ Ditt svar var: nej. Avslutar programmet.
 Tack för att du använde programmet!
 ```
 
-## Övning 3_3: 21-spel (Black Jack) 
+## Övning 3: 21-spel (Black Jack) 
 
 *(Görs om du siktar på högre betyg)*
 
@@ -335,7 +335,7 @@ Bankens poäng: 17
 Oavgjort!
 ```
 
-## Övning 3_4: Flera omgångar
+## Övning 4: Flera omgångar
 
 Bygg vidare på övningen ovan så att man kan spela fler omgångar om man vill utan att starta om programmet helt på nytt.
 
@@ -349,7 +349,7 @@ public class FlereraOmgångar {
         
         do {
             System.out.println("=== NY OMGÅNG ===");
-            // Här skulle hela spelet från övning 3_3 vara
+            // Här skulle hela spelet från övning 3 vara
             System.out.println("Spelet är klart!");
             
             System.out.print("Vill du spela igen? (ja/nej): ");
@@ -370,7 +370,7 @@ Vill du spela igen? (ja/nej): nej
 Tack för att du spelade!
 ```
 
-## Övning 3_5: Bankomat
+## Övning 5: Bankomat
 
 *(Görs om du siktar på högre betyg)*
 

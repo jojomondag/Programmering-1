@@ -83,7 +83,7 @@ Klar: false
 
 ⚠️ **Viktigt:** Det får i programmet inte finnas två minnesplatser med samma namn!
 
-## Uppgift 3 - Skapa minnesplatser av variabeltypen: String
+## Övning 1 - Skapa minnesplatser av variabeltypen: String
 
 ### Exempel:
 ```react:demo title="String variabler - Grundläggande"
@@ -98,17 +98,17 @@ public class StringExempel {
 Kalle Anka
 ```
 
-### Uppgift 3 - Steg för steg:
+### Övning 1 - Steg för steg:
 
-1. **Skapa ett nytt projekt** med namnet `Uppgift_3`
+1. **Skapa ett nytt projekt** med namnet `Övning_1`
 2. **Efter `public static void main(String[] args) {`** ska du skapa tre minnesplatser av typen String
 3. **Ge minnesplatserna namnen:** `kyl`, `frys` och `skafferi`
 4. **Tänk dig att du handlar följande varor:** bullar, mjölk och glass (dessa är din data)
 5. **Placera rätt vara (data) till rätt minnesplats** enligt exempel ovan
 6. **Skriv ut vad du har i dina tre minnesplatser** genom att använda dina minnesplatsnamn
 
-```react:demo title="Uppgift 3 - Lösning"
-public class Uppgift3 {
+```react:demo title="Övning 1 - Lösning"
+public class Övning1 {
     public static void main(String[] args) {
         // Skapa tre String-variabler
         String kyl, frys, skafferi;
@@ -130,13 +130,13 @@ I frysen har jag: glass
 I skafferiet har jag: bullar
 ```
 
-## Uppgift 4 - Scanner för användarinput
+## Övning 2 - Scanner för användarinput
 
 Det är egentligen väldigt sällan att du i förväg vet vilken data ditt program ska arbeta med. Du ska därför nu skapa ett program som hämtar data när det startar från användaren.
 
 ### Steg för steg:
 
-1. **Skapa ett nytt projekt** med namnet `Uppgift_4`
+1. **Skapa ett nytt projekt** med namnet `Övning_2`
 2. **Redan på rad 1** innan `public class Main` ska du skriva: `import java.util.Scanner;`
 3. **Skriv efter `public static void main(String[] args) {`** `Scanner scan = new Scanner(System.in);`
 4. **Skapa en variabel/minnesplats** för lagring av text
@@ -144,10 +144,10 @@ Det är egentligen väldigt sällan att du i förväg vet vilken data ditt progr
 6. **Ta emot data från användare:** Använd följande syntax: `namnet_på_din_minnesplats = scan.nextLine();`
 7. **Skriv ut** så att det syns vad som skrevs in i programmet
 
-```react:demo title="Uppgift 4 - Grundläggande Scanner"
+```react:demo title="Övning 2 - Grundläggande Scanner"
 import java.util.Scanner;
 
-public class Uppgift4 {
+public class Övning2 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         
@@ -169,10 +169,10 @@ Hej Kalle
 
 ### Utökad version - Förnamn och efternamn:
 
-```react:demo title="Uppgift 4 - Förnamn och efternamn"
+```react:demo title="Övning 2 - Förnamn och efternamn"
 import java.util.Scanner;
 
-public class Uppgift4Utökad {
+public class Övning2Utökad {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         
@@ -197,7 +197,7 @@ Skriv ditt förnamn: James
 Hello Mr Bond, James Bond
 ```
 
-## Uppgift 5 - Skapa minnesplatser av variabeltypen: int
+## Övning 3 - Skapa minnesplatser av variabeltypen: int
 
 ### Exempel:
 ```react:demo title="int variabler - Grundläggande"
@@ -222,9 +222,9 @@ Tal3: 17
 - `("17")` ses som text och kan inte användas vid uträkning
 - `(17)` ses som tal och kan användas vid uträkning
 
-### Uppgift 5 - Steg för steg:
+### Övning 3 - Steg för steg:
 
-1. **Skapa nytt projekt** med namnet: `Uppgift_5`
+1. **Skapa nytt projekt** med namnet: `Övning_3`
 2. **Skapa 3 minnesplatser** av variabeltypen `int` - ge dem namnen: `Tal1`, `Tal2` och `Summa`
 3. **Ge minnesplatserna `Tal1` och `Tal2`** valfritt heltal. `Summa` ska ha värdet 0
 4. **Gör en matematisk uträkning:** `Summa = Tal1 + Tal2;`
@@ -232,8 +232,8 @@ Tal3: 17
 6. **Fortsätt på koden ovan:** Skriv `Summa = Tal1 - Tal2;` och skriv ut resultatet
 7. **Gör samma även för multiplikation (`*`) och division (`/`)**
 
-```react:demo title="Uppgift 5 - Matematiska operationer"
-public class Uppgift5 {
+```react:demo title="Övning 3 - Matematiska operationer"
+public class Övning3 {
     public static void main(String[] args) {
         // Skapa variabler
         int Tal1 = 10;
@@ -290,7 +290,7 @@ Resultat: 2 + 2 * 2 = 6
 Förklaring: Multiplikation utförs först: 2 + (2 * 2) = 2 + 4 = 6
 ```
 
-## Uppgift 6 - Skapa minnesplatser av variabeltypen: double
+## Övning 4 - Skapa minnesplatser av variabeltypen: double
 
 ### Exempel:
 ```react:demo title="double variabler"
@@ -306,15 +306,15 @@ public class DoubleExempel {
 Decimaltal: 3.14
 ```
 
-### Uppgift 6 - Steg för steg:
+### Övning 4 - Steg för steg:
 
-1. **Skapa nytt projekt** med namnet: `Uppgift_6`
+1. **Skapa nytt projekt** med namnet: `Övning_4`
 2. **Skapa en minnesplats** av variabeltyp `double` och en av typen `int`
 3. **Ge båda minnesplatserna** värdet 7
 4. **Skriv ut minnesplatserna** efter varandra och jämför resultatet
 
-```react:demo title="Uppgift 6 - int vs double"
-public class Uppgift6 {
+```react:demo title="Övning 4 - int vs double"
+public class Övning4 {
     public static void main(String[] args) {
         // Skapa variabler med samma värde
         int heltal = 7;
@@ -379,7 +379,7 @@ Division: 10.5 / 2.5 = 4.2
 
 ## Inlämningsuppgift: Temperaturomvandlare
 
-**Skapa nytt projekt med namnet:** `Uppgift_7`
+**Skapa nytt projekt med namnet:** `Övning_5`
 
 I detta program ska du ge en användare möjligheten att omvandla en temperatur i Fahrenheit till Celsius.
 
@@ -392,7 +392,7 @@ I detta program ska du ge en användare möjligheten att omvandla en temperatur 
 ```react:demo title="Temperaturomvandlare - Mall"
 import java.util.Scanner;
 
-public class Uppgift7 {
+public class Övning5 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         

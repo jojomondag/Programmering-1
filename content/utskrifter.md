@@ -20,7 +20,7 @@ För att komma igång med Java-programmering behöver du först skapa ett nytt p
 ### Steg-för-steg instruktioner:
 
 1. **Skapa nytt projekt**: File → New Project
-2. **Ge projektet namnet**: `Uppgift_1`
+2. **Ge projektet namnet**: `Övning_1`
 3. **Se till att "Add sample code" är markerat**
 4. **Klicka på "Create"**
 
@@ -64,7 +64,7 @@ Namn: Anna
 Längd: 1.68 meter
 ```
 
-## Uppgift_1 - Dina första utskrifter
+## Övning 1 - Dina första utskrifter
 
 Nu är det dags att göra ändringar i koden! Följ dessa steg:
 
@@ -376,9 +376,9 @@ Ex. på sökväg: `Programmering > Uppgift_1 > src > Main.java`
 
 Filen `Main.java` vill jag nu att du ska redovisa genom att ladda upp den i ClassRoom för programmering.
 
-## Uppgift_2 - Berättelse
+## Övning 2 - Berättelse
 
-Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Uppgift_2`
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Övning_2`
 
 Du ska nu med de kunskaper du fått i tidigare uppgifter ta dig an följande utmaning:
 
@@ -395,11 +395,11 @@ Och så var sagan slut!
 
 Lycka till!
 
-Färdig uppgift sparas och skickas in för redovisning i classRoom: `Uppgift_2`
+Färdig uppgift sparas och skickas in för redovisning i classRoom: `Övning_2`
 
-## Uppgift_3 - GUI med JOptionPane
+## Övning 3 - GUI med JOptionPane
 
-Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Uppgift_3`
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Övning_3`
 
 Skriv nu till helt i början av din programkod (allra längst upp i arbetsytan):
 ```java
