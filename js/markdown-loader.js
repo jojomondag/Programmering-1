@@ -618,7 +618,7 @@ class MarkdownLoader {
      */
     renderVideoPanel(pageName) {
         const videoContent = {
-            'ifsatser': `
+            'variabler': `
                 <div class="space-y-4">
                     <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
@@ -715,10 +715,106 @@ class MarkdownLoader {
                                 </div>
                             </div>
                         </a>
-                        <div class="mt-4 bg-white border border-green-200 rounded-lg overflow-hidden">
-                            <img src="Images/Berättelse.png" alt="Berättelse" class="w-full h-auto object-contain" />
-                            <div class="px-3 py-2 text-green-800 text-xs">Illustration: Projekt 1 – Berättelsen</div>
+                    </div>
+                </div>
+            `,
+            'ifsatser': `
+                <div class="space-y-4">
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-orange-900">Vid 12 - Operatörer</h4>
+                            <button onclick="toggleDescription('desc12')" class="text-orange-600 hover:text-orange-800 transition-colors">
+                                <svg id="arrow12" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
                         </div>
+                        <div id="desc12" class="hidden text-orange-800 text-sm mb-3">I denna går jag igenom vad Operatörer inom programmering är för något. Operatörer finns i så gott som alla programmeringsspråk och tecknen vi använder oss av skiljer sig ofta inte så mycket. Så har man förstått dessa i ett språk kan man använda samma koncept i andra programmeringsspråk.</div>
+                        <a href="https://www.youtube.com/watch?v=P4-O5PUDsPA&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=12&t=4s" 
+                           target="_blank" 
+                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/P4-O5PUDsPA/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Operatörer del 12</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-blue-900">Vid 13 - IfSatser</h4>
+                            <button onclick="toggleDescription('desc13')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                <svg id="arrow13" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc13" class="hidden text-blue-800 text-sm mb-3">Ibland behöver våran kod kunna ta olika vägar för att kunna avgöra vad den skall eller inte skall göra. För detta använder vi If-Satser. I denna videon går jag igenom vad If-Satser är för något och hur vi skriver dessa i Java.</div>
+                        <a href="https://www.youtube.com/watch?v=FQ5pAWibG7w&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=13" 
+                           target="_blank" 
+                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/FQ5pAWibG7w/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - IfSatser del 13</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 14 - Projekt Frågesport</h4>
+                            <button onclick="toggleDescription('desc14')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow14" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc14" class="hidden text-purple-800 text-sm mb-3">Efter att vi har lärt oss om If-Satser kan vi skapa ett frågesports spel till oss själv eller till någon annan. I denna video visar jag hur man skulle kunna skapa ett sådant i Java.</div>
+                        <a href="https://www.youtube.com/watch?v=jDcItHE5ABE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=14" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/jDcItHE5ABE/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Projekt Frågesport del 14</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-teal-900">Vid 15 - Filstruktur Studieteknik och Backup</h4>
+                            <button onclick="toggleDescription('desc15')" class="text-teal-600 hover:text-teal-800 transition-colors">
+                                <svg id="arrow15" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc15" class="hidden text-teal-800 text-sm mb-3">Att ha koll på sina filer när man jobbar med datorer är oerhört viktigt. För oss som programmerar är det extra viktigt då vi inte har råd med att ha det stökigt vi måste ha ordning och struktur på våra filer och våran kod. I denna videon går jag igenom hur man bör tänka när man arbetar med kod/filer på sin dator.</div>
+                        <a href="https://www.youtube.com/watch?v=Nxk_6SbF5HE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=15" 
+                           target="_blank" 
+                           class="block bg-teal-100 hover:bg-teal-200 p-3 rounded text-teal-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/Nxk_6SbF5HE/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Filstruktur Studieteknik och Backup del 15</div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             `,
