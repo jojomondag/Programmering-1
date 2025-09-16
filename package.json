@@ -4,9 +4,7 @@
   "description": "Programming 1 course materials with interactive content",
   "main": "index.html",
   "scripts": {
-    "start": "npx http-server -p 3000",
-    "start:3001": "npx http-server -p 3001",
-    "start:3002": "npx http-server -p 3002",
+    "start": "npx http-server -p 3001",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

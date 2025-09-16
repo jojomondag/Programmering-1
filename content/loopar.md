@@ -7,13 +7,15 @@ Iterationer – Loopar används när kod ska upprepas. Det finns tre olika metod
 ## Loop-typer
 
 ### Metod 1: for-loop
-`for ( startvärde; villkor ; antal_steg )`
-
-Används bäst när vi i förväg vet hur många upprepningar som ska utföras.
 
 ```java
-for ( int i = 1 ; i < 10 ; i++ )
+for ( int i = 1; i < 10; i++ )
+{
+    // Kod som ska upprepas här
+}
 ```
+
+Används bäst när vi i förväg vet hur många upprepningar som ska utföras.
 
 | Del | Förklaring |
 |-----|------------|
@@ -50,11 +52,9 @@ do
 while ( villkor ) ;
 ```
 
----
+## Övningar loopar
 
-## Övningar kapitel 2
-
-### Övning 2.1 - for-loop
+### Övning 1 - for-loop
 Detta programmet kör en loop och skriver ut tal för vart varv från 0 till 10 – Skriv av koden och testa
 
 ```java
@@ -70,13 +70,13 @@ public class Main //projektet sparas som Ovning2_1
 }
 ```
 
-**Övning 2.1 fortsätter...**
+**Del 2 av Övning 1:**
 
 I for satsen ovan skrivs `e++`. Detta ökar värdet med ett. Du ska nu göra en förändring i koden så att programmet loopar 20 gånger och som samtidigt ökar värdet på `int e` med tre. Gör detta genom att ersätta `e++` med `e = e+3`.
 
 **Reflektera över resultatet.**
 
-### Övning 2.2
+### Övning 2
 Ändra i koden ovan så att den skriver ut från 20 till 1.
 
 ```java
@@ -92,7 +92,7 @@ public class Main //projektet sparas som Ovning2_2
 }
 ```
 
-### Övning 2.3 - Nested loops (Nästlade loopar)
+### Övning 3 - Nested loops (Nästlade loopar)
 Skriv följande kod och tänk igenom vad som kommer att ske innan du exekverar koden (rita upp på papper). Ändra sedan så att effekten blir omvänd.
 
 ```java
@@ -131,7 +131,7 @@ for ( int j = i; j < 40; j ++ )
 }
 ```
 
-### Övning 2.4 - while-loop
+### Övning 4 - while-loop
 `while` är ett alternativ till `for` och skrivs med `while (villkor)`
 
 **Exempel:** `while ( 1<2 )` översatt: så länge 1 är mindre än 2 ska loopen köras och eftersom villkoret i detta exempel alltid är korrekt kommer denna loop köras i evighet eller till dess att man bryter loopen på annat vis.
@@ -166,7 +166,7 @@ Count är: 4
 Loopen avslutad
 ```
 
-### Övning 2.5 - do-while
+### Övning 5 - do-while
 `do while` - 3:e alternativet för att hantera en loop/iteration. Denna kontrollerar för var ny loop om villkoret är det skrivna. Är villkoret uppnått bryts loopen.
 
 Skapa programmet enligt följande:
@@ -187,7 +187,7 @@ public class Main //projektet sparas som Ovning2_5
 }
 ```
 
-### Övning 2.5b - do-while med användarinput
+### Övning 6 - do-while med användarinput
 Ett tydligare exempel på hur do while kan användas.
 
 I koden ovan lägg till längst upp på sidan av din kod `import java.util.Scanner;`
@@ -214,7 +214,7 @@ public class Main //projektet sparas som Ovning2_5b
 }
 ```
 
-### Övning 2.6 - Multiplikationstabell (för högre betyg)
+### Övning 7 - Multiplikationstabell (för högre betyg)
 Skriv ut en multiplikationstabell som visar ettans till och med tolvans tabell. Bestäm själv vilken typ av loop/looper du vill använda.
 
 ```java
@@ -255,7 +255,7 @@ public class Main //projektet sparas som Ovning2_6
 
 Fundera och testa först själv hur du ska skapa programmet. Blir det för svårt kan du be om lösningsförslag.
 
-### Övning 2.7 - Formatering
+### Övning 8 - Formatering
 Som du ser i bilden ovan så får du kanske inte några snygga kolumner i ditt resultat. Det kan du ändra på genom att i de rader som på skärmen skriver ut dina siffror ändra i koden.
 
 Skriv istället för `System.out.print( )` → `System.out.format( "%4d" , dinVariabel )`

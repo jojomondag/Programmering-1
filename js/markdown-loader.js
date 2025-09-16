@@ -25,8 +25,11 @@ class MarkdownLoader {
                 throw new Error(`Failed to load ${filename}.md: ${response.status}`);
             }
             
-            const markdownText = await response.text();
+            let markdownText = await response.text();
             console.log(`Loaded ${markdownText.length} characters from ${filename}.md`);
+
+            // Preprocess: strip sections that should no longer be rendered
+            markdownText = this.filterSections(markdownText, filename);
             
             // Render using built-in function
             const htmlContent = this.markdownToHtml(markdownText);
@@ -314,6 +317,35 @@ class MarkdownLoader {
     }
 
     /**
+     * Remove specific sections from markdown before rendering
+     * Currently: For variabler.md, remove the section starting at
+     * H2 'Inlämningsuppgift: Berättelse' until the next H2/H1 or EOF
+     */
+    filterSections(markdown, pageName) {
+        try {
+            if (pageName === 'variabler') {
+                const startRegex = /^##\s*Inlämningsuppgift:\s*Berättelse.*$/im; // find the H2 line
+                const startMatch = startRegex.exec(markdown);
+                if (startMatch) {
+                    const startIdx = startMatch.index;
+                    // Find next top-level heading (## or #) after the match end
+                    const searchFrom = startIdx + startMatch[0].length;
+                    const rest = markdown.slice(searchFrom);
+                    const nextHeadingRegex = /^##\s+|^#\s+/m;
+                    const nextIdxInRest = rest.search(nextHeadingRegex);
+                    const endIdx = nextIdxInRest === -1 ? markdown.length : searchFrom + nextIdxInRest;
+                    const removedLen = endIdx - startIdx;
+                    markdown = markdown.slice(0, startIdx) + markdown.slice(endIdx);
+                    console.log(`Stripped 'Inlämningsuppgift: Berättelse' section (${removedLen} chars).`);
+                }
+            }
+        } catch (e) {
+            console.warn('filterSections failed:', e);
+        }
+        return markdown;
+    }
+
+    /**
      * Escape HTML characters
      */
     escapeHtml(text) {
@@ -416,9 +448,9 @@ class MarkdownLoader {
         const titles = {
             'variabler': 'Programmering 1 - Variabler / Minnesplatser',
             'utskrifter': 'Programmering 1 - Utskrifter i Java',
-            'berattelse': 'Programmering 1 - Inlämningsuppgift 3: Berättelse',
             'ifsatser': 'Programmering 1 - If-satser',
-            'loopar': 'Programmering 1 - Iterationer / Loopar'
+            'loopar': 'Programmering 1 - Iterationer / Loopar',
+            'arrays': 'Programmering 1 - Arrays'
         };
 
         if (titles[pageName]) {
@@ -463,29 +495,7 @@ class MarkdownLoader {
                                 <span class="bg-purple-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Formatering</span>
                             </div>
                         </div>
-                        <div class="lg:flex-shrink-0">
-                            <img src="Images/Teckenuppsättning.png" alt="Teckenuppsättning Illustration" 
-                                 class="w-64 h-48 object-cover rounded-lg shadow-lg border-4 border-white border-opacity-20 hover:scale-105 transition-transform duration-300">
-                        </div>
-                    </div>
-                </div>
-            `,
-            'berattelse': `
-                <div class="hero-gradient-green text-white rounded-2xl p-12 mb-12">
-                    <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
-                        <div class="text-center lg:text-left lg:flex-1">
-                            <h1 class="text-4xl font-bold text-white mb-4">📖 Inlämningsuppgift 3: Berättelse</h1>
-                            <p class="text-xl text-green-100 mb-6">Skapa personliga berättelser med Scanner och variabler</p>
-                            <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                                <span class="bg-green-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Scanner</span>
-                                <span class="bg-green-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Variabler</span>
-                                <span class="bg-green-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Kreativitet</span>
-                            </div>
-                        </div>
-                        <div class="lg:flex-shrink-0">
-                            <img src="Images/Berättelse.png" alt="Berättelse Illustration" 
-                                 class="w-64 h-48 object-cover rounded-lg shadow-lg border-4 border-white border-opacity-20 hover:scale-105 transition-transform duration-300">
-                        </div>
+                        
                     </div>
                 </div>
             `,
@@ -503,7 +513,7 @@ class MarkdownLoader {
                         </div>
                         <div class="lg:flex-shrink-0">
                             <div class="w-64 h-48 bg-orange-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
-                                <span class="text-6xl">🔀</span>
+                                <span class="text-6xl" aria-hidden="true">🔀</span>
                             </div>
                         </div>
                     </div>
@@ -528,6 +538,26 @@ class MarkdownLoader {
                         </div>
                     </div>
                 </div>
+            `,
+            'arrays': `
+                <div class="hero-gradient-teal text-white rounded-2xl p-12 mb-12">
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                        <div class="text-center lg:text-left lg:flex-1">
+                            <h1 class="text-4xl font-bold text-white mb-4">📊 Arrays</h1>
+                            <p class="text-xl text-teal-100 mb-6">Lagra och hantera samlingar av data effektivt</p>
+                            <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+                                <span class="bg-teal-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Array-deklaration</span>
+                                <span class="bg-teal-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Index & length</span>
+                                <span class="bg-teal-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Sortering</span>
+                            </div>
+                        </div>
+                        <div class="lg:flex-shrink-0">
+                            <div class="w-64 h-48 bg-teal-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
+                                <span class="text-6xl">📊</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `
         };
 
@@ -541,13 +571,12 @@ class MarkdownLoader {
         const pages = [
             { name: 'utskrifter', title: 'Utskrifter', emoji: '📺', color: 'purple' },
             { name: 'variabler', title: 'Variabler', emoji: '🧠', color: 'blue' },
-            { name: 'ifsatser', title: 'If-satser', emoji: '�', color: 'orange' },
+            { name: 'ifsatser', title: 'If-satser', emoji: '🔀', color: 'orange' },
             { name: 'loopar', title: 'Loopar', emoji: '🔄', color: 'indigo' },
-            { name: 'berattelse', title: 'Berättelse', emoji: '�', color: 'green' }
+            { name: 'arrays', title: 'Arrays', emoji: '📊', color: 'teal' }
         ];
 
         let nav = '<nav class="flex flex-wrap justify-center gap-4 mb-8">';
-        
         pages.forEach(page => {
             const isActive = page.name === currentPage;
             const activeClass = isActive ? `bg-${page.color}-600 text-white` : `bg-white text-${page.color}-600 hover:bg-${page.color}-50`;
@@ -558,7 +587,6 @@ class MarkdownLoader {
                     <span>${page.title}</span>
                 </a>`;
         });
-
         nav += '</nav>';
         return nav;
     }
@@ -572,7 +600,7 @@ class MarkdownLoader {
             { name: 'variabler', title: 'Variabler', color: 'blue' },
             { name: 'ifsatser', title: 'If-satser', color: 'orange' },
             { name: 'loopar', title: 'Loopar', color: 'indigo' },
-            { name: 'berattelse', title: 'Berättelse', color: 'green' }
+            { name: 'arrays', title: 'Arrays', color: 'teal' }
         ];
 
         let links = [];
@@ -591,106 +619,6 @@ class MarkdownLoader {
     renderVideoPanel(pageName) {
         const videoContent = {
             'ifsatser': `
-                <div class="space-y-4">
-                    <div class="bg-orange-50 p-4 rounded-lg">
-                        <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-orange-900">Vid 12 - Operatörer</h4>
-                            <button onclick="toggleDescription('desc12')" class="text-orange-600 hover:text-orange-800 transition-colors">
-                                <svg id="arrow12" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div id="desc12" class="hidden text-orange-800 text-sm mb-3">I denna går jag igenom vad Operatörer inom programmering är för något. Operatörer finns i så gott som alla programmeringsspråk och tecknen vi använder oss av skiljer sig ofta inte så mycket. Så har man förstått dessa i ett språk kan man använda samma koncept i andra programmeringsspråk.</div>
-                        <a href="https://www.youtube.com/watch?v=P4-O5PUDsPA&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=12" 
-                           target="_blank" 
-                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
-                            <div class="flex items-center space-x-2">
-                                <img src="https://img.youtube.com/vi/P4-O5PUDsPA/mqdefault.jpg" 
-                                     alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
-                                <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
-                                    <div class="text-xs opacity-75">YouTube - If-satser del 12</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bg-orange-50 p-4 rounded-lg">
-                        <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-orange-900">Vid 13 - IfSatser</h4>
-                            <button onclick="toggleDescription('desc13')" class="text-orange-600 hover:text-orange-800 transition-colors">
-                                <svg id="arrow13" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div id="desc13" class="hidden text-orange-800 text-sm mb-3">Ibland behöver våran kod kunna ta olika vägar för att kunna avgöra vad den skall eller inte skall göra. För detta använder vi If-Satser. I denna videon går jag igenom vad If-Satser är för något och hur vi skriver dessa i Java.</div>
-                        <a href="https://www.youtube.com/watch?v=FQ5pAWibG7w&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=13&t=72s" 
-                           target="_blank" 
-                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
-                            <div class="flex items-center space-x-2">
-                                <img src="https://img.youtube.com/vi/FQ5pAWibG7w/mqdefault.jpg" 
-                                     alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
-                                <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
-                                    <div class="text-xs opacity-75">YouTube - If-satser del 13</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bg-orange-50 p-4 rounded-lg">
-                        <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-orange-900">Vid 14 - Projekt Frågesport</h4>
-                            <button onclick="toggleDescription('desc14')" class="text-orange-600 hover:text-orange-800 transition-colors">
-                                <svg id="arrow14" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div id="desc14" class="hidden text-orange-800 text-sm mb-3">Efter att vi har lärt oss om If-Satser kan vi skapa ett frågesports spel till oss själv eller till någon annan. I denna video visar jag hur man skulle kunna skapa ett sådant i Java.</div>
-                        <a href="https://www.youtube.com/watch?v=jDcItHE5ABE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=14" 
-                           target="_blank" 
-                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
-                            <div class="flex items-center space-x-2">
-                                <img src="https://img.youtube.com/vi/jDcItHE5ABE/mqdefault.jpg" 
-                                     alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
-                                <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
-                                    <div class="text-xs opacity-75">YouTube - If-satser del 14</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bg-orange-50 p-4 rounded-lg">
-                        <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-orange-900">Vid 15 - Filstruktur Studieteknik och Backup</h4>
-                            <button onclick="toggleDescription('desc15')" class="text-orange-600 hover:text-orange-800 transition-colors">
-                                <svg id="arrow15" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div id="desc15" class="hidden text-orange-800 text-sm mb-3">Att ha koll på sina filer när man jobbar med datorer är oerhört viktigt. För oss som programmerar är det extra viktigt då vi inte har råd med att ha det stökigt vi måste ha ordning och struktur på våra filer och våran kod. I denna videon går jag igenom hur man bör tänka när man arbetar med kod/filer på sin dator.</div>
-                        <a href="https://www.youtube.com/watch?v=Nxk_6SbF5HE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=15" 
-                           target="_blank" 
-                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
-                            <div class="flex items-center space-x-2">
-                                <img src="https://img.youtube.com/vi/Nxk_6SbF5HE/mqdefault.jpg" 
-                                     alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
-                                <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
-                                    <div class="text-xs opacity-75">YouTube - If-satser del 15</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            `,
-            'variabler': `
                 <div class="space-y-4">
                     <div class="bg-blue-50 p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
@@ -763,6 +691,34 @@ class MarkdownLoader {
                                 </div>
                             </div>
                         </a>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-green-900">Vid 11 - Projekt 1 Berättelsen</h4>
+                            <button onclick="toggleDescription('desc11')" class="text-green-600 hover:text-green-800 transition-colors">
+                                <svg id="arrow11" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc11" class="hidden text-green-800 text-sm mb-3">I denna video summerar jag videorna 1 - 10 i detta projektet och visar hur alla bitar samarbetar och hur man med denna kunskap kan skapa något mindre program som faktiskt gör något.</div>
+                        <a href="https://www.youtube.com/watch?v=2Pse_BAay04&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=11" 
+                           target="_blank" 
+                           class="block bg-green-100 hover:bg-green-200 p-3 rounded text-green-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/2Pse_BAay04/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Berättelse del 11</div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="mt-4 bg-white border border-green-200 rounded-lg overflow-hidden">
+                            <img src="Images/Berättelse.png" alt="Berättelse" class="w-full h-auto object-contain" />
+                            <div class="px-3 py-2 text-green-800 text-xs">Illustration: Projekt 1 – Berättelsen</div>
+                        </div>
                     </div>
                 </div>
             `,
@@ -938,101 +894,131 @@ class MarkdownLoader {
                     </div>
                 </div>
             `,
-            'berattelse': `
+            'loopar': `
                 <div class="space-y-4">
-                    <div class="bg-green-50 p-4 rounded-lg">
+                    <div class="bg-blue-50 p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-green-900">Vid 11 - Projekt 1 Berättelsen</h4>
-                            <button onclick="toggleDescription('desc11')" class="text-green-600 hover:text-green-800 transition-colors">
-                                <svg id="arrow11" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h4 class="font-semibold text-blue-900">Vid 16 - While Loopen</h4>
+                            <button onclick="toggleDescription('desc16')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                <svg id="arrow16" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc11" class="hidden text-green-800 text-sm mb-3">I denna video summerar jag videorna 1 - 10 i detta projektet och visar hur alla bitar samarbetar och hur man med denna kunskap kan skapa något mindre program som faktiskt gör något.</div>
-                        <a href="https://www.youtube.com/watch?v=2Pse_BAay04&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=11" 
+                        <div id="desc16" class="hidden text-blue-800 text-sm mb-3">Det som är det fina med datorer är att de är oerhört duktiga på att göra saker flera gånger. För att få en datorer att göra något flera gånger med kod använder vi olika loopar! I denna videon går jag igenom While loopen.</div>
+                        <a href="https://www.youtube.com/watch?v=oA_3B3dt98U&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=16" 
                            target="_blank" 
-                           class="block bg-green-100 hover:bg-green-200 p-3 rounded text-green-700 text-xs transition-colors">
+                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
                             <div class="flex items-center space-x-2">
-                                <img src="https://img.youtube.com/vi/2Pse_BAay04/mqdefault.jpg" 
+                                <img src="https://img.youtube.com/vi/oA_3B3dt98U/mqdefault.jpg" 
                                      alt="Video thumbnail" 
                                      class="w-16 h-12 rounded object-cover">
                                 <div>
                                     <div class="font-medium">▶️ Titta på videon</div>
-                                    <div class="text-xs opacity-75">YouTube - Berättelse del 11</div>
+                                    <div class="text-xs opacity-75">YouTube - While Loopen del 16</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-green-900">Vid 17 - ForLoopen</h4>
+                            <button onclick="toggleDescription('desc17')" class="text-green-600 hover:text-green-800 transition-colors">
+                                <svg id="arrow17" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc17" class="hidden text-green-800 text-sm mb-3">Om man vill göra något ett visst antal gånger fungerar For-Loopen väldigt bra i denna video går jag igenom denna.</div>
+                        <a href="https://www.youtube.com/watch?v=oTTjI2QyOxo&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=17" 
+                           target="_blank" 
+                           class="block bg-green-100 hover:bg-green-200 p-3 rounded text-green-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/oTTjI2QyOxo/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - ForLoopen del 17</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-purple-900">Vid 18 - Nästlade IfSatser och Loopar</h4>
+                            <button onclick="toggleDescription('desc18')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                                <svg id="arrow18" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc18" class="hidden text-purple-800 text-sm mb-3">Loopar inuti Loopar, If satser inuti Ifsatser, Kod inuti kod osv, detta är lite som filmen Matrix eller filmen inception. I denna video går jag igenom konceptet saker inuti saker inom programmering.</div>
+                        <a href="https://www.youtube.com/watch?v=ED7G1VK9CUc&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=18" 
+                           target="_blank" 
+                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/ED7G1VK9CUc/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Nästlade IfSatser och Loopar del 18</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-orange-900">Vid 19 - Random</h4>
+                            <button onclick="toggleDescription('desc19')" class="text-orange-600 hover:text-orange-800 transition-colors">
+                                <svg id="arrow19" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="desc19" class="hidden text-orange-800 text-sm mb-3">Det finn en del intressanta saker man kan göra med Slumpen, Casino och spel har använt sig av detta under lång tid. I denna video visar jag hur ni kan använda er av detta i er egen kod.</div>
+                        <a href="https://www.youtube.com/watch?v=5bpNAb0Ki9o&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=19" 
+                           target="_blank" 
+                           class="block bg-orange-100 hover:bg-orange-200 p-3 rounded text-orange-700 text-xs transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://img.youtube.com/vi/5bpNAb0Ki9o/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
+                                <div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Random del 19</div>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
             `,
-            'loopar': `
+            'arrays': `
                 <div class="space-y-4">
-                    <div class="bg-indigo-50 p-4 rounded-lg">
+                    <div class="bg-teal-50 p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-indigo-900">For-loopar</h4>
-                            <button onclick="toggleDescription('descFor')" class="text-indigo-600 hover:text-indigo-800 transition-colors">
-                                <svg id="arrowFor" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h4 class="font-semibold text-teal-900">Vid 20 - Arrays</h4>
+                            <button onclick="toggleDescription('desc20')" class="text-teal-600 hover:text-teal-800 transition-colors">
+                                <svg id="arrow20" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="descFor" class="hidden text-indigo-800 text-sm mb-3">Lär dig använda for-loopar för att upprepa kod ett bestämt antal gånger. Perfekt när du vet i förväg hur många iterationer som behövs.</div>
-                        <div class="block bg-indigo-100 p-3 rounded text-indigo-700 text-xs">
+                        <div id="desc20" class="hidden text-teal-800 text-sm mb-3">Om en Variabel är en Låda. Då är Arrays Flera lådor. I denna video går jag igenom Arrays och vad dessa kan vara bra för.</div>
+                        <a href="https://www.youtube.com/watch?v=tBhKaD2lGHQ&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=20" 
+                           target="_blank" 
+                           class="block bg-teal-100 hover:bg-teal-200 p-3 rounded text-teal-700 text-xs transition-colors">
                             <div class="flex items-center space-x-2">
-                                <div class="w-16 h-12 bg-indigo-200 rounded flex items-center justify-center">
-                                    <span class="text-2xl">🔄</span>
-                                </div>
+                                <img src="https://img.youtube.com/vi/tBhKaD2lGHQ/mqdefault.jpg" 
+                                     alt="Video thumbnail" 
+                                     class="w-16 h-12 rounded object-cover">
                                 <div>
-                                    <div class="font-medium">📚 Övningar</div>
-                                    <div class="text-xs opacity-75">Träna med övning 2.1 - 2.3</div>
+                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="text-xs opacity-75">YouTube - Arrays del 20</div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="bg-indigo-50 p-4 rounded-lg">
-                        <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-indigo-900">While-loopar</h4>
-                            <button onclick="toggleDescription('descWhile')" class="text-indigo-600 hover:text-indigo-800 transition-colors">
-                                <svg id="arrowWhile" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div id="descWhile" class="hidden text-indigo-800 text-sm mb-3">Använd while och do-while loopar när du inte vet exakt antal iterationer i förväg. Villkoret styr när loopen ska avslutas.</div>
-                        <div class="block bg-indigo-100 p-3 rounded text-indigo-700 text-xs">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-16 h-12 bg-indigo-200 rounded flex items-center justify-center">
-                                    <span class="text-2xl">🔁</span>
-                                </div>
-                                <div>
-                                    <div class="font-medium">📚 Övningar</div>
-                                    <div class="text-xs opacity-75">Träna med övning 2.4 - 2.5b</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-indigo-50 p-4 rounded-lg">
-                        <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-indigo-900">Avancerade loopar</h4>
-                            <button onclick="toggleDescription('descAdvanced')" class="text-indigo-600 hover:text-indigo-800 transition-colors">
-                                <svg id="arrowAdvanced" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div id="descAdvanced" class="hidden text-indigo-800 text-sm mb-3">Nästlade loopar och multiplikationstabeller. För den som siktar på högre betyg och vill utmana sig själv.</div>
-                        <div class="block bg-indigo-100 p-3 rounded text-indigo-700 text-xs">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-16 h-12 bg-indigo-200 rounded flex items-center justify-center">
-                                    <span class="text-2xl">⭐</span>
-                                </div>
-                                <div>
-                                    <div class="font-medium">📚 Övningar</div>
-                                    <div class="text-xs opacity-75">Träna med övning 2.6 - 2.7</div>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             `
@@ -1130,24 +1116,24 @@ style.textContent = `
     }
     
     /* Responsive hero sections */
-    .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo {
+    .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo, .hero-gradient-teal {
         padding: 2rem 1rem;
     }
     
     @media (min-width: 640px) {
-        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo, .hero-gradient-teal {
             padding: 3rem 2rem;
         }
     }
     
     @media (min-width: 768px) {
-        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo, .hero-gradient-teal {
             padding: 4rem 3rem;
         }
     }
     
     @media (min-width: 1024px) {
-        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo {
+        .hero-gradient-blue, .hero-gradient-purple, .hero-gradient-green, .hero-gradient-orange, .hero-gradient-indigo, .hero-gradient-teal {
             padding: 6rem 4rem;
         }
     }
@@ -1320,6 +1306,9 @@ style.textContent = `
     }
     .hero-gradient-indigo {
         background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    }
+    .hero-gradient-teal {
+        background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
     }
     
     /* Terminal styling */

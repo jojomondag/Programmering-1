@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programmering 1 - Inlämningsuppgift 3: Berättelse</title>
+    <title>Programmering 1 - Arrays</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
@@ -195,7 +195,7 @@
 
         <!-- Footer -->
         <footer id="footerLinks" class="text-center py-8 text-gray-500">
-            <p>Programmering 1 - Inlämningsuppgift 3: Berättelse</p>
+            <p>Programmering 1 - Arrays</p>
             <p class="text-sm mt-2">Använd kopiera-knappen för att enkelt kopiera kodexempel! 📋</p>
             <div class="mt-4 space-x-4">
                 <!-- Content will be loaded dynamically from markdown -->
@@ -206,23 +206,36 @@
     <script>
         function copyCode(button) {
             const codeBlock = button.nextElementSibling.querySelector('code');
-            const text = codeBlock.textContent;
-            
-            navigator.clipboard.writeText(text).then(function() {
-                button.textContent = 'Kopierat!';
-                button.classList.add('copy-success');
+            if (codeBlock) {
+                // Get the text content and clean up any HTML entities
+                let text = codeBlock.textContent || codeBlock.innerText;
                 
-                setTimeout(function() {
-                    button.textContent = 'Kopiera';
-                    button.classList.remove('copy-success');
-                }, 2000);
-            }).catch(function(err) {
-                console.error('Kunde inte kopiera text: ', err);
-                button.textContent = 'Fel';
-                setTimeout(function() {
-                    button.textContent = 'Kopiera';
-                }, 2000);
-            });
+                // Ensure we have clean Java/code text (unescape HTML entities if needed)
+                text = text
+                    .replace(/&lt;/g, '<')
+                    .replace(/&gt;/g, '>')
+                    .replace(/&amp;/g, '&')
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#39;/g, "'");
+                
+                navigator.clipboard.writeText(text).then(function() {
+                    const originalText = button.textContent;
+                    button.textContent = 'Kopierat! ✓';
+                    button.classList.add('copy-success');
+                    
+                    setTimeout(function() {
+                        button.textContent = originalText;
+                        button.classList.remove('copy-success');
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Kunde inte kopiera text: ', err);
+                    const originalText = button.textContent;
+                    button.textContent = 'Fel ✗';
+                    setTimeout(function() {
+                        button.textContent = originalText;
+                    }, 2000);
+                });
+            }
         }
 
         function toggleVideoPanel() {
@@ -247,37 +260,37 @@
                 }
 
                 // Update page meta information
-                window.markdownLoader.updatePageMeta('berattelse');
+                window.markdownLoader.updatePageMeta('arrays');
                 
                 // Render page header
                 const pageHeader = document.getElementById('pageHeader');
                 if (pageHeader) {
-                    pageHeader.innerHTML = window.markdownLoader.renderPageHeader('berattelse');
+                    pageHeader.innerHTML = window.markdownLoader.renderPageHeader('arrays');
                 }
                 
                 // Render navigation
                 const navigation = document.getElementById('navigation');
                 if (navigation) {
-                    navigation.innerHTML = window.markdownLoader.renderNavigation('berattelse');
+                    navigation.innerHTML = window.markdownLoader.renderNavigation('arrays');
                 }
                 
                 // Load and render main content from markdown
                 const mainContent = document.getElementById('mainContent');
                 if (mainContent) {
-                    const markdownContent = await window.markdownLoader.loadMarkdownContent('berattelse');
+                    const markdownContent = await window.markdownLoader.loadMarkdownContent('arrays');
                     mainContent.innerHTML = markdownContent;
                 }
                 
                 // Render footer links
                 const footerLinks = document.querySelector('#footerLinks .mt-4');
                 if (footerLinks) {
-                    footerLinks.innerHTML = window.markdownLoader.renderFooterLinks('berattelse');
+                    footerLinks.innerHTML = window.markdownLoader.renderFooterLinks('arrays');
                 }
                 
                 // Render video content
                 const videoContent = document.getElementById('videoContent');
                 if (videoContent) {
-                    videoContent.innerHTML = window.markdownLoader.renderVideoPanel('berattelse');
+                    videoContent.innerHTML = window.markdownLoader.renderVideoPanel('arrays');
                 }
                 
                 // Initialize Prism.js for syntax highlighting
