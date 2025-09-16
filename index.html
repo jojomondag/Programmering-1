@@ -50,7 +50,7 @@
         
         /* Responsive hero sections */
         .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);
             padding: 2rem 1rem;
         }
         
@@ -121,12 +121,12 @@
         /* Responsive grid */
         .grid {
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 1.5rem;
         }
         
         @media (min-width: 640px) {
             .grid {
-                gap: 1.5rem;
+                gap: 2rem;
             }
         }
         
@@ -140,6 +140,13 @@
         @media (min-width: 1024px) {
             .grid {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .grid {
+                grid-template-columns: repeat(5, 1fr);
                 gap: 2rem;
             }
         }
@@ -170,8 +177,20 @@
         /* Topic cards */
         .topic-card {
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, #FEFEFE 0%, #F5F5DC 100%);
             padding: 1.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .topic-card.no-underline {
+            text-decoration: none !important;
+        }
+        
+        .topic-card:hover {
+            text-decoration: none !important;
+            color: inherit;
         }
         
         @media (min-width: 640px) {
@@ -198,22 +217,30 @@
         }
         
         .feature-icon {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            width: 3rem;
-            height: 3rem;
+            background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);
+            width: 5rem;
+            height: 5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1rem;
+            font-size: 1.875rem;
+            margin: 0 auto 1rem auto;
         }
         
         @media (min-width: 640px) {
             .feature-icon {
-                width: 4rem;
-                height: 4rem;
+                width: 5rem;
+                height: 5rem;
+                font-size: 1.875rem;
             }
         }
         
         @media (min-width: 768px) {
             .feature-icon {
-                width: 4.5rem;
-                height: 4.5rem;
+                width: 5rem;
+                height: 5rem;
+                font-size: 1.875rem;
             }
         }
         
@@ -221,250 +248,206 @@
             .feature-icon {
                 width: 5rem;
                 height: 5rem;
+                font-size: 1.875rem;
             }
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8 w-full">
+<body class="min-h-screen" style="background-color: #F5F5DC;">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
         <!-- Hero Section -->
-        <header class="hero-gradient text-white rounded-2xl p-12 mb-12 text-center">
+        <header class="hero-gradient text-white rounded-2xl p-12 mb-16 text-center">
             <h1 class="text-5xl font-bold mb-6">Programmering 1</h1>
         </header>
 
         <!-- Course Topics -->
-        <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Kursinnehåll</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-center" style="color: #2F2F2F;">Kursinnehåll</h2>
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
 
                 <!-- Output Topic -->
-                <div class="topic-card rounded-2xl p-8 border border-gray-200 hover:border-purple-300">
-                    <div class="flex items-center mb-6">
-                        <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mr-4" style="background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);">
+                <a href="utskrifter.html" class="topic-card rounded-2xl p-8 border block no-underline" style="border-color: #8B8680;">
+                    <div class="text-center mb-6">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-4" style="background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);">
                             📺
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900">Utskrifter i Java</h3>
-                            <p class="text-gray-600">Kommunikation med användaren</p>
-                        </div>
+                        <h3 class="text-2xl font-bold" style="color: #2F2F2F;">Utskrifter i Java</h3>
+                        <p style="color: #8B8680;">Kommunikation med användaren</p>
                     </div>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
+                    <p class="mb-6 leading-relaxed" style="color: #2F2F2F;">
                         Upptäck hur du visar information för användaren genom olika utskriftsmetoder. 
                         Från enkla textmeddelanden till avancerade formatering.
                     </p>
-                    <div class="space-y-3 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             System.out.println() och print()
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Specialtecken och escape-sekvenser
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Unicode-tecken och formatering
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #8B4513;"></span>
                             JOptionPane för GUI-program
                         </div>
                     </div>
-                    <a href="utskrifter.html" 
-                       class="inline-flex items-center px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors">
-                        Utforska ämnet
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
+                </a>
 
                 <!-- Variables Topic -->
-                <div class="topic-card rounded-2xl p-8 border border-gray-200 hover:border-blue-300">
-                    <div class="flex items-center mb-6">
-                        <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mr-4">
+                <a href="variabler.html" class="topic-card rounded-2xl p-8 border block no-underline" style="border-color: #8B8680;">
+                    <div class="text-center mb-6">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-4" style="background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);">
                             🧠
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900">Variabler / Minnesplatser</h3>
-                            <p class="text-gray-600">Grunderna för datalagring</p>
-                        </div>
+                        <h3 class="text-2xl font-bold" style="color: #2F2F2F;">Variabler</h3>
+                        <p style="color: #8B8680;">Grunderna för datalagring</p>
                     </div>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
+                    <p class="mb-6 leading-relaxed" style="color: #2F2F2F;">
                         Lär dig hur du skapar och använder variabler för att lagra olika typer av data. 
                         Från enkla textvariabler till komplexa beräkningar.
                     </p>
-                    <div class="space-y-3 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Variabeltyper (String, int, double, boolean)
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Scanner för användarinput
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Matematiska operationer
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-red-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #CD853F;"></span>
                             Temperaturomvandlare (inlämningsuppgift)
                         </div>
                     </div>
-                    <a href="variabler.html" 
-                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
-                        Börja lära dig
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
+                </a>
 
                 <!-- If-satser Topic -->
-                <div class="topic-card rounded-2xl p-8 border border-gray-200 hover:border-orange-300">
-                    <div class="flex items-center mb-6">
-                        <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mr-4" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">
+                <a href="ifsatser.html" class="topic-card rounded-2xl p-8 border block no-underline" style="border-color: #8B8680;">
+                    <div class="text-center mb-6">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-4" style="background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);">
                             🔀
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900">If-satser</h3>
-                            <p class="text-gray-600">Villkorssatser och beslut</p>
-                        </div>
+                        <h3 class="text-2xl font-bold" style="color: #2F2F2F;">If-satser</h3>
+                        <p style="color: #8B8680;">Villkorssatser och beslut</p>
                     </div>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
+                    <p class="mb-6 leading-relaxed" style="color: #2F2F2F;">
                         Lär dig få programmet att välja mellan olika alternativ med hjälp av if-satser. 
                         Från enkla jämförelser till komplexa villkor.
                     </p>
-                    <div class="space-y-3 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             if, else if, else
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Relationsoperatorer (==, !=, <, >)
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Logiska operatorer (&&, ||)
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #CD853F;"></span>
                             Högt-lågt-spel och bankomat
                         </div>
                     </div>
-                    <a href="ifsatser.html" 
-                       class="inline-flex items-center px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-colors">
-                        Lär dig villkor
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
+                </a>
 
                 <!-- Loops Topic -->
-                <div class="topic-card rounded-2xl p-8 border border-gray-200 hover:border-indigo-300">
-                    <div class="flex items-center mb-6">
-                        <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mr-4" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                <a href="loopar.html" class="topic-card rounded-2xl p-8 border block no-underline" style="border-color: #8B8680;">
+                    <div class="text-center mb-6">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-4" style="background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);">
                             🔄
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900">Iterationer / Loopar</h3>
-                            <p class="text-gray-600">Upprepa kod effektivt</p>
-                        </div>
+                        <h3 class="text-2xl font-bold" style="color: #2F2F2F;">Loopar</h3>
+                        <p style="color: #8B8680;">Upprepa kod effektivt</p>
                     </div>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
+                    <p class="mb-6 leading-relaxed" style="color: #2F2F2F;">
                         Lär dig skapa loopar för att upprepa kod. Från enkla räkningar till komplexa mönster 
                         med for, while och do-while loopar.
                     </p>
-                    <div class="space-y-3 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             for-loopar med räknare
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             while och do-while loopar
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Nästlade loopar och mönster
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #8B4513;"></span>
                             Multiplikationstabell (avancerat)
                         </div>
                     </div>
-                    <a href="loopar.html" 
-                       class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors">
-                        Lär dig loopar
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
+                </a>
 
                 <!-- Arrays Topic -->
-                <div class="topic-card rounded-2xl p-8 border border-gray-200 hover:border-teal-300">
-                    <div class="flex items-center mb-6">
-                        <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mr-4" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);">
+                <a href="arrays.html" class="topic-card rounded-2xl p-8 border block no-underline" style="border-color: #8B8680;">
+                    <div class="text-center mb-6">
+                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-4" style="background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);">
                             📊
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900">Arrays</h3>
-                            <p class="text-gray-600">Samlingar av data</p>
-                        </div>
+                        <h3 class="text-2xl font-bold" style="color: #2F2F2F;">Arrays</h3>
+                        <p style="color: #8B8680;">Samlingar av data</p>
                     </div>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
+                    <p class="mb-6 leading-relaxed" style="color: #2F2F2F;">
                         Lär dig arbeta med arrays för att lagra och hantera samlingar av data. 
                         Från grundläggande array-syntax till sortering och slumpgenerering.
                     </p>
-                    <div class="space-y-3 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Array-deklaration och initialisering
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Index och length-egenskapen
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #87A96B;"></span>
                             Loopar med arrays
                         </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <span class="w-2 h-2 bg-teal-500 rounded-full mr-3"></span>
+                        <div class="flex items-center text-sm" style="color: #8B8680;">
+                            <span class="w-2 h-2 rounded-full mr-3" style="background-color: #CD853F;"></span>
                             Sortering och slumpgenerering
                         </div>
                     </div>
-                    <a href="arrays.html" 
-                       class="inline-flex items-center px-6 py-3 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition-colors">
-                        Lär dig arrays
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
+                </a>
 
                 
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="text-center py-8 text-gray-500 border-t border-gray-200">
-            <p class="text-lg font-semibold text-gray-700 mb-2">Programmering 1 - Kursöversikt</p>
+        <footer class="text-center py-12 mt-16" style="color: #8B8680; border-top: 1px solid #8B8680;">
+            <p class="text-lg font-semibold mb-2" style="color: #2F2F2F;">Programmering 1 - Kursöversikt</p>
             <p class="text-sm">Lär dig Java-programmering genom praktiska exempel och interaktiva uppgifter</p>
             <div class="mt-4 flex justify-center space-x-6">
-                <a href="utskrifter.html" class="text-purple-600 hover:underline">Utskrifter</a>
-                <span class="text-gray-300">•</span>
-                <a href="variabler.html" class="text-blue-600 hover:underline">Variabler</a>
-                <span class="text-gray-300">•</span>
-                <a href="ifsatser.html" class="text-orange-600 hover:underline">If-satser</a>
-                <span class="text-gray-300">•</span>
-                <a href="loopar.html" class="text-indigo-600 hover:underline">Loopar</a>
-                <span class="text-gray-300">•</span>
-                <a href="arrays.html" class="text-teal-600 hover:underline">Arrays</a>
+                <a href="utskrifter.html" class="hover:underline" style="color: #87A96B;">Utskrifter</a>
+                <span style="color: #8B8680;">•</span>
+                <a href="variabler.html" class="hover:underline" style="color: #8B4513;">Variabler</a>
+                <span style="color: #8B8680;">•</span>
+                <a href="ifsatser.html" class="hover:underline" style="color: #CD853F;">If-satser</a>
+                <span style="color: #8B8680;">•</span>
+                <a href="loopar.html" class="hover:underline" style="color: #87A96B;">Loopar</a>
+                <span style="color: #8B8680;">•</span>
+                <a href="arrays.html" class="hover:underline" style="color: #CD853F;">Arrays</a>
                 
             </div>
         </footer>

@@ -462,22 +462,24 @@ Namn: Anna
 4. **Matematiska operationer** fungerar med numeriska variabler
 5. **Operatorprioritet** - multiplikation och division utförs före addition och subtraktion
 
-## Inlämningsuppgift: Berättelse
+# Inlämningsuppgift 3: Berättelse
 
-**Skapa nytt projekt med namnet:** `Berättelse`
+![Berättelse](../Images/Berättelse.png)
+
+## Uppgiftsbeskrivning
 
 Din uppgift är att skapa ett interaktivt Java-program som bygger en personlig berättelse baserat på användarens inmatningar. Programmet ska kombinera `Scanner` för att läsa input och `String`-variabler för att lagra och manipulera data.
 
-### Krav på programmet
+## Krav på programmet
 
-#### Grundkrav (för godkänt)
+### Grundkrav (för godkänt)
 
 1. **Använd Scanner** för att läsa minst 5 olika inputs från användaren
 2. **Skapa variabler** av olika typer (String, int)
 3. **Bygg en berättelse** som använder alla inmatade värden
 4. **Formatera output** med tydlig struktur och läsbarhet
 
-#### Förslag på inputs
+### Förslag på inputs
 
 Du kan fråga efter:
 - Namn på en huvudperson
@@ -489,7 +491,7 @@ Du kan fråga efter:
 - En känsla eller adjektiv
 - En aktivitet eller hobby
 
-### Exempelprogram
+## Exempelprogram
 
 ```react:demo title="Berättelseprogram - Mall"
 import java.util.Scanner;
@@ -573,9 +575,9 @@ Och så började Alexs fantastiska äventyr...
 Tack för att du skapade en berättelse!
 ```
 
-### Kreativa utmaningar (för högre betyg)
+## Kreativa utmaningar (för högre betyg)
 
-#### Utmaning 1: Villkorad berättelse
+### Utmaning 1: Villkorad berättelse
 Använd `if`-satser för att skapa olika varianter baserat på input:
 
 ```react:demo title="Villkorad berättelse"
@@ -601,7 +603,7 @@ Alex gick till skolan som vanligt när...
 Katten spann mystiskt!
 ```
 
-#### Utmaning 2: Formaterad presentation
+### Utmaning 2: Formaterad presentation
 Använd Unicode-tecken och formatering för snyggare output:
 
 ```react:demo title="Formaterad berättelse"
@@ -612,7 +614,7 @@ String färg = "lila";
 String djur = "katt";
 String föremål = "spegel";
 
-System.out.println("\u2728 " + "★".repeat(20) + " \u2728");
+System.out.println("\n\u2728 " + "★".repeat(20) + " \u2728");
 System.out.println("    \uD83D\uDCDA " + namn.toUpperCase() + "S ÄVENTYR \uD83D\uDCDA");
 System.out.println("\u2728 " + "★".repeat(20) + " \u2728\n");
 
@@ -631,7 +633,7 @@ System.out.printf("✨ Magiskt föremål: %s\n\n", föremål);
 ✨ Magiskt föremål: spegel
 ```
 
-### Tips för utveckling
+## Tips för utveckling
 
 1. **Planera först** - Skissa din berättelse på papper innan du kodar
 2. **Testa ofta** - Kör programmet efter varje tillägg
@@ -639,7 +641,7 @@ System.out.printf("✨ Magiskt föremål: %s\n\n", föremål);
 4. **Använd kommentarer** - Förklara vad olika delar av koden gör
 5. **Formatera snyggt** - Använd indentering och blankrader
 
-### Inlämning
+## Inlämning
 
 - **Format:** En .java-fil med ditt program
 - **Namngivning:** `Berättelse_DittNamn.java`

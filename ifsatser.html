@@ -34,7 +34,7 @@
             background: rgba(0, 0, 0, 0.9);
         }
         .copy-success {
-            background: #10b981 !important;
+            background: #87A96B !important;
         }
         
         /* Full-width content styles with proper spacing */
@@ -74,21 +74,21 @@
         pre {
             width: 100%;
             overflow-x: auto;
-            background: #2d3748 !important;
+            background: #2F2F2F !important;
             border-radius: 0.5rem;
             margin: 0;
         }
         
         pre code {
             background: transparent !important;
-            color: #e2e8f0 !important;
+            color: #FEFEFE !important;
             font-size: 0.875rem;
             line-height: 1.5;
         }
         
         /* Better code container styling */
         .code-container {
-            background: #2d3748;
+            background: #2F2F2F;
             border-radius: 0.5rem;
             overflow: hidden;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -96,8 +96,8 @@
         
         /* Inline code styling */
         code {
-            background: #f7fafc;
-            color: #2d3748;
+            background: #F5F5DC;
+            color: #2F2F2F;
             padding: 0.125rem 0.375rem;
             border-radius: 0.25rem;
             font-size: 0.875rem;
@@ -118,11 +118,11 @@
         th, td {
             text-align: left;
             padding: 1rem;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #8B8680;
         }
         
         th {
-            background-color: #f7fafc;
+            background-color: #F5F5DC;
             font-weight: 600;
         }
         
@@ -141,16 +141,16 @@
         }
         
         .alert-info {
-            background-color: #eff6ff;
-            border-color: #3b82f6;
-            color: #1e40af;
+            background-color: #F0F8F0;
+            border-color: #87A96B;
+            color: #2F2F2F;
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="min-h-screen" style="background-color: #F5F5DC;">
     <!-- Video Panel -->
-    <div id="videoPanel" class="fixed right-0 top-0 h-full w-80 bg-white shadow-lg border-l transform translate-x-full transition-transform duration-300 ease-in-out z-50">
-        <div class="p-4 border-b bg-gray-50">
+    <div id="videoPanel" class="fixed right-0 top-0 h-full w-80 shadow-lg border-l transform translate-x-full transition-transform duration-300 ease-in-out z-50" style="background-color: #FEFEFE;">
+        <div class="p-4 border-b" style="background-color: #F5F5DC;">
             <div class="flex items-center justify-between">
                 <h3 class="font-semibold text-gray-900">📺 Videolektioner</h3>
                 <button onclick="toggleVideoPanel()" class="text-gray-500 hover:text-gray-700">
@@ -172,7 +172,7 @@
     <button onclick="toggleVideoPanel()" 
             id="videoPanelToggle"
             class="fixed right-4 top-4 bg-white shadow-lg border rounded-full p-3 hover:bg-gray-50 transition-colors z-40">
-        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6 style="color: #8B8680;"" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 002 2z"></path>
         </svg>
     </button>

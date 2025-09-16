@@ -1,8 +1,8 @@
-# Iterationer / Loopar - for och while satser
+# Loopar - for och while satser
 
 ## Förklaring
 
-Iterationer – Loopar används när kod ska upprepas. Det finns tre olika metoder för hur kod kan upprepas och styras.
+Loopar används när kod ska upprepas. Det finns tre olika metoder för hur kod kan upprepas och styras.
 
 ## Loop-typer
 

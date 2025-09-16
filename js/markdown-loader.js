@@ -194,12 +194,12 @@ class MarkdownLoader {
             return `<div class="text-center my-6">
                 <img src="${imagePath}" alt="${alt}" 
                      class="max-w-full h-auto rounded-lg shadow-md border border-gray-200 mx-auto hover:shadow-lg transition-shadow duration-300">
-                ${alt ? `<p class="text-sm text-gray-600 mt-2 italic">${alt}</p>` : ''}
+                ${alt ? `<p class="text-sm style="color: #8B8680;" mt-2 italic">${alt}</p>` : ''}
             </div>`;
         });
 
     // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline">$1</a>');
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="hover:underline" style="color: #8B4513;">$1</a>');
 
         // Inline code
         html = html.replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono">$1</code>');
@@ -235,7 +235,7 @@ class MarkdownLoader {
                         );
                         
                         let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse border border-gray-300">';
-                        tableHtml += '<thead class="bg-gray-50"><tr>';
+                        tableHtml += '<thead style="background-color: #F5F5DC;"><tr>';
                         headerCells.forEach(cell => {
                             tableHtml += `<th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-900">${cell}</th>`;
                         });
@@ -291,7 +291,7 @@ class MarkdownLoader {
     html = html.replace(/(<\/ul>|<\/ol>)(\s*)(?=\S)/g, '$1\n\n');
 
     // Handle emoji and special formatting
-        html = html.replace(/^(\*.*?\*)$/gm, '<p class="text-gray-600 italic mb-4">$1</p>');
+        html = html.replace(/^(\*.*?\*)$/gm, '<p class="style="color: #8B8680;" italic mb-4">$1</p>');
 
         // Convert line breaks to paragraphs
         html = html.split('\n\n').map(paragraph => {
@@ -395,7 +395,7 @@ class MarkdownLoader {
                 );
                 
                 let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse border border-gray-300">';
-                tableHtml += '<thead class="bg-gray-50"><tr>';
+                tableHtml += '<thead style="background-color: #F5F5DC;"><tr>';
                 headerCells.forEach(cell => {
                     tableHtml += `<th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-900">${cell}</th>`;
                 });
@@ -422,7 +422,7 @@ class MarkdownLoader {
             
             // Paragraphs
             .replace(/\n\n/g, '</p><p class="mb-4">')
-            .replace(/^\*(.+?)\*$/gm, '<p class="text-gray-600 italic mb-4">$1</p>');
+            .replace(/^\*(.+?)\*$/gm, '<p class="style="color: #8B8680;" italic mb-4">$1</p>');
 
         // Wrap in paragraphs and handle lists
         html = '<p class="mb-4">' + html + '</p>';
@@ -446,10 +446,10 @@ class MarkdownLoader {
      */
     updatePageMeta(pageName) {
         const titles = {
-            'variabler': 'Programmering 1 - Variabler / Minnesplatser',
-            'utskrifter': 'Programmering 1 - Utskrifter i Java',
+            'variabler': 'Programmering 1 - Variabler',
+            'utskrifter': 'Programmering 1 - Utskrifter',
             'ifsatser': 'Programmering 1 - If-satser',
-            'loopar': 'Programmering 1 - Iterationer / Loopar',
+            'loopar': 'Programmering 1 - Loopar',
             'arrays': 'Programmering 1 - Arrays'
         };
 
@@ -464,19 +464,19 @@ class MarkdownLoader {
     renderPageHeader(pageName) {
         const headers = {
             'variabler': `
-                <div class="hero-gradient-blue text-white rounded-2xl p-12 mb-12">
+                <div class="hero-gradient-green text-white rounded-2xl p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
-                            <h1 class="text-4xl font-bold text-white mb-4">🧠 Variabler / Minnesplatser</h1>
-                            <p class="text-xl text-blue-100 mb-6">Lär dig lagra och manipulera data i Java</p>
+                            <h1 class="text-4xl font-bold text-white mb-4">🧠 Variabler </h1>
+                            <p class="text-xl mb-6" style="color: #F5F5DC;">Lär dig lagra och manipulera data i Java</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                                <span class="bg-blue-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">int, String, double</span>
-                                <span class="bg-blue-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Scanner</span>
-                                <span class="bg-blue-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Datalagring</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #8B4513; background-opacity: 0.5; color: white;">int, String, double</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #8B4513; background-opacity: 0.5; color: white;">Scanner</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #8B4513; background-opacity: 0.5; color: white;">Datalagring</span>
                             </div>
                         </div>
                         <div class="lg:flex-shrink-0">
-                            <div class="w-64 h-48 bg-blue-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
+                            <div class="w-64 h-48 rounded-lg border-4 flex items-center justify-center" style="background-color: #8B4513; background-opacity: 0.3; border-color: rgba(255,255,255,0.2);">
                                 <span class="text-6xl">🧠</span>
                             </div>
                         </div>
@@ -484,15 +484,15 @@ class MarkdownLoader {
                 </div>
             `,
             'utskrifter': `
-                <div class="hero-gradient-purple text-white rounded-2xl p-12 mb-12">
+                <div class="hero-gradient-green text-white rounded-2xl p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
                             <h1 class="text-4xl font-bold text-white mb-4">📺 Utskrifter i Java</h1>
-                            <p class="text-xl text-purple-100 mb-6">Kommunicera med användaren genom text och grafik</p>
+                            <p class="text-xl mb-6" style="color: #F5F5DC;">Kommunicera med användaren genom text och grafik</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                                <span class="bg-purple-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">System.out.println()</span>
-                                <span class="bg-purple-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Unicode</span>
-                                <span class="bg-purple-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Formatering</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #87A96B; background-opacity: 0.5; color: white;">System.out.println()</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #87A96B; background-opacity: 0.5; color: white;">Unicode</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #87A96B; background-opacity: 0.5; color: white;">Formatering</span>
                             </div>
                         </div>
                         
@@ -523,7 +523,7 @@ class MarkdownLoader {
                 <div class="hero-gradient-indigo text-white rounded-2xl p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
-                            <h1 class="text-4xl font-bold text-white mb-4">🔄 Iterationer / Loopar</h1>
+                            <h1 class="text-4xl font-bold text-white mb-4">🔄 Loopar</h1>
                             <p class="text-xl text-indigo-100 mb-6">Upprepa kod effektivt med for, while och do-while</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
                                 <span class="bg-indigo-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">for-loop</span>
@@ -569,8 +569,8 @@ class MarkdownLoader {
      */
     renderNavigation(currentPage) {
         const pages = [
-            { name: 'utskrifter', title: 'Utskrifter', emoji: '📺', color: 'purple' },
-            { name: 'variabler', title: 'Variabler', emoji: '🧠', color: 'blue' },
+            { name: 'utskrifter', title: 'Utskrifter', emoji: '📺', color: 'green' },
+            { name: 'variabler', title: 'Variabler', emoji: '🧠', color: 'orange' },
             { name: 'ifsatser', title: 'If-satser', emoji: '🔀', color: 'orange' },
             { name: 'loopar', title: 'Loopar', emoji: '🔄', color: 'indigo' },
             { name: 'arrays', title: 'Arrays', emoji: '📊', color: 'teal' }
@@ -596,8 +596,8 @@ class MarkdownLoader {
      */
     renderFooterLinks(currentPage) {
         const pages = [
-            { name: 'utskrifter', title: 'Utskrifter', color: 'purple' },
-            { name: 'variabler', title: 'Variabler', color: 'blue' },
+            { name: 'utskrifter', title: 'Utskrifter', color: 'green' },
+            { name: 'variabler', title: 'Variabler', color: 'orange' },
             { name: 'ifsatser', title: 'If-satser', color: 'orange' },
             { name: 'loopar', title: 'Loopar', color: 'indigo' },
             { name: 'arrays', title: 'Arrays', color: 'teal' }
@@ -620,19 +620,19 @@ class MarkdownLoader {
         const videoContent = {
             'ifsatser': `
                 <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-blue-900">Vid 8 - Variabler som koncept</h4>
-                            <button onclick="toggleDescription('desc8')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                            <h4 class="font-semibold" style="color: #2F2F2F;">Vid 8 - Variabler som koncept</h4>
+                            <button onclick="toggleDescription('desc8')" class="transition-colors" style="color: #8B4513; hover:color: #CD853F;">
                                 <svg id="arrow8" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc8" class="hidden text-blue-800 text-sm mb-3">I denna video pratar jag och visar exempel på programmeringens kanske viktigaste byggsten. Förhoppningen med denna video är att det skall bli lättare att förstå varför vi använder oss av Variablar inom programmering.</div>
+                        <div id="desc8" class="hidden style="color: #2F2F2F;" text-sm mb-3">I denna video pratar jag och visar exempel på programmeringens kanske viktigaste byggsten. Förhoppningen med denna video är att det skall bli lättare att förstå varför vi använder oss av Variablar inom programmering.</div>
                         <a href="https://www.youtube.com/watch?v=4VXf87Xi7Wc&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=8" 
                            target="_blank" 
-                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #8B4513;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/4VXf87Xi7Wc/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -644,19 +644,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-blue-900">Vid 9 - Variabler och hur man skapar och använder dem</h4>
-                            <button onclick="toggleDescription('desc9')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 9 - Variabler och hur man skapar och använder dem</h4>
+                            <button onclick="toggleDescription('desc9')" class="style="color: #8B4513;" onmouseover="this.style.color='#CD853F'" onmouseout="this.style.color='#8B4513'" transition-colors">
                                 <svg id="arrow9" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc9" class="hidden text-blue-800 text-sm mb-3">I denna video bygger jag vidare på konceptet Variabler och visar hur man skapar dessa med kod, och sedan använder sig av dem.</div>
+                        <div id="desc9" class="hidden style="color: #2F2F2F;" text-sm mb-3">I denna video bygger jag vidare på konceptet Variabler och visar hur man skapar dessa med kod, och sedan använder sig av dem.</div>
                         <a href="https://www.youtube.com/watch?v=wwhqgfw_gYE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=9" 
                            target="_blank" 
-                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #8B4513;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/wwhqgfw_gYE/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -668,19 +668,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-blue-900">Vid 10 - Variabler och Scanner</h4>
-                            <button onclick="toggleDescription('desc10')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 10 - Variabler och Scanner</h4>
+                            <button onclick="toggleDescription('desc10')" class="style="color: #8B4513;" onmouseover="this.style.color='#CD853F'" onmouseout="this.style.color='#8B4513'" transition-colors">
                                 <svg id="arrow10" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc10" class="hidden text-blue-800 text-sm mb-3">I denna video försöker jag knyta ihop 3 koncept som jag har gått igenom i videorna innan och visar hur allt hänger ihop. Variabler, Scanner, och System.out.Println</div>
+                        <div id="desc10" class="hidden style="color: #2F2F2F;" text-sm mb-3">I denna video försöker jag knyta ihop 3 koncept som jag har gått igenom i videorna innan och visar hur allt hänger ihop. Variabler, Scanner, och System.out.Println</div>
                         <a href="https://www.youtube.com/watch?v=ReIa3r_b2z4&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=10" 
                            target="_blank" 
-                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #8B4513;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/ReIa3r_b2z4/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -724,19 +724,19 @@ class MarkdownLoader {
             `,
             'utskrifter': `
                 <div class="space-y-4">
-                    <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-purple-900">Vid 1 - Introduktion</h4>
-                            <button onclick="toggleDescription('desc1')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 1 - Introduktion</h4>
+                            <button onclick="toggleDescription('desc1')" class="style="color: #87A96B;" onmouseover="this.style.color='#8B4513'" onmouseout="this.style.color='#87A96B'" transition-colors">
                                 <svg id="arrow1" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc1" class="hidden text-purple-800 text-sm mb-3">I denna video presenterar jag mig själv och vad tanken med dessa videos är. Om ni ser något i någon av de videos som jag skapat som är konstigt eller fel får ni gärna kommentera videon. </div>
+                        <div id="desc1" class="hidden style="color: #2F2F2F;" text-sm mb-3">I denna video presenterar jag mig själv och vad tanken med dessa videos är. Om ni ser något i någon av de videos som jag skapat som är konstigt eller fel får ni gärna kommentera videon. </div>
                         <a href="https://www.youtube.com/watch?v=2KLolyXLdVk&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=1" 
                            target="_blank" 
-                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #87A96B;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/2KLolyXLdVk/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -748,19 +748,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-purple-900">Vid 2 - Installation av IntelliJ</h4>
-                            <button onclick="toggleDescription('desc2')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 2 - Installation av IntelliJ</h4>
+                            <button onclick="toggleDescription('desc2')" class="style="color: #87A96B;" onmouseover="this.style.color='#8B4513'" onmouseout="this.style.color='#87A96B'" transition-colors">
                                 <svg id="arrow2" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc2" class="hidden text-purple-800 text-sm mb-3">I denna video går jag igenom Intellij som är en IDE för att skriva Java kod. Jag visar hur man installerar Intellij och pratar lite om programmet.</div>
+                        <div id="desc2" class="hidden style="color: #2F2F2F;" text-sm mb-3">I denna video går jag igenom Intellij som är en IDE för att skriva Java kod. Jag visar hur man installerar Intellij och pratar lite om programmet.</div>
                         <a href="https://www.youtube.com/watch?v=oV_fPt2FXcg&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=2" 
                            target="_blank" 
-                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #87A96B;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/oV_fPt2FXcg/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -772,19 +772,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-purple-900">Vid 3 - Genomgång av IntelliJ</h4>
-                            <button onclick="toggleDescription('desc3')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 3 - Genomgång av IntelliJ</h4>
+                            <button onclick="toggleDescription('desc3')" class="style="color: #87A96B;" onmouseover="this.style.color='#8B4513'" onmouseout="this.style.color='#87A96B'" transition-colors">
                                 <svg id="arrow3" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc3" class="hidden text-purple-800 text-sm mb-3">I denna Video går jag igenom de olika fönstren man kan hitta i IntelliJ och förklarar deras användningsområden.</div>
+                        <div id="desc3" class="hidden style="color: #2F2F2F;" text-sm mb-3">I denna Video går jag igenom de olika fönstren man kan hitta i IntelliJ och förklarar deras användningsområden.</div>
                         <a href="https://www.youtube.com/watch?v=RcYz60rj5Q4&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=3" 
                            target="_blank" 
-                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #87A96B;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/RcYz60rj5Q4/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -796,19 +796,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-purple-900">Vid 4 - Genomgång av Koden i startprojektet</h4>
-                            <button onclick="toggleDescription('desc4')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 4 - Genomgång av Koden i startprojektet</h4>
+                            <button onclick="toggleDescription('desc4')" class="style="color: #87A96B;" onmouseover="this.style.color='#8B4513'" onmouseout="this.style.color='#87A96B'" transition-colors">
                                 <svg id="arrow4" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc4" class="hidden text-purple-800 text-sm mb-3">I denna video går jag igenom den kod vi ser framför oss i IntelliJ när vi har bett IntelliJ generera lite samplekod.</div>
+                        <div id="desc4" class="hidden style="color: #2F2F2F;" text-sm mb-3">I denna video går jag igenom den kod vi ser framför oss i IntelliJ när vi har bett IntelliJ generera lite samplekod.</div>
                         <a href="https://www.youtube.com/watch?v=3Po3tLIP1o4&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=4" 
                            target="_blank" 
-                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #87A96B;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/3Po3tLIP1o4/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -820,19 +820,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-purple-900">Vid 5 - Att Skriva ut text i Consolen</h4>
-                            <button onclick="toggleDescription('desc5')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 5 - Att Skriva ut text i Consolen</h4>
+                            <button onclick="toggleDescription('desc5')" class="style="color: #87A96B;" onmouseover="this.style.color='#8B4513'" onmouseout="this.style.color='#87A96B'" transition-colors">
                                 <svg id="arrow5" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc5" class="hidden text-purple-800 text-sm mb-3">I denna Video går jag igenom olika sätt att skriva ut Nummer och text i terminal fönstret i IntelliJ.</div>
+                        <div id="desc5" class="hidden style="color: #2F2F2F;" text-sm mb-3">I denna Video går jag igenom olika sätt att skriva ut Nummer och text i terminal fönstret i IntelliJ.</div>
                         <a href="https://www.youtube.com/watch?v=CN8L23L3_Wk&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=5" 
                            target="_blank" 
-                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #87A96B;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/CN8L23L3_Wk/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -844,19 +844,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-purple-900">Vid 6 - Att Skriva in text till Consolen</h4>
-                            <button onclick="toggleDescription('desc6')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 6 - Att Skriva in text till Consolen</h4>
+                            <button onclick="toggleDescription('desc6')" class="style="color: #87A96B;" onmouseover="this.style.color='#8B4513'" onmouseout="this.style.color='#87A96B'" transition-colors">
                                 <svg id="arrow6" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc6" class="hidden text-purple-800 text-sm mb-3">Om man vill kunna mata in text till terminalen i Java måste man använda sig av något som heter Scanner. I denna video går jag igenom vad Scanner är för något och hur man använder sig av denna.</div>
+                        <div id="desc6" class="hidden style="color: #2F2F2F;" text-sm mb-3">Om man vill kunna mata in text till terminalen i Java måste man använda sig av något som heter Scanner. I denna video går jag igenom vad Scanner är för något och hur man använder sig av denna.</div>
                         <a href="https://www.youtube.com/watch?v=lC70-P36NNE&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=6" 
                            target="_blank" 
-                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #87A96B;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/lC70-P36NNE/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -868,19 +868,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-purple-900">Vid 7 - Kommentarer i kod</h4>
-                            <button onclick="toggleDescription('desc7')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 7 - Kommentarer i kod</h4>
+                            <button onclick="toggleDescription('desc7')" class="style="color: #87A96B;" onmouseover="this.style.color='#8B4513'" onmouseout="this.style.color='#87A96B'" transition-colors">
                                 <svg id="arrow7" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc7" class="hidden text-purple-800 text-sm mb-3">Att kommentera den kod man skriver kan ofta vara en bra sak. I denna video går jag igenom hur man skriver kommentarer och deras vanligaste syfte.</div>
+                        <div id="desc7" class="hidden style="color: #2F2F2F;" text-sm mb-3">Att kommentera den kod man skriver kan ofta vara en bra sak. I denna video går jag igenom hur man skriver kommentarer och deras vanligaste syfte.</div>
                         <a href="https://www.youtube.com/watch?v=n7hRQ3qT92Q&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=7" 
                            target="_blank" 
-                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #87A96B;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/n7hRQ3qT92Q/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -896,19 +896,19 @@ class MarkdownLoader {
             `,
             'loopar': `
                 <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-blue-900">Vid 16 - While Loopen</h4>
-                            <button onclick="toggleDescription('desc16')" class="text-blue-600 hover:text-blue-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 16 - While Loopen</h4>
+                            <button onclick="toggleDescription('desc16')" class="style="color: #8B4513;" onmouseover="this.style.color='#CD853F'" onmouseout="this.style.color='#8B4513'" transition-colors">
                                 <svg id="arrow16" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc16" class="hidden text-blue-800 text-sm mb-3">Det som är det fina med datorer är att de är oerhört duktiga på att göra saker flera gånger. För att få en datorer att göra något flera gånger med kod använder vi olika loopar! I denna videon går jag igenom While loopen.</div>
+                        <div id="desc16" class="hidden style="color: #2F2F2F;" text-sm mb-3">Det som är det fina med datorer är att de är oerhört duktiga på att göra saker flera gånger. För att få en datorer att göra något flera gånger med kod använder vi olika loopar! I denna videon går jag igenom While loopen.</div>
                         <a href="https://www.youtube.com/watch?v=oA_3B3dt98U&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=16" 
                            target="_blank" 
-                           class="block bg-blue-100 hover:bg-blue-200 p-3 rounded text-blue-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #8B4513;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/oA_3B3dt98U/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -944,19 +944,19 @@ class MarkdownLoader {
                             </div>
                         </a>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="style="background-color: #F0F8F0;" p-4 rounded-lg">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-purple-900">Vid 18 - Nästlade IfSatser och Loopar</h4>
-                            <button onclick="toggleDescription('desc18')" class="text-purple-600 hover:text-purple-800 transition-colors">
+                            <h4 class="font-semibold style="color: #2F2F2F;"">Vid 18 - Nästlade IfSatser och Loopar</h4>
+                            <button onclick="toggleDescription('desc18')" class="style="color: #87A96B;" onmouseover="this.style.color='#8B4513'" onmouseout="this.style.color='#87A96B'" transition-colors">
                                 <svg id="arrow18" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="desc18" class="hidden text-purple-800 text-sm mb-3">Loopar inuti Loopar, If satser inuti Ifsatser, Kod inuti kod osv, detta är lite som filmen Matrix eller filmen inception. I denna video går jag igenom konceptet saker inuti saker inom programmering.</div>
+                        <div id="desc18" class="hidden style="color: #2F2F2F;" text-sm mb-3">Loopar inuti Loopar, If satser inuti Ifsatser, Kod inuti kod osv, detta är lite som filmen Matrix eller filmen inception. I denna video går jag igenom konceptet saker inuti saker inom programmering.</div>
                         <a href="https://www.youtube.com/watch?v=ED7G1VK9CUc&list=PLXzzre03aIAcDVKlWEwUX-WWWGSj9zRln&index=18" 
                            target="_blank" 
-                           class="block bg-purple-100 hover:bg-purple-200 p-3 rounded text-purple-700 text-xs transition-colors">
+                           class="block style="background-color: #F5F5DC;" onmouseover="this.style.backgroundColor='#F0F8F0'" onmouseout="this.style.backgroundColor='#F5F5DC'" p-3 rounded style="color: #87A96B;" text-xs transition-colors">
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/ED7G1VK9CUc/mqdefault.jpg" 
                                      alt="Video thumbnail" 
@@ -1293,22 +1293,22 @@ style.textContent = `
     }
     
     .hero-gradient-blue {
-        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);
     }
     .hero-gradient-purple {
-        background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+        background: linear-gradient(135deg, #87A96B 0%, #8B4513 100%);
     }
     .hero-gradient-green {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        background: linear-gradient(135deg, #87A96B 0%, #8B4513 100%);
     }
     .hero-gradient-orange {
-        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        background: linear-gradient(135deg, #CD853F 0%, #87A96B 100%);
     }
     .hero-gradient-indigo {
-        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        background: linear-gradient(135deg, #8B4513 0%, #87A96B 100%);
     }
     .hero-gradient-teal {
-        background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+        background: linear-gradient(135deg, #CD853F 0%, #8B4513 100%);
     }
     
     /* Terminal styling */
