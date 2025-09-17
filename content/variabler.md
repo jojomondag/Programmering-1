@@ -1,4 +1,4 @@
-# Variabler / Minnesplatser
+# Variabler
 
 ## Introduktion
 
