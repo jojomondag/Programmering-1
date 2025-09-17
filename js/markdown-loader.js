@@ -41,9 +41,9 @@ class MarkdownLoader {
             return htmlContent;
         } catch (error) {
             console.error('Error loading markdown content:', error);
-            return `<div class="bg-red-50 border-l-4 border-red-500 p-4">
-                <p class="text-red-800">Kunde inte ladda innehåll från ${filename}.md</p>
-                <p class="text-red-600 text-sm mt-1">Fel: ${error.message}</p>
+            return `<div class="theme-alert-error p-4">
+                <p class="theme-alert-error-title">Kunde inte ladda innehåll från ${filename}.md</p>
+                <p class="theme-alert-error-desc text-sm mt-1">Fel: ${error.message}</p>
             </div>`;
         }
     }
@@ -104,7 +104,7 @@ class MarkdownLoader {
                     codeBlocks.push(`<div class="demo-grid mb-8">
 <div class="code-container relative">
 <button onclick="copyCode(this)" class="copy-button">Kopiera</button>
-<pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto h-full">
+<pre class="theme-codeblock p-4 rounded-lg overflow-x-auto h-full">
 <code class="${langClass} font-mono">${this.escapeHtml(javaCode)}</code>
 </pre>
 </div>
@@ -169,7 +169,7 @@ class MarkdownLoader {
                 }
                 codeBlocks.push(`<div class="code-container relative mb-6">
 <button onclick="copyCode(this)" class="copy-button">Kopiera</button>
-<pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+<pre class="theme-codeblock p-4 rounded-lg overflow-x-auto">
 <code class="${langClass} font-mono">${this.escapeHtml(cleanCode)}</code>
 </pre>
 </div>`);
@@ -178,14 +178,14 @@ class MarkdownLoader {
         });
 
         // Headers (process from most specific to least specific)
-        html = html.replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold text-gray-900 mb-3 mt-5">$1</h4>');
-        html = html.replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 mb-4 mt-6">$1</h3>');
-        html = html.replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 mb-6 mt-8">$1</h2>');
-        html = html.replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-gray-900 mb-8 mt-8">$1</h1>');
+    html = html.replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold theme-text-heading mb-3 mt-5">$1</h4>');
+    html = html.replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold theme-text-heading mb-4 mt-6">$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold theme-text-heading mb-6 mt-8">$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold theme-text-heading mb-8 mt-8">$1</h1>');
 
         // Bold and italic
-        html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>');
-        html = html.replace(/\*(.*?)\*/g, '<em class="italic text-gray-800">$1</em>');
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
+    html = html.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
 
         // Images - ![alt text](image path)
         html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
@@ -193,16 +193,16 @@ class MarkdownLoader {
             const imagePath = src.startsWith('http') ? src : src;
             return `<div class="text-center my-6">
                 <img src="${imagePath}" alt="${alt}" 
-                     class="max-w-full h-auto rounded-lg shadow-md border border-gray-200 mx-auto hover:shadow-lg transition-shadow duration-300">
-                ${alt ? `<p class="text-sm style="color: #8B8680;" mt-2 italic">${alt}</p>` : ''}
+                     class="max-w-full h-auto rounded-lg shadow-md border theme-image-border mx-auto hover:shadow-lg transition-shadow duration-300">
+                ${alt ? `<p class="text-sm caption mt-2 italic">${alt}</p>` : ''}
             </div>`;
         });
 
     // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="hover:underline" style="color: #8B4513;">$1</a>');
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="theme-link">$1</a>');
 
         // Inline code
-        html = html.replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono">$1</code>');
+    html = html.replace(/`([^`]+)`/g, '<code class="theme-inline-code px-2 py-1 rounded text-sm font-mono">$1</code>');
 
         // Tables - more robust approach using line-by-line processing
         const lines = html.split('\n');
@@ -234,10 +234,10 @@ class MarkdownLoader {
                             row.replace(/\\\|/g, '&#124;').split('|').map(cell => cell.trim()).filter(cell => cell)
                         );
                         
-                        let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse border border-gray-300">';
-                        tableHtml += '<thead style="background-color: #F5F5DC;"><tr>';
+                        let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse theme-table">';
+                        tableHtml += '<thead class="theme-table-head"><tr>';
                         headerCells.forEach(cell => {
-                            tableHtml += `<th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-900">${cell}</th>`;
+                            tableHtml += `<th class="theme-table-th">${cell}</th>`;
                         });
                         tableHtml += '</tr></thead><tbody>';
                         
@@ -246,7 +246,7 @@ class MarkdownLoader {
                                 tableHtml += '<tr>';
                                 row.forEach((cell, index) => {
                                     if (index < headerCells.length) {
-                                        tableHtml += `<td class="border border-gray-300 px-4 py-2 text-gray-700">${cell}</td>`;
+                                        tableHtml += `<td class="theme-table-td">${cell}</td>`;
                                     }
                                 });
                                 tableHtml += '</tr>';
@@ -268,30 +268,30 @@ class MarkdownLoader {
         html = processedLines.join('\n');
 
         // Blockquotes
-        html = html.replace(/^> (.+)$/gm, '<blockquote class="border-l-4 border-yellow-400 bg-yellow-50 p-4 italic mb-4 text-gray-700">$1</blockquote>');
+    html = html.replace(/^> (.+)$/gm, '<blockquote class="theme-blockquote italic mb-4">$1<\/blockquote>');
 
         // Lists - handle unordered (-, *) and ordered (1., 2.) items
         // Unordered list items
-        html = html.replace(/^\s*[-*] (.+)$/gm, '<li data-ul="1" class="text-gray-700 mb-2">$1<\/li>');
+    html = html.replace(/^\s*[-*] (.+)$/gm, '<li data-ul="1" class="theme-list-item mb-2">$1<\/li>');
 
         // Ordered list items (supports 1. item or 1) item)
-        html = html.replace(/^\s*\d+[\.)] (.+)$/gm, '<li data-ol="1" class="text-gray-700 mb-2">$1<\/li>');
+    html = html.replace(/^\s*\d+[\.)] (.+)$/gm, '<li data-ol="1" class="theme-list-item mb-2">$1<\/li>');
 
         // Wrap consecutive unordered list items in <ul>
         html = html.replace(/(<li[^>]*data-ul="1"[^>]*>[\s\S]*?<\/li>(?:\s*<li[^>]*data-ul="1"[^>]*>[\s\S]*?<\/li>)*)/g, (match) => {
-            return `<ul class="list-disc list-inside space-y-2 mb-6 ml-4">${match}<\/ul>`;
+            return `<ul class="theme-ul space-y-2 mb-6 ml-4">${match}<\/ul>`;
         });
 
         // Wrap consecutive ordered list items in <ol>
         html = html.replace(/(<li[^>]*data-ol="1"[^>]*>[\s\S]*?<\/li>(?:\s*<li[^>]*data-ol="1"[^>]*>[\s\S]*?<\/li>)*)/g, (match) => {
-            return `<ol class="list-decimal list-inside space-y-2 mb-6 ml-4">${match}<\/ol>`;
+            return `<ol class="theme-ol space-y-2 mb-6 ml-4">${match}<\/ol>`;
         });
 
     // Ensure content after a list starts a new paragraph
     html = html.replace(/(<\/ul>|<\/ol>)(\s*)(?=\S)/g, '$1\n\n');
 
     // Handle emoji and special formatting
-        html = html.replace(/^(\*.*?\*)$/gm, '<p class="style="color: #8B8680;" italic mb-4">$1</p>');
+           html = html.replace(/^(\*.*?\*)$/gm, '<p class="theme-caption italic mb-4">$1</p>');
 
         // Convert line breaks to paragraphs
         html = html.split('\n\n').map(paragraph => {
@@ -303,7 +303,7 @@ class MarkdownLoader {
                 !paragraph.includes('<ol') && 
                 !paragraph.includes('<blockquote') &&
                 !paragraph.includes('___CODE_BLOCK_')) {
-                return `<p class="mb-4 text-gray-700 leading-relaxed">${paragraph}</p>`;
+                return `<p class="theme-paragraph mb-4 leading-relaxed">${paragraph}</p>`;
             }
             return paragraph;
         }).join('\n');
@@ -370,18 +370,18 @@ class MarkdownLoader {
     basicMarkdownToHtml(markdown) {
         let html = markdown
             // Headers (process from most specific to least specific)
-            .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold text-gray-900 mb-3 mt-5">$1</h4>')
-            .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 mb-4 mt-6">$1</h3>')
-            .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 mb-6 mt-8">$1</h2>')
-            .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-gray-900 mb-8">$1</h1>')
+            .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold theme-text-heading mb-3 mt-5">$1</h4>')
+            .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold theme-text-heading mb-4 mt-6">$1</h3>')
+            .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold theme-text-heading mb-6 mt-8">$1</h2>')
+            .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold theme-text-heading mb-8">$1</h1>')
             
             // Code blocks
-            .replace(/```java\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto"><code class="language-java">$1</code></pre></div>')
-            .replace(/```(.*?)\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto"><code class="language-$1">$2</code></pre></div>')
-            .replace(/```\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto"><code>$1</code></pre></div>')
+            .replace(/```java\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="theme-codeblock p-4 rounded-lg overflow-x-auto"><code class="language-java">$1</code></pre></div>')
+            .replace(/```(.*?)\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="theme-codeblock p-4 rounded-lg overflow-x-auto"><code class="language-$1">$2</code></pre></div>')
+            .replace(/```\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="theme-codeblock p-4 rounded-lg overflow-x-auto"><code>$1</code></pre></div>')
             
             // Inline code
-            .replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm">$1</code>')
+            .replace(/`([^`]+)`/g, '<code class="theme-inline-code">$1</code>')
             
             // Bold and italic
             .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
@@ -394,17 +394,17 @@ class MarkdownLoader {
                     row.split('|').map(cell => cell.trim()).filter(cell => cell)
                 );
                 
-                let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse border border-gray-300">';
-                tableHtml += '<thead style="background-color: #F5F5DC;"><tr>';
+                let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse theme-table">';
+                tableHtml += '<thead class="theme-table-head"><tr>';
                 headerCells.forEach(cell => {
-                    tableHtml += `<th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-900">${cell}</th>`;
+                    tableHtml += `<th class="theme-table-th">${cell}</th>`;
                 });
                 tableHtml += '</tr></thead><tbody>';
                 
                 rowsArray.forEach(row => {
                     tableHtml += '<tr>';
                     row.forEach(cell => {
-                        tableHtml += `<td class="border border-gray-300 px-4 py-2">${cell}</td>`;
+                        tableHtml += `<td class="theme-table-td">${cell}</td>`;
                     });
                     tableHtml += '</tr>';
                 });
@@ -418,11 +418,11 @@ class MarkdownLoader {
             .replace(/^- (.+)$/gm, '<li class="mb-2">$1</li>')
             
             // Blockquotes
-            .replace(/^> (.+)$/gm, '<blockquote class="border-l-4 border-yellow-400 bg-yellow-50 p-4 italic mb-4">$1</blockquote>')
+            .replace(/^> (.+)$/gm, '<blockquote class="border-l-4 p-4 italic mb-4">$1</blockquote>')
             
             // Paragraphs
             .replace(/\n\n/g, '</p><p class="mb-4">')
-            .replace(/^\*(.+?)\*$/gm, '<p class="style="color: #8B8680;" italic mb-4">$1</p>');
+            .replace(/^\*(.+?)\*$/gm, '<p class="caption italic mb-4">$1</p>');
 
         // Wrap in paragraphs and handle lists
         html = '<p class="mb-4">' + html + '</p>';
@@ -464,19 +464,19 @@ class MarkdownLoader {
     renderPageHeader(pageName) {
         const headers = {
             'variabler': `
-                <div class="hero-gradient-green text-white rounded-2xl p-12 mb-12">
+                <div class="hero-gradient rounded-2xl p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
-                            <h1 class="text-4xl font-bold text-white mb-4">🧠 Variabler </h1>
-                            <p class="text-xl mb-6" style="color: #F5F5DC;">Lär dig lagra och manipulera data i Java</p>
+                            <h1 class="text-4xl font-bold mb-4">🧠 Variabler </h1>
+                            <p class="text-xl mb-6">Lär dig lagra och manipulera data i Java</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #8B4513; background-opacity: 0.5; color: white;">int, String, double</span>
-                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #8B4513; background-opacity: 0.5; color: white;">Scanner</span>
-                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #8B4513; background-opacity: 0.5; color: white;">Datalagring</span>
+                                <span class="badge">int, String, double</span>
+                                <span class="badge">Scanner</span>
+                                <span class="badge">Datalagring</span>
                             </div>
                         </div>
                         <div class="lg:flex-shrink-0">
-                            <div class="w-64 h-48 rounded-lg border-4 flex items-center justify-center" style="background-color: #8B4513; background-opacity: 0.3; border-color: rgba(255,255,255,0.2);">
+                            <div class="w-64 h-48 hero-box rounded-lg flex items-center justify-center">
                                 <span class="text-6xl">🧠</span>
                             </div>
                         </div>
@@ -484,15 +484,15 @@ class MarkdownLoader {
                 </div>
             `,
             'utskrifter': `
-                <div class="hero-gradient-green text-white rounded-2xl p-12 mb-12">
+                <div class="hero-gradient rounded-2xl p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
-                            <h1 class="text-4xl font-bold text-white mb-4">📺 Utskrifter i Java</h1>
-                            <p class="text-xl mb-6" style="color: #F5F5DC;">Kommunicera med användaren genom text och grafik</p>
+                            <h1 class="text-4xl font-bold mb-4">📺 Utskrifter i Java</h1>
+                            <p class="text-xl mb-6">Kommunicera med användaren genom text och grafik</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #87A96B; background-opacity: 0.5; color: white;">System.out.println()</span>
-                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #87A96B; background-opacity: 0.5; color: white;">Unicode</span>
-                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: #87A96B; background-opacity: 0.5; color: white;">Formatering</span>
+                                <span class="badge">System.out.println()</span>
+                                <span class="badge">Unicode</span>
+                                <span class="badge">Formatering</span>
                             </div>
                         </div>
                         
@@ -500,19 +500,19 @@ class MarkdownLoader {
                 </div>
             `,
             'ifsatser': `
-                <div class="hero-gradient-orange text-white rounded-2xl p-12 mb-12">
+                <div class="hero-gradient rounded-2xl p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
-                            <h1 class="text-4xl font-bold text-white mb-4">🔀 If-satser</h1>
-                            <p class="text-xl text-orange-100 mb-6">Lär dig få programmet att välja mellan olika alternativ</p>
+                            <h1 class="text-4xl font-bold mb-4">🔀 If-satser</h1>
+                            <p class="text-xl mb-6">Lär dig få programmet att välja mellan olika alternativ</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                                <span class="bg-orange-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">if-else</span>
-                                <span class="bg-orange-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Villkor</span>
-                                <span class="bg-orange-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Relationsoperatorer</span>
+                                <span class="badge">if-else</span>
+                                <span class="badge">Villkor</span>
+                                <span class="badge">Relationsoperatorer</span>
                             </div>
                         </div>
                         <div class="lg:flex-shrink-0">
-                            <div class="w-64 h-48 bg-orange-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
+                            <div class="w-64 h-48 hero-box rounded-lg flex items-center justify-center">
                                 <span class="text-6xl" aria-hidden="true">🔀</span>
                             </div>
                         </div>
@@ -520,19 +520,19 @@ class MarkdownLoader {
                 </div>
             `,
             'loopar': `
-                <div class="hero-gradient-indigo text-white rounded-2xl p-12 mb-12">
+                <div class="hero-gradient rounded-2xl p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
-                            <h1 class="text-4xl font-bold text-white mb-4">🔄 Loopar</h1>
-                            <p class="text-xl text-indigo-100 mb-6">Upprepa kod effektivt med for, while och do-while</p>
+                            <h1 class="text-4xl font-bold mb-4">🔄 Loopar</h1>
+                            <p class="text-xl mb-6">Upprepa kod effektivt med for, while och do-while</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                                <span class="bg-indigo-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">for-loop</span>
-                                <span class="bg-indigo-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">while & do-while</span>
-                                <span class="bg-indigo-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Nästlade loopar</span>
+                                <span class="badge">for-loop</span>
+                                <span class="badge">while & do-while</span>
+                                <span class="badge">Nästlade loopar</span>
                             </div>
                         </div>
                         <div class="lg:flex-shrink-0">
-                            <div class="w-64 h-48 bg-indigo-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
+                            <div class="w-64 h-48 hero-box rounded-lg flex items-center justify-center">
                                 <span class="text-6xl">🔄</span>
                             </div>
                         </div>
@@ -540,19 +540,19 @@ class MarkdownLoader {
                 </div>
             `,
             'arrays': `
-                <div class="hero-gradient-teal text-white rounded-2xl p-12 mb-12">
+                <div class="hero-gradient rounded-2xl p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
-                            <h1 class="text-4xl font-bold text-white mb-4">📊 Arrays</h1>
-                            <p class="text-xl text-teal-100 mb-6">Lagra och hantera samlingar av data effektivt</p>
+                            <h1 class="text-4xl font-bold mb-4">📊 Arrays</h1>
+                            <p class="text-xl mb-6">Lagra och hantera samlingar av data effektivt</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                                <span class="bg-teal-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Array-deklaration</span>
-                                <span class="bg-teal-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Index & length</span>
-                                <span class="bg-teal-600 bg-opacity-50 px-3 py-1 rounded-full text-sm">Sortering</span>
+                                <span class="badge">Array-deklaration</span>
+                                <span class="badge">Index & length</span>
+                                <span class="badge">Sortering</span>
                             </div>
                         </div>
                         <div class="lg:flex-shrink-0">
-                            <div class="w-64 h-48 bg-teal-600 bg-opacity-30 rounded-lg border-4 border-white border-opacity-20 flex items-center justify-center">
+                            <div class="w-64 h-48 hero-box rounded-lg flex items-center justify-center">
                                 <span class="text-6xl">📊</span>
                             </div>
                         </div>
@@ -579,10 +579,10 @@ class MarkdownLoader {
         let nav = '<nav class="flex flex-wrap justify-center gap-4 mb-8">';
         pages.forEach(page => {
             const isActive = page.name === currentPage;
-            const activeClass = isActive ? `bg-${page.color}-600 text-white` : `bg-white text-${page.color}-600 hover:bg-${page.color}-50`;
+            const classes = isActive ? 'nav-link nav-link--active' : 'nav-link';
             nav += `
                 <a href="${page.name}.html" 
-                   class="${activeClass} px-6 py-3 rounded-lg font-semibold border-2 border-${page.color}-600 transition-colors flex items-center space-x-2">
+                   class="${classes} px-6 py-3 rounded-lg font-semibold transition-colors flex items-center space-x-2">
                     <span>${page.emoji}</span>
                     <span>${page.title}</span>
                 </a>`;
@@ -606,11 +606,11 @@ class MarkdownLoader {
         let links = [];
         pages.forEach(page => {
             if (page.name !== currentPage) {
-                links.push(`<a href="${page.name}.html" class="text-${page.color}-600 hover:underline">${page.title}</a>`);
+                links.push(`<a href="${page.name}.html" class="theme-link">${page.title}</a>`);
             }
         });
 
-        return links.join('<span class="text-gray-300 mx-2">•</span>');
+    return links.join('<span class="caption mx-2">•</span>');
     }
 
     /**
@@ -1120,7 +1120,7 @@ class MarkdownLoader {
             `
         };
 
-        return videoContent[pageName] || '<p class="text-gray-500">Inget videoinnehåll tillgängligt.</p>';
+    return videoContent[pageName] || '<p class="caption">Inget videoinnehåll tillgängligt.</p>';
     }
 }
 
@@ -1388,24 +1388,12 @@ style.textContent = `
         }
     }
     
-    .hero-gradient-blue {
-        background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);
-    }
-    .hero-gradient-purple {
-        background: linear-gradient(135deg, #87A96B 0%, #8B4513 100%);
-    }
-    .hero-gradient-green {
-        background: linear-gradient(135deg, #87A96B 0%, #8B4513 100%);
-    }
-    .hero-gradient-orange {
-        background: linear-gradient(135deg, #CD853F 0%, #87A96B 100%);
-    }
-    .hero-gradient-indigo {
-        background: linear-gradient(135deg, #8B4513 0%, #87A96B 100%);
-    }
-    .hero-gradient-teal {
-        background: linear-gradient(135deg, #CD853F 0%, #8B4513 100%);
-    }
+    .hero-gradient-blue { background: linear-gradient(135deg, var(--c1-10), var(--c2-10)); }
+    .hero-gradient-purple { background: linear-gradient(135deg, var(--c2-10), var(--c3-10)); }
+    .hero-gradient-green { background: linear-gradient(135deg, var(--c2-10), var(--c3-10)); }
+    .hero-gradient-orange { background: linear-gradient(135deg, var(--c4-10), var(--c5-10)); }
+    .hero-gradient-indigo { background: linear-gradient(135deg, var(--c1-10), var(--c5-10)); }
+    .hero-gradient-teal { background: linear-gradient(135deg, var(--c1-10), var(--c2-10)); }
     
     /* Terminal styling */
     .demo-grid {
@@ -1421,73 +1409,17 @@ style.textContent = `
         }
     }
     
-    .terminal-container {
-        background: #1a1a1a;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        border: 1px solid #333;
-    }
-    
-    .terminal-header {
-        background: #2d2d2d;
-        padding: 8px 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid #333;
-    }
-    
-    .terminal-buttons {
-        display: flex;
-        gap: 6px;
-    }
-    
-    .terminal-button {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        display: inline-block;
-    }
-    
-    .terminal-button.close {
-        background: #ff5f56;
-    }
-    
-    .terminal-button.minimize {
-        background: #ffbd2e;
-    }
-    
-    .terminal-button.maximize {
-        background: #27ca3f;
-    }
-    
-    .terminal-title {
-        color: #ccc;
-        font-size: 12px;
-        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
-    }
-    
-    .terminal-body {
-        padding: 16px;
-        background: #1a1a1a;
-        min-height: 120px;
-    }
-    
-    .terminal-output {
-        color: #00ff00;
-        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
-        font-size: 14px;
-        line-height: 1.5;
-        margin: 0;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-    }
-    
-    .terminal-output::before {
-        content: "> ";
-        color: #00ff00;
-    }
+    .terminal-container { background: var(--c1-10); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid var(--c1); }
+    .terminal-header { background: var(--c1-20); padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--c1); }
+    .terminal-buttons { display: flex; gap: 6px; }
+    .terminal-button { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .terminal-button.close { background: var(--c5); }
+    .terminal-button.minimize { background: var(--c4); }
+    .terminal-button.maximize { background: var(--c3); }
+    .terminal-title { color: #000; font-size: 12px; font-family: 'SF Mono', 'Monaco', 'Consolas', monospace; }
+    .terminal-body { padding: 16px; background: var(--c1-10); min-height: 120px; }
+    .terminal-output { color: #000; font-family: 'SF Mono', 'Monaco', 'Consolas', monospace; font-size: 14px; line-height: 1.5; margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+    .terminal-output::before { content: "> "; color: #000; }
     
     /* Ensure code blocks have no unwanted indentation */
     .code-container pre {

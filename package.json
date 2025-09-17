@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "npx http-server -p 3001",
+    "start:3001": "http-server -p 3001",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

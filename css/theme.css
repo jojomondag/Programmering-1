@@ -1,0 +1,161 @@
+/* Global theme using provided palette */
+:root {
+  --c1: #0388A6; /* primary */
+  --c2: #03A6A6; /* secondary */
+  --c3: #A0A603; /* accent 1 */
+  --c4: #D9A407; /* accent 2 (warning) */
+  --c5: #D97925; /* accent 3 */
+
+  /* translucent tints */
+  --c1-10: rgba(3, 136, 166, 0.10);
+  --c1-20: rgba(3, 136, 166, 0.20);
+  --c2-10: rgba(3, 166, 166, 0.10);
+  --c2-20: rgba(3, 166, 166, 0.20);
+  --c3-10: rgba(160, 166, 3, 0.10);
+  --c3-20: rgba(160, 166, 3, 0.20);
+  --c4-10: rgba(217, 164, 7, 0.10);
+  --c4-20: rgba(217, 164, 7, 0.20);
+  --c5-10: rgba(217, 121, 37, 0.10);
+  --c5-20: rgba(217, 121, 37, 0.20);
+
+  --bg: #ffffff;
+  --text: #000000;
+}
+
+/* Base text + background */
+html, body { background: var(--bg); color: var(--text); }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* Force Tailwind gray text utilities to black (per requirement that all text is black) */
+.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600, .text-gray-500, .text-gray-400 { color: var(--text) !important; }
+
+/* Minimal fallback for Tailwind sizing utilities used by inline SVG icons
+  Ensures icons remain visible if the Tailwind CDN fails to load */
+.w-4 { width: 1rem; }
+.h-4 { height: 1rem; }
+.w-6 { width: 1.5rem; }
+.h-6 { height: 1.5rem; }
+
+/* Map common Tailwind backgrounds/borders (for generated content) to theme tints */
+.bg-gray-50 { background: var(--c1-10) !important; }
+.bg-gray-100 { background: var(--c2-10) !important; }
+.hover\:bg-gray-200:hover { background: var(--c2-20) !important; }
+.border-gray-200, .border-gray-300 { border-color: var(--c1-20) !important; }
+.text-gray-100 { color: #f8f8f2 !important; } /* align with Prism Tomorrow */
+.bg-gray-900 { background: #2d2d2d !important; } /* align with Prism Tomorrow */
+
+/* Links should be black by default; show underline on hover */
+a { color: var(--text); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Themed link helper (explicit) */
+.theme-link { color: var(--text); text-decoration: none; border-bottom: 1px solid transparent; }
+.theme-link:hover { text-decoration: underline; border-bottom-color: var(--c1-20); }
+.theme-link:focus { outline: 2px solid var(--c1-20); outline-offset: 2px; }
+
+/* Hero + feature styles using palette (kept light so black text remains readable) */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--c1-10), var(--c2-10));
+  border: 1px solid var(--c1);
+}
+.feature-icon {
+  background: linear-gradient(135deg, var(--c3-20), var(--c5-20));
+  color: var(--text);
+}
+
+/* Hero emoji/container box */
+.hero-box { background: var(--c2-10); border: 1px solid var(--c1-20); }
+
+/* Topic cards */
+.topic-card { background: #fff; border: 1px solid var(--c2); color: var(--text); }
+.topic-card:hover { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.10), 0 10px 10px -5px rgba(0,0,0,0.04); transform: translateY(-4px); }
+
+/* Navigation links */
+.nav-link { background: #fff; color: var(--text); border: 2px solid var(--c1); }
+.nav-link:hover { background: var(--c1-10); }
+.nav-link--active { background: var(--c1); color: #fff; border-color: var(--c1); }
+
+/* Small colored dot/badge helpers */
+.dot { display: inline-block; width: 0.5rem; height: 0.5rem; border-radius: 9999px; background: var(--c3); }
+.badge { display:inline-block; padding: 0.25rem 0.5rem; border-radius: 9999px; background: var(--c4-10); color: var(--text); border: 1px solid var(--c4); font-size: 0.75rem; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; }
+th, td { border-bottom: 1px solid var(--c1-20); }
+th { background: var(--c2-10); font-weight: 600; }
+
+/* Theme table helpers (for HTML emitted by markdown loader) */
+.theme-table { width: 100%; border-collapse: collapse; border: 1px solid var(--c1-20); }
+.theme-table-head { background: var(--c2-10); }
+.theme-table-th { padding: 0.5rem 1rem; text-align: left; border: 1px solid var(--c1-20); font-weight: 600; color: var(--text); }
+.theme-table-td { padding: 0.5rem 1rem; border: 1px solid var(--c1-20); color: var(--text); }
+
+/* Alerts */
+.alert-box { padding: 1rem; border-radius: 0.5rem; margin: 1.5rem 0; border-left: 4px solid; }
+.alert-warning { background: var(--c4-10); border-color: var(--c4); color: var(--text); }
+.alert-info { background: var(--c1-10); border-color: var(--c1); color: var(--text); }
+
+/* Theme alert helpers */
+.theme-alert-error { background: var(--c5-10); border-left: 4px solid var(--c5); color: var(--text); border-radius: 0.5rem; }
+.theme-alert-error-title { font-weight: 600; color: var(--text); }
+.theme-alert-error-desc { color: var(--text); opacity: 0.9; }
+
+/* Inline code (regular text is black; code highlight colors are controlled by Prism) */
+code { background: var(--c1-10); color: var(--text); padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.875rem; }
+
+/* Explicit inline code helper */
+.theme-inline-code { background: var(--c1-10); color: var(--text); }
+
+/* Code blocks: don't force our own colors; let Prism theme handle syntax colors. Just spacing and radius. */
+pre { border-radius: 0.5rem; margin: 0; }
+pre code { font-size: 0.875rem; line-height: 1.5; }
+.code-container { background: transparent; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid var(--c1-20); }
+
+/* Optional explicit codeblock wrapper if used */
+.theme-codeblock { background: transparent; color: inherit; }
+
+/* Copy button uses palette and black text */
+.copy-button { background: var(--c5-20); color: var(--text); border: 1px solid var(--c5); }
+.copy-button:hover { background: var(--c5-20); filter: brightness(0.98); }
+.copy-success { background: var(--c3) !important; color: var(--text) !important; }
+
+/* Blockquotes override Tailwind yellows */
+blockquote { background: var(--c4-10) !important; border-color: var(--c4) !important; color: var(--text) !important; }
+
+/* Explicit blockquote helper */
+.theme-blockquote { background: var(--c4-10); border-left: 4px solid var(--c4); padding: 1rem; color: var(--text); }
+
+/* Tables (generated) header override class */
+.table-head { background: var(--c2-10); }
+
+/* Captions */
+.caption { color: var(--text); opacity: 0.8; }
+.theme-caption { color: var(--text); opacity: 0.8; }
+.theme-paragraph { color: var(--text); }
+.theme-text-heading { color: var(--text); }
+.theme-image-border { border-color: var(--c1-20) !important; }
+
+/* Lists */
+.theme-list-item { color: var(--text); }
+.theme-ul { list-style: disc inside; }
+.theme-ol { list-style: decimal inside; }
+
+/* Video panel */
+#videoPanel { background: #fff; }
+#videoPanel .panel-header { background: var(--c1-10); }
+
+/* Terminal presentation (use light theme and black text) */
+.terminal-container { background: var(--c1-10); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid var(--c1); }
+.terminal-header { background: var(--c1-20); padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--c1); }
+.terminal-buttons { display: flex; gap: 6px; }
+.terminal-button { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.terminal-button.close { background: var(--c5); }
+.terminal-button.minimize { background: var(--c4); }
+.terminal-button.maximize { background: var(--c3); }
+.terminal-title { color: #000; font-size: 12px; font-family: 'SF Mono', 'Monaco', 'Consolas', monospace; }
+.terminal-body { padding: 16px; background: var(--c1-10); }
+.terminal-output { color: #000; font-family: 'SF Mono', 'Monaco', 'Consolas', monospace; font-size: 14px; line-height: 1.5; margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+
+/* Optional theme-terminal alias classes (if used by JS) */
+.theme-terminal-header { background: var(--c1-20); border-bottom: 1px solid var(--c1); }
+.theme-terminal-body { background: var(--c1-10); }
