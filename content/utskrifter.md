@@ -2,7 +2,7 @@
 
 ## Grund-syntaxen för utskrifter
 
-Grund-syntaxen som används för att "skriva ut data på skärmen" från ett program som exekveras är:
+[Grund-syntaxen](https://en.wikipedia.org/wiki/Syntax_(programming_languages)) som används för att "skriva ut data på skärmen" från ett program som s är:
 
 ```java
 System.out.println(); // Skriver du denna syntax kommer du få en radbrytning
@@ -20,13 +20,25 @@ För att komma igång med Java-programmering behöver du först skapa ett nytt p
 ### Steg-för-steg instruktioner:
 
 1. **Skapa nytt projekt**: File → New Project
-2. **Ge projektet namnet**: `Övning_1`
+2. **Ge projektet namnet**: `Valfritt Namn`
 3. **Se till att "Add sample code" är markerat**
 4. **Klicka på "Create"**
 
 ![Öppnat projekt](Images/Opened%20Project.png)
 
 I fönstret som öppnas klickar du fram och markerar `Main.java` i projektstrukturen.
+
+## Kompilera/Bygga och exekvera/köra
+
+För att se resultat av koden du skapar klickar du på den gröna pilen i menyn.
+
+![Kompilera projekt](Images/Build%20Project.png)
+
+Du kompilerar (rättar) då koden och om koden är utan fel exekveras (körs) koden och visar resultatet av din kodning. 
+
+**OBS!** Var gång du gör ändring eller tillägg i koden måste du köra denna process!
+
+Alla ändringar eller tillägg i koden måste ske mellan de två mittersta `{ }`
 
 ## Grundläggande Utskrifter
 
@@ -45,62 +57,6 @@ Andra raden
 Ingen radbrytning - fortsätter på samma rad
 Nu kommer en ny rad
 ```
-
-### Skriva ut variabler
-
-Du kan enkelt skriva ut variabler genom att lägga till dem i utskriften:
-
-```react:demo title="Skriva ut variabler"
-String namn = "Anna";
-int ålder = 25;
-double längd = 1.68;
-
-System.out.println("Namn: " + namn);
-System.out.println("Ålder: " + ålder + " år");
-System.out.println("Längd: " + längd + " meter");
----
-Namn: Anna
-Ålder: 25 år
-Längd: 1.68 meter
-```
-
-## Övning 1 - Dina första utskrifter
-
-Nu är det dags att göra ändringar i koden! Följ dessa steg:
-
-### Steg 1: Kopiera utskriftsrader
-- Markera och kopiera raden: `System.out.println("Hello world!");`
-- Klistra in koden under den första raden så att du har minst tre rader av denna kod
-- Kompilera och exekvera programmet! Granska resultatet.
-
-### Steg 2: Ändra texten
-- Ändra nu texten "Hello World!" till en frivillig trevlig text.
-- Kompilera och exekvera programmet!
-
-### Steg 3: Testa print istället för println
-- `System.out.println` kan ändras till `System.out.print` – Gör detta för alla dina rader av kod.
-- Kompilera och exekvera programmet! Reflektera över resultatet.
-- Från nu och framåt bestämmer du själv om du vill använda `print` eller `println`
-
-### Steg 4: Citattecken i utskrift
-
-**Fråga**: Hur gör du om du vill att utskriften ska se ut såhär: `"Hello world!"`?
-
-**Förklaring**: 
-- Syntaxen `System.out.println("Hello world!");` ger utskrift: `Hello world!`
-- Men du vill ha: `"Hello world!"` (med citattecken synliga)
-
-**Svar**: Lägg till `\` (backslash) före citattecknen:
-
-```java
-System.out.print("\"Hello world!\"");
-```
-
-**Testa själv** med syntaxen ovan!
-
-### Steg 5: Andra escape-sekvenser
-- **`\n`**: Testa med detta mellan två ord i en text. Vad blir resultatet?
-- **`\t`**: Om igen... vad blir resultatet?
 
 ## Specialtecken och Escape-sekvenser
 
@@ -128,7 +84,7 @@ Sökväg: C:\Users\Anna\Dokument\
 
 ## Unicode-tecken och Teckenuppsättning
 
-Specialtecken går inte alltid att hitta direkt från tangentbordet. Utan de behöver skrivas med "formel för char". char är lika med tecken.
+Specialtecken går inte alltid att hitta direkt från tangentbordet. Utan de behöver skrivas med "formel för char". char är lika med ett enda tecken tex `€`
 
 > **💡 Läs mer**: [Infoga latinska symboler och tecken med ASCII eller Unicode](https://support.microsoft.com/sv-se/office/infoga-latinska-symboler-och-tecken-med-ascii-eller-unicode-d13f58d3-7bcb-44a7-a4d5-972ee12e50e0) - Microsofts guide för att använda Teckenuppsättning och Unicode-koder
 
@@ -338,10 +294,15 @@ Gul bakgrund
 
 För att skriva ut siffror används samma syntax som tidigare men utan `" "`-tecken.
 
-### Uppgift: Testa siffror
-- Skriv och testa: `System.out.println(3.14);`
-- Testa nu följande: `System.out.println(3 + 14);`
-- Vad blir resultatet? (Du får gärna testa med övriga räknesätt med)
+```react:demo title="Skriva ut siffror"
+System.out.println(3.14);
+System.out.println(3 + 14);
+System.out.println(3 + " & " + 14);
+---
+3.14
+17
+3 & 14
+```
 
 ### Kombinera siffror med text
 Om du vill att resultatet på skärmen ska se ut som `3 14` behöver du kombinera din syntax med text: 
@@ -349,16 +310,97 @@ Om du vill att resultatet på skärmen ska se ut som `3 14` behöver du kombiner
 System.out.println(3 + " & " + 14); // Du skriver tal + text + tal
 ```
 
-### Utmaning
-Skapa en syntax som skriver ut på skärmen: `Agent 007 - James Bond.` (minst en siffra ska vara utskrivet som ett tal)
+För praktiska övningar med siffror och text, se övningarna nedan.
 
 ## Hämta data från minne / variabler
 
 Ett program har inte alltid full koll på data som ska användas. Så därför behövs det möjlighet för att lagra data i en minnesplats och vid behov hämta och använda data som är lagrad.
 
-Längre fram i kursen arbetar vi mycket med detta men här kommer ett första exempel:
+```react:demo title="Variabler och utskrift"
+String namn = "NTI Gymnasiet";
+int year = 2025;
+System.out.println(namn + " " + year);
+---
+NTI Gymnasiet 2025
+```
 
-### Uppgift: Variabler och utskrift
+Längre fram i kursen arbetar vi mycket med **variabler** - gå vidare till nästa kapitel för att lära dig mer!
+
+## Att spara och skicka in fil för redovisning
+
+Ta reda på var i datorn ditt projekt sparats.
+Gå till mappen och klicka dig fram till din fil med namn `Main.java`
+Ex. på sökväg: `Programmering > Uppgift_1 > src > Main.java`
+
+Filen `Main.java` ska redovisas genom att ladda upp den i ClassRoom för programmering.
+
+Prova att skapa en berättelse med endast en `System.out.println()` i [Uppgift 2](#uppgift-2---berättelse), eller testa grafiska meddelanden med JOptionPane i [Uppgift 3](#uppgift-3---gui-med-joptionpane).
+
+## Sammanfattning
+
+1. **println()** skriver ut text med radbrytning
+2. **print()** skriver ut text utan radbrytning  
+3. **Escape-sekvenser** (\n, \t, \", \\) för specialtecken
+4. **Unicode** (\uXXXX) för symboler och specialtecken
+5. **printf()** för formaterad utskrift
+6. **JOptionPane** för grafiska dialoger
+7. **Variabler** för att lagra och använda data
+
+Nästa steg är att kombinera detta med **variabler** för att skapa interaktiva program!
+
+<div class="section-separator"></div>
+
+<div class="uppgifter-section">
+
+## 📝 Uppgifter
+
+### Uppgift 1 - Dina första utskrifter
+
+Nu är det dags att göra ändringar i koden! Följ dessa steg:
+
+#### Steg 1: Kopiera utskriftsrader
+- Markera och kopiera raden: `System.out.println("Hello world!");`
+- Klistra in koden under den första raden så att du har minst tre rader av denna kod
+- Kompilera/Bygga och exekvera/Köra programmet! Granska resultatet.
+
+#### Steg 2: Ändra texten
+- Ändra nu texten "Hello World!" till en frivillig trevlig text.
+- Testa köra programmet!
+
+#### Steg 3: Testa print istället för println
+- `System.out.println` kan ändras till `System.out.print` – Gör detta för alla dina rader av kod.
+- Testa köra programmet! Reflektera över resultatet.
+- Från nu och framåt bestämmer du själv om du vill använda `print` eller `println`
+
+#### Steg 4: Citattecken i utskrift
+
+**Fråga**: Hur gör du om du vill att utskriften ska se ut såhär: `"Hello world!"`?
+
+**Förklaring**: 
+- Syntaxen `System.out.println("Hello world!");` ger utskrift: `Hello world!`
+- Men du vill ha: `"Hello world!"` (med citattecken synliga)
+
+**Svar**: Lägg till `\` (backslash) före citattecknen:
+
+```java
+System.out.print("\"Hello world!\"");
+```
+
+**Testa själv** med syntaxen ovan!
+
+#### Steg 5: Andra escape-sekvenser
+- **`\n`**: Testa med detta mellan två ord i en text. Vad blir resultatet?
+- **`\t`**: Om igen... vad blir resultatet?
+
+#### Uppgift: Testa siffror
+- Skriv och testa: `System.out.println(3.14);`
+- Testa nu följande: `System.out.println(3 + 14);`
+- Vad blir resultatet? (Du får gärna testa med övriga räknesätt med)
+
+#### Utmaning
+Skapa en syntax som skriver ut på skärmen: `Agent 007 - James Bond.` (minst en siffra ska vara utskrivet som ett tal)
+
+#### Uppgift: Variabler och utskrift
 Skapa följande rader med kod:
 ```java
 String namn = "NTI Gymnasiet";
@@ -368,17 +410,9 @@ System.out.println(namn + year);
 
 Kompilera och exekvera programmet! Granska resultatet och se om du kan snygga till utskriften.
 
-## Att spara och skicka in fil för redovisning
+### Uppgift 2 - Berättelse
 
-Ta reda på var i datorn ditt projekt sparats.
-Gå till mappen och klicka dig fram till din fil med namn `Main.java`
-Ex. på sökväg: `Programmering > Uppgift_1 > src > Main.java`
-
-Filen `Main.java` vill jag nu att du ska redovisa genom att ladda upp den i ClassRoom för programmering.
-
-## Övning 2 - Berättelse
-
-Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Övning_2`
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Uppgift_2`
 
 Du ska nu med de kunskaper du fått i tidigare uppgifter ta dig an följande utmaning:
 
@@ -395,11 +429,11 @@ Och så var sagan slut!
 
 Lycka till!
 
-Färdig uppgift sparas och skickas in för redovisning i classRoom: `Övning_2`
+Färdig uppgift sparas och skickas in för redovisning i classRoom: `Uppgift_2`
 
-## Övning 3 - GUI med JOptionPane
+### Uppgift 3 - GUI med JOptionPane
 
-Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Övning_3`
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Uppgift_3`
 
 Skriv nu till helt i början av din programkod (allra längst upp i arbetsytan):
 ```java
@@ -414,26 +448,4 @@ System.exit(0);
 
 Kompilera och exekvera programmet. Vad händer?
 
-## Kompilera och exekvera
-
-För att se resultat av koden du skapar klickar du på den gröna pilen i menyn.
-
-![Kompilera projekt](Images/Build%20Project.png)
-
-Du kompilerar (rättar) då koden och om koden är utan fel exekveras (körs) koden och visar resultatet av din kodning. 
-
-**OBS!** Var gång du gör ändring eller tillägg i koden måste du köra denna process!
-
-Alla ändringar eller tillägg i koden måste ske mellan de två mittersta `{ }`
-
-## Sammanfattning
-
-1. **println()** skriver ut text med radbrytning
-2. **print()** skriver ut text utan radbrytning  
-3. **Escape-sekvenser** (\n, \t, \", \\) för specialtecken
-4. **Unicode** (\uXXXX) för symboler och specialtecken
-5. **printf()** för formaterad utskrift
-6. **JOptionPane** för grafiska dialoger
-7. **Variabler** för att lagra och använda data
-
-Nästa steg är att kombinera detta med **variabler** för att skapa interaktiva program!
+</div>

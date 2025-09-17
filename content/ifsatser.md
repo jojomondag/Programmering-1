@@ -114,11 +114,37 @@ Antingen är A lika med B ELLER så är A lika med 3
 - `A == 12` - **Kontroll** om innehållet i minnesplats A är lika med 12 (jämförelse)
 - `A = 12` - **Lagra** talet 12 i minnesplats A (tilldelning)
 
-## Övning 1: Högt-Lågt-Spel
+## Praktiska Tillämpningar
+
+If-satser är särskilt användbara för:
+- Spel (som högt-lågt-spel)
+- Validering av användarinput
+- Menysystem och navigation
+- Beräkningar med villkor
+
+Se [övningarna](#📝-övningar-och-uppgifter) nedan för praktiska exempel på dessa tillämpningar.
+
+## Sammanfattning
+
+1. **If-satser** låter programmet välja mellan olika alternativ
+2. **Relationsoperatorer** (`==`, `!=`, `<`, `>`, `<=`, `>=`) jämför värden
+3. **Logiska operatorer** (`&&`, `||`) kombinerar villkor
+4. **String-jämförelser** använder `.equals()` - inte `==`
+5. **If-else if-else** kedjar flera villkor efter varandra
+
+**Nästa steg:** Lär dig mer om **loopar** för att repetera kod!
+
+<div class="section-separator"></div>
+
+<div class="uppgifter-section">
+
+## 📝 Uppgifter
+
+### Uppgift 1: Högt-Lågt-Spel
 
 Du ska skapa ett högt-lågt-spel. Datorn ska först slumpa fram ett tal mellan 0 och 100. Sedan gissar spelaren vilket tal det är, varefter datorn svarar med "för högt" eller "för lågt". Programmet fortsätter tills spelaren har gissat rätt.
 
-### Förberedelser
+#### Förberedelser
 
 ```java
 import java.util.Scanner;
@@ -128,7 +154,7 @@ int slump = 0;
 slump = ((int)(Math.random() * 100 + 1));  //slumpar tal upp till 100, +1 undviker siffran 0
 ```
 
-### Instruktioner
+#### Instruktioner
 
 1. Använd if-sats för att avgöra om man ska gissa på ett lägre tal eller ett högre
 2. Om ditt tal är högre än det slumpade – skriv ut på skärmen "Mindre"
@@ -184,9 +210,9 @@ Rätt gissat!
 Du behövde 4 gissningar
 ```
 
-## Övning 2: Fortsätta-funktion
+### Uppgift 2: Fortsätta-funktion
 
-Lägg till följande steg i Övning 1:
+Lägg till följande steg i Uppgift 1:
 
 1. Skapa en egen minnesplats för text med namnet: `svar`
 2. Skapa ytterligare en Scanner: `Scanner scan2 = new Scanner(System.in);`
@@ -236,13 +262,13 @@ Ditt svar var: nej. Avslutar programmet.
 Tack för att du använde programmet!
 ```
 
-## Övning 3: 21-spel (Black Jack) 
+### Uppgift 3: 21-spel (Black Jack) 
 
 *(Görs om du siktar på högre betyg)*
 
 Skriv ett 21-spel (Black Jack). För att göra det lite enklare så räcker det att slumpa ett tal mellan 1 och 13. 
 
-### Regler:
+#### Regler:
 - Datorn spelar bank och måste "ta kort" så länge den har under 17 poäng
 - När datorn har mer än eller lika med 17 poäng måste den sluta "ta kort"
 - Innan/efter datorn får kort skall en spelare få kort
@@ -335,9 +361,9 @@ Bankens poäng: 17
 Oavgjort!
 ```
 
-## Övning 4: Flera omgångar
+### Uppgift 4: Flera omgångar
 
-Bygg vidare på övningen ovan så att man kan spela fler omgångar om man vill utan att starta om programmet helt på nytt.
+Bygg vidare på uppgiften ovan så att man kan spela fler omgångar om man vill utan att starta om programmet helt på nytt.
 
 ```react:demo title="Flera omgångar exempel"
 import java.util.Scanner;
@@ -370,26 +396,26 @@ Vill du spela igen? (ja/nej): nej
 Tack för att du spelade!
 ```
 
-## Övning 5: Bankomat
+### Uppgift 5: Bankomat
 
 *(Görs om du siktar på högre betyg)*
 
 Tänk dig att du ska bygga en bankomat där en person som har 1000:- på banken kan få lov att ta ut pengar. 
 
-### Vad sker från det att kunden sätter in sitt bankomatkort tills dess att uttaget är färdigt och kortet returnerats?
+#### Vad sker från det att kunden sätter in sitt bankomatkort tills dess att uttaget är färdigt och kortet returnerats?
 
 Denna övning ska utföras i tre delar:
 
-#### 1. Flödesschema
+**1. Flödesschema**
 Skapa/rita ett flödesschema som visar de olika momenten i processen att ta ut pengar
 
-#### 2. Kod analys
+**2. Kod analys**
 Fundera vilken form av kod du ska använda när utifrån ditt flödesschema
 
-#### 3. Bygg programmet
+**3. Bygg programmet**
 Programmera!
 
-### Kom-i-håg att:
+#### Kom-i-håg att:
 - Man inte kan ta ut mer pengar än vad som finns på kontot!
 - Lösenordskontroll...
 - Visa saldo efter uttag
@@ -479,14 +505,4 @@ Välj (1/2): 2
 Ditt saldo: 800 kr
 Vill du göra något mer? (ja/nej): nej
 Tack för ditt besök!
-```
-
-## Sammanfattning
-
-1. **If-satser** låter programmet välja mellan olika alternativ
-2. **Relationsoperatorer** (`==`, `!=`, `<`, `>`, `<=`, `>=`) jämför värden
-3. **Logiska operatorer** (`&&`, `||`) kombinerar villkor
-4. **String-jämförelser** använder `.equals()` - inte `==`
-5. **If-else if-else** kedjar flera villkor efter varandra
-
-**Nästa steg:** Lär dig mer om **loopar** för att repetera kod!
+</div>

@@ -2,7 +2,7 @@
 
 ## Förklaring
 
-Loopar används när kod ska upprepas. Det finns tre olika metoder för hur kod kan upprepas och styrs.
+Loopar används när kod ska upprepas. Det finns tre olika metoder för hur kod kan upprepas och styras.
 
 ## Loop-typer
 
@@ -23,22 +23,6 @@ Används bäst när vi i förväg vet hur många upprepningar som ska utföras.
 | **Villkor** | Och kör så länge innehållet i minnesplats i är mindre än tio |
 | **Steg** | I slutet av loopen ökas värdet i minnesplatsen med ett |
 
-```react:demo title="For-loop exempel"
-public class ForLoopExempel {
-    public static void main(String[] args) {
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("Nummer: " + i);
-        }
-    }
-}
----
-Nummer: 1
-Nummer: 2
-Nummer: 3
-Nummer: 4
-Nummer: 5
-```
-
 Kod som ska upprepas placeras inom `{ }` direkt efter koden för for.
 
 Innebär att när loopen går in i sitt andra varv så är startvärdet `i = 2` osv.
@@ -55,26 +39,6 @@ while ( villkor )
 }
 ```
 
-```react:demo title="While-loop exempel"
-public class WhileLoopExempel {
-    public static void main(String[] args) {
-        int count = 0;
-        while (count < 5) {
-            System.out.println("Count är: " + count);
-            count++;
-        }
-        System.out.println("Loopen avslutad");
-    }
-}
----
-Count är: 0
-Count är: 1
-Count är: 2
-Count är: 3
-Count är: 4
-Loopen avslutad
-```
-
 Så länge villkor uppfylls i `while ( )` upprepas instruktionerna inom loopen. När villkor inte längre uppfylls slutar loopen att gälla och eventuell kodning efter loopen exekveras/körs.
 
 ### Metod 3: do-while
@@ -88,111 +52,13 @@ do
 while ( villkor ) ;
 ```
 
-```react:demo title="Do-while exempel"
-public class DoWhileExempel {
-    public static void main(String[] args) {
-        int count = 0;
-        do {
-            System.out.println("Count är: " + count);
-            count++;
-        }
-        while (count != 5);
-    }
-}
----
-Count är: 0
-Count är: 1
-Count är: 2
-Count är: 3
-Count är: 4
-```
+## Övningar loopar
 
-## Nästlade loopar (Nested loops)
-
-Loopar kan placeras inuti andra loopar för att skapa komplexa mönster:
-
-```react:demo title="Nästlade loopar - Stjärnmönster"
-public class NästladeLoopor {
-    public static void main(String[] args) {
-        for (int i = 1; i <= 5; i++) {
-            for (int j = 1; j <= i; j++) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
-    }
-}
----
-*
-**
-***
-****
-*****
-```
-
-## Formatering med System.out.format()
-
-För att få snygg utskrift av tabeller och mönster:
-
-| Format | Förklaring | Exempel |
-|--------|------------|---------|
-| `%4d` | Heltal med 4 tecken bredd | `   5` |
-| `%04d` | Heltal med 4 tecken, fyll med nollor | `0005` |
-| `%.2f` | Decimaltal med 2 decimaler | `3.14` |
-| `%s` | Sträng | `"Hej"` |
-
-```react:demo title="Formaterad tabell"
-public class FormateradTabell {
-    public static void main(String[] args) {
-        System.out.println("Nr  Kvadrat");
-        for (int i = 1; i <= 5; i++) {
-            System.out.format("%2d     %3d%n", i, i*i);
-        }
-    }
-}
----
-Nr  Kvadrat
- 1       1
- 2       4
- 3       9
- 4      16
- 5      25
-```
-
-## Praktiska tillämpningar
-
-Loopar används för att:
-- Skapa mönster och tabeller
-- Bearbeta stora mängder data
-- Upprepa användarinteraktion
-- Bygga spel och menysystem
-
-Se [övningarna](#📝-övningar-och-uppgifter) nedan för praktiska exempel!
-
-## Sammanfattning
-
-Loopar är kraftfulla verktyg för att upprepa kod:
-
-- **for-loop**: Använd när du vet antal upprepningar
-- **while-loop**: Använd när villkoret styr upprepningarna  
-- **do-while**: Kör minst en gång, kontrollerar villkor i slutet
-- **Nästlade loopar**: Loopar inuti loopar för komplexa mönster
-- **Formatering**: Använd `System.out.format()` för snygg utskrift
-
-**Nästa steg:** Lär dig om **arrays** för att lagra och bearbeta samlingar av data!
-
-<div class="section-separator"></div>
-
-<div class="uppgifter-section">
-
-## 📝 Uppgifter
-
-### Uppgift 1 - for-loop
-
+### Övning 1 - for-loop
 Detta programmet kör en loop och skriver ut tal för vart varv från 0 till 10 – Skriv av koden och testa
 
 ```java
-public class Main //projektet sparas som Uppgift2_1
+public class Main //projektet sparas som Ovning2_1
 {
     public static void main ( String args[ ] )
     {
@@ -204,18 +70,17 @@ public class Main //projektet sparas som Uppgift2_1
 }
 ```
 
-**Del 2 av Uppgift 1:**
+**Del 2 av Övning 1:**
 
 I for satsen ovan skrivs `e++`. Detta ökar värdet med ett. Du ska nu göra en förändring i koden så att programmet loopar 20 gånger och som samtidigt ökar värdet på `int e` med tre. Gör detta genom att ersätta `e++` med `e = e+3`.
 
 **Reflektera över resultatet.**
 
-### Uppgift 2
-
+### Övning 2
 Ändra i koden ovan så att den skriver ut från 20 till 1.
 
 ```java
-public class Main //projektet sparas som Uppgift2_2
+public class Main //projektet sparas som Ovning2_2
 {
     public static void main ( String args[ ] )
     {
@@ -227,12 +92,11 @@ public class Main //projektet sparas som Uppgift2_2
 }
 ```
 
-### Uppgift 3 - Nested loops (Nästlade loopar)
-
-Skriv följande kod och tänk igenom vad som kommer att ske innan du kör koden (rita upp på papper). Ändra sedan så att effekten blir omvänd.
+### Övning 3 - Nested loops (Nästlade loopar)
+Skriv följande kod och tänk igenom vad som kommer att ske innan du kör/exekverar koden (rita upp på papper). Ändra sedan så att effekten blir omvänd.
 
 ```java
-public class Main //projektet sparas som Uppgift2_3
+public class Main //projektet sparas som Ovning2_3
 {
     public static void main ( String args[ ] )
     {
@@ -267,8 +131,7 @@ for ( int j = i; j < 40; j ++ )
 }
 ```
 
-### Uppgift 4 - while-loop
-
+### Övning 4 - while-loop
 `while` är ett alternativ till `for` och skrivs med `while (villkor)`
 
 **Exempel:** `while ( 1<2 )` översatt: så länge 1 är mindre än 2 ska loopen köras och eftersom villkoret i detta exempel alltid är korrekt kommer denna loop köras i evighet eller till dess att man bryter loopen på annat vis.
@@ -276,7 +139,7 @@ for ( int j = i; j < 40; j ++ )
 Skapa ett nytt program att göra där följande ska ingå:
 
 ```java
-public class Main //projektet sparas som Uppgift2_4
+public class Main //projektet sparas som Ovning2_4
 {
     public static void main ( String args[ ] )
     {
@@ -303,14 +166,13 @@ Count är: 4
 Loopen avslutad
 ```
 
-### Uppgift 5 - do-while
-
+### Övning 5 - do-while
 `do while` - 3:e alternativet för att hantera en loop/iteration. Denna kontrollerar för var ny loop om villkoret är det skrivna. Är villkoret uppnått bryts loopen.
 
 Skapa programmet enligt följande:
 
 ```java
-public class Main //projektet sparas som Uppgift2_5
+public class Main //projektet sparas som Ovning2_5
 {
     public static void main ( String args[ ] )
     {
@@ -325,8 +187,7 @@ public class Main //projektet sparas som Uppgift2_5
 }
 ```
 
-### Uppgift 6 - do-while med användarinput
-
+### Övning 6 - do-while med användarinput
 Ett tydligare exempel på hur do while kan användas.
 
 I koden ovan lägg till längst upp på sidan av din kod `import java.util.Scanner;`
@@ -334,7 +195,7 @@ I koden ovan lägg till längst upp på sidan av din kod `import java.util.Scann
 ```java
 import java.util.Scanner;
 
-public class Main //projektet sparas som Uppgift2_5b
+public class Main //projektet sparas som Ovning2_5b
 {
     public static void main ( String args[ ] )
     {
@@ -353,12 +214,11 @@ public class Main //projektet sparas som Uppgift2_5b
 }
 ```
 
-### Uppgift 7 - Multiplikationstabell (för högre betyg)
-
+### Övning 7 - Multiplikationstabell (för högre betyg)
 Skriv ut en multiplikationstabell som visar ettans till och med tolvans tabell. Bestäm själv vilken typ av loop/looper du vill använda.
 
 ```java
-public class Main //projektet sparas som Uppgift2_6
+public class Main //projektet sparas som Ovning2_6
 {
     public static void main ( String args[ ] )
     {
@@ -395,12 +255,32 @@ public class Main //projektet sparas som Uppgift2_6
 
 Fundera och testa först själv hur du ska skapa programmet. Blir det för svårt kan du be om lösningsförslag.
 
-### Uppgift 8 - Formatering
-
+### Övning 8 - Formatering
 Som du ser i bilden ovan så får du kanske inte några snygga kolumner i ditt resultat. Det kan du ändra på genom att i de rader som på skärmen skriver ut dina siffror ändra i koden.
 
 Skriv istället för `System.out.print( )` → `System.out.format( "%4d" , dinVariabel )`
 
 Du ska efter detta få en betydligt snyggare utskrift.
 
-</div>
+**Formatering med System.out.format():**
+
+| Format | Förklaring | Exempel |
+|--------|------------|---------|
+| `%4d` | Heltal med 4 tecken bredd | `   5` |
+| `%04d` | Heltal med 4 tecken, fyll med nollor | `0005` |
+| `%.2f` | Decimaltal med 2 decimaler | `3.14` |
+| `%s` | Sträng | `"Hej"` |
+
+---
+
+## Sammanfattning
+
+Loopar är kraftfulla verktyg för att upprepa kod:
+
+- **for-loop**: Använd när du vet antal upprepningar
+- **while-loop**: Använd när villkoret styr upprepningarna  
+- **do-while**: Kör minst en gång, kontrollerar villkor i slutet
+- **Nästlade loopar**: Loopar inuti loopar för komplexa mönster
+- **Formatering**: Använd `System.out.format()` för snygg utskrift
+
+**Nästa steg:** Träna på dessa övningar för att behärska loopar i Java!
