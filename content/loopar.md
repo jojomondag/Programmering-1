@@ -167,7 +167,7 @@ Loopar används för att:
 - Upprepa användarinteraktion
 - Bygga spel och menysystem
 
-Se [övningarna](#📝-övningar-och-uppgifter) nedan för praktiska exempel!
+Se [övningarna](#vningar-och-uppgifter) nedan för praktiska exempel!
 
 ## Sammanfattning
 

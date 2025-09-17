@@ -1,7 +1,5 @@
 # If-satser
 
-## Introduktion
-
 If-satser används när du utifrån flera alternativ vill att programmet du skapar ska välja ett. Kombineras alltid med `else if` eller `else`.
 
 ## Grundläggande Syntax
@@ -113,16 +111,6 @@ Antingen är A lika med B ELLER så är A lika med 3
 
 - `A == 12` - **Kontroll** om innehållet i minnesplats A är lika med 12 (jämförelse)
 - `A = 12` - **Lagra** talet 12 i minnesplats A (tilldelning)
-
-## Praktiska Tillämpningar
-
-If-satser är särskilt användbara för:
-- Spel (som högt-lågt-spel)
-- Validering av användarinput
-- Menysystem och navigation
-- Beräkningar med villkor
-
-Se [övningarna](#📝-övningar-och-uppgifter) nedan för praktiska exempel på dessa tillämpningar.
 
 ## Sammanfattning
 
@@ -505,4 +493,5 @@ Välj (1/2): 2
 Ditt saldo: 800 kr
 Vill du göra något mer? (ja/nej): nej
 Tack för ditt besök!
+```
 </div>

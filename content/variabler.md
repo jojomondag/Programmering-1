@@ -1,7 +1,5 @@
 # Variabler
 
-## Introduktion
-
 Variabler används för att lagra data. Beroende på form av data skapas minnesplatser med anpassning för tänkt datainnehåll.
 
 ## Variabeltyper
@@ -85,7 +83,7 @@ Klar: false
 
 ## String-variabler
 
-Du kan skapa variabler för att lagra text (String). Se [Uppgift 1](#uppgift-1---skapa-minnesplatser-av-variabeltypen-string) för praktiska exempel.
+Du kan skapa variabler för att lagra text (String). Se [Uppgift 1](#uppgift-1-skapa-minnesplatser-av-variabeltypen-string) för praktiska exempel.
 
 ```react:demo title="String variabler - Grundläggande"
 public class StringExempel {
@@ -101,7 +99,7 @@ Kalle Anka
 
 ## Scanner för användarinput
 
-Det är egentligen väldigt sällan att du i förväg vet vilken data ditt program ska arbeta med. Du ska därför skapa program som hämtar data när det startar från användaren. Se [Uppgift 2](#uppgift-2---scanner-för-användarinput) för praktisk tillämpning.
+Det är egentligen väldigt sällan att du i förväg vet vilken data ditt program ska arbeta med. Du ska därför skapa program som hämtar data när det startar från användaren. Se [Uppgift 2](#uppgift-2-scanner-fr-anvndarinput) för praktisk tillämpning.
 
 ```react:demo title="Scanner - Grundläggande"
 import java.util.Scanner;
@@ -123,7 +121,7 @@ Hej Kalle
 
 ## Heltal (int-variabler)
 
-Heltal används för matematiska beräkningar. Testa dina kunskaper i [Uppgift 3](#uppgift-3---skapa-minnesplatser-av-variabeltypen-int).
+Heltal används för matematiska beräkningar. Testa dina kunskaper i [Uppgift 3](#uppgift-3-skapa-minnesplatser-av-variabeltypen-int).
 
 ```react:demo title="int variabler - Grundläggande"
 public class IntExempel {
@@ -146,7 +144,7 @@ Tal3: 17
 
 ## Decimaltal (double-variabler)
 
-För mer precisa beräkningar med decimaler använder vi double-variabler. Prova detta i [Uppgift 4](#uppgift-4---skapa-minnesplatser-av-variabeltypen-double).
+För mer precisa beräkningar med decimaler använder vi double-variabler. Prova detta i [Uppgift 4](#uppgift-4-skapa-minnesplatser-av-variabeltypen-double).
 
 ```react:demo title="double variabler"
 public class DoubleExempel {

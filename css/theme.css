@@ -81,9 +81,17 @@ a { color: var(--text); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* Themed link helper (explicit) */
-.theme-link { color: var(--text); text-decoration: none; border-bottom: 1px solid transparent; }
-.theme-link:hover { text-decoration: underline; border-bottom-color: var(--c1-20); }
+.theme-link { color: var(--text); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; font-weight: 600; }
+.theme-link:hover { text-decoration-color: var(--c1); background: var(--c1-10); border-radius: 4px; }
 .theme-link:focus { outline: 2px solid var(--c1-20); outline-offset: 2px; }
+
+/* Add a subtle external-link indicator for absolute links */
+a.theme-link[href^="http"], a.theme-link[href^="https"] { position: relative; padding-right: 0.15rem; }
+a.theme-link[href^="http"]::after, a.theme-link[href^="https"]::after {
+  content: "↗";
+  font-size: 0.8em;
+  margin-left: 0.25rem;
+}
 
 /* Hero + feature styles using palette (kept light so black text remains readable) */
 .hero-gradient {
@@ -101,6 +109,11 @@ a:hover { text-decoration: underline; }
 /* Topic cards */
 .topic-card { background: #fff; border: 1px solid var(--c2); color: var(--text); }
 .topic-card:hover { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.10), 0 10px 10px -5px rgba(0,0,0,0.04); transform: translateY(-4px); }
+
+/* Topic card typography (smaller so multiple cards fit neatly side-by-side) */
+.topic-card h3 { font-size: 1.125rem; line-height: 1.5rem; }
+.topic-card .caption { font-size: 0.875rem; }
+.topic-card p { font-size: 0.9375rem; line-height: 1.4; }
 
 /* Navigation links */
 .nav-link { background: #fff; color: var(--text); border: 2px solid var(--c1); }
@@ -205,10 +218,10 @@ blockquote { background: var(--c4-10) !important; border-color: var(--c4) !impor
 
 /* Uppgifts-sektion med subtil bakgrund */
 .uppgifter-section {
-  background: var(--c4-10);
+  background: var(--c3-10);
   padding: 2rem;
   border-radius: 12px;
   margin-top: 1rem;
-  border: 1px solid var(--c4-20);
+  border: 1px solid var(--c3-20);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }

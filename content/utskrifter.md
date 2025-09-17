@@ -1,8 +1,6 @@
-# Utskrifter i Java
-
 ## Grund-syntaxen för utskrifter
 
-[Grund-syntaxen](https://en.wikipedia.org/wiki/Syntax_(programming_languages)) som används för att "skriva ut data på skärmen" från ett program som s är:
+[Grund-syntaxen](https://www.codebean.se/syntax-och-regler/) som används för att "skriva ut data på skärmen" från ett program är:
 
 ```java
 System.out.println(); // Skriver du denna syntax kommer du få en radbrytning
@@ -13,7 +11,7 @@ System.out.println(3.14); // Skriver ut decimalvärdet / talet
 
 ## Skapa ett nytt projekt i IntelliJ
 
-För att komma igång med Java-programmering behöver du först skapa ett nytt projekt i IntelliJ IDEA.
+För att komma igång med Java-programmering behöver du först [ladda ner IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows&code=IIC) och skapa ett nytt projekt i IntelliJ IDEA.
 
 ![Skapa nytt projekt](Images/New%20Project.png)
 
@@ -38,7 +36,67 @@ Du kompilerar (rättar) då koden och om koden är utan fel exekveras (körs) ko
 
 **OBS!** Var gång du gör ändring eller tillägg i koden måste du köra denna process!
 
-Alla ändringar eller tillägg i koden måste ske mellan de två mittersta `{ }`
+## ⚠️ Viktigt: Var ska du skriva din kod?
+
+Alla ändringar eller tillägg i koden måste ske mellan de två mittersta `{ }` i din `Main.java`-fil.
+
+### Förklaring för nybörjare:
+
+När du öppnar `Main.java` i IntelliJ ser du en struktur som denna:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // HÄR ska du skriva din kod! ⬅️
+        System.out.println("Hello world!");
+    }
+}
+```
+
+### Vad betyder detta?
+
+- **Yttre `{ }`**: Hör till klassen `Main` - rör inte dessa!
+- **Inre `{ }`**: Hör till metoden `main` - **HÄR** skriver du din kod!
+- **Kommentaren `// HÄR ska du skriva din kod!`**: Visar exakt var du ska placera din kod
+
+### Exempel på rätt och fel:
+
+✅ **RÄTT** - Kod mellan de mittersta `{ }`:
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Min första utskrift!");
+        System.out.println("Min andra utskrift!");
+        // All kod här fungerar perfekt!
+    }
+}
+```
+
+❌ **FEL** - Kod utanför de mittersta `{ }`:
+```java
+public class Main {
+    System.out.println("Detta kommer INTE att fungera!"); // ❌ FEL PLATS!
+    public static void main(String[] args) {
+        System.out.println("Detta fungerar!");
+    }
+    System.out.println("Detta kommer INTE att fungera heller!"); // ❌ FEL PLATS!
+}
+```
+
+### 💡 Tips för nybörjare:
+- Titta alltid efter de två `{ }` som hör till `main`-metoden
+- Placera all din kod mellan dessa två måsvingar
+- Om du får fel när du kompilerar, kontrollera att din kod är på rätt plats!
+
+## 🔍 Kodblock och måsvingar
+
+### Vad är kodblock?
+
+Kodblock är **grupper av kod** som hör ihop och definieras med måsvingar `{ }`. Tänk på dem som "behållare" som innehåller kod.
+
+### Varför kommer måsvingar i par?
+
+Varje öppnande `{` måste ha en motsvarande stängande `}`
 
 ## Grundläggande Utskrifter
 
@@ -334,7 +392,7 @@ Ex. på sökväg: `Programmering > Uppgift_1 > src > Main.java`
 
 Filen `Main.java` ska redovisas genom att ladda upp den i ClassRoom för programmering.
 
-Prova att skapa en berättelse med endast en `System.out.println()` i [Uppgift 2](#uppgift-2---berättelse), eller testa grafiska meddelanden med JOptionPane i [Uppgift 3](#uppgift-3---gui-med-joptionpane).
+Prova att skapa en berättelse med endast en `System.out.println()` i [Uppgift 2](#uppgift-2-berttelse), eller testa grafiska meddelanden med JOptionPane i [Uppgift 3](#uppgift-3-gui-med-joptionpane).
 
 ## Sammanfattning
 

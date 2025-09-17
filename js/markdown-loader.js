@@ -177,11 +177,23 @@ class MarkdownLoader {
             return `___CODE_BLOCK_${index}___`;
         });
 
-        // Headers (process from most specific to least specific)
-    html = html.replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold theme-text-heading mb-3 mt-5">$1</h4>');
-    html = html.replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold theme-text-heading mb-4 mt-6">$1</h3>');
-    html = html.replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold theme-text-heading mb-6 mt-8">$1</h2>');
-    html = html.replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold theme-text-heading mb-8 mt-8">$1</h1>');
+        // Headers (process from most specific to least specific) with IDs
+    html = html.replace(/^#### (.*$)/gim, (match, title) => {
+        const id = this.createHeaderId(title);
+        return `<h4 id="${id}" class="text-lg font-semibold theme-text-heading mb-3 mt-5">${title}</h4>`;
+    });
+    html = html.replace(/^### (.*$)/gim, (match, title) => {
+        const id = this.createHeaderId(title);
+        return `<h3 id="${id}" class="text-xl font-semibold theme-text-heading mb-4 mt-6">${title}</h3>`;
+    });
+    html = html.replace(/^## (.*$)/gim, (match, title) => {
+        const id = this.createHeaderId(title);
+        return `<h2 id="${id}" class="text-2xl font-bold theme-text-heading mb-6 mt-8">${title}</h2>`;
+    });
+    html = html.replace(/^# (.*$)/gim, (match, title) => {
+        const id = this.createHeaderId(title);
+        return `<h1 id="${id}" class="text-3xl font-bold theme-text-heading mb-8 mt-8">${title}</h1>`;
+    });
 
         // Bold and italic
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
@@ -198,8 +210,8 @@ class MarkdownLoader {
             </div>`;
         });
 
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="theme-link">$1</a>');
+    // Links (support URLs with balanced parentheses)
+    html = this.renderLinks(html);
 
         // Inline code
     html = html.replace(/`([^`]+)`/g, '<code class="theme-inline-code px-2 py-1 rounded text-sm font-mono">$1</code>');
@@ -317,6 +329,93 @@ class MarkdownLoader {
     }
 
     /**
+     * Render markdown links with support for URLs containing parentheses.
+     * Handles patterns like [text](https://example.com/foo(bar)_baz) and optional titles.
+     */
+    renderLinks(input) {
+        if (!input || typeof input !== 'string') return input;
+
+        let i = 0;
+        const n = input.length;
+        let out = '';
+
+        while (i < n) {
+            const startText = input.indexOf('[', i);
+            if (startText === -1) {
+                out += input.slice(i);
+                break;
+            }
+
+            // Append text before link
+            out += input.slice(i, startText);
+
+            const endText = input.indexOf(']', startText + 1);
+            if (endText === -1) {
+                // No closing ], append rest and stop
+                out += input.slice(startText);
+                break;
+            }
+
+            // Next non-space char must be (
+            let j = endText + 1;
+            while (j < n && /\s/.test(input[j])) j++;
+            if (j >= n || input[j] !== '(') {
+                // Not a link; include '[' and continue after it
+                out += input.slice(startText, endText + 1);
+                i = endText + 1;
+                continue;
+            }
+
+            // Parse URL with balanced parentheses
+            let k = j + 1; // position after '('
+            let depth = 1;
+            while (k < n && depth > 0) {
+                const ch = input[k];
+                if (ch === '(') depth++;
+                else if (ch === ')') depth--;
+                k++;
+            }
+
+            if (depth !== 0) {
+                // Unbalanced; treat as plain text
+                out += input.slice(startText, k);
+                i = k;
+                continue;
+            }
+
+            // k is position after the matching ')'
+            const rawInside = input.slice(j + 1, k - 1).trim();
+            const linkText = input.slice(startText + 1, endText);
+
+            // Split optional title: [text](url "title") or [text](url 'title')
+            let href = rawInside;
+            const titleMatch = rawInside.match(/^(\S+)[\s]+(["'])([\s\S]*)\2$/);
+            if (titleMatch) {
+                href = titleMatch[1];
+                // const title = titleMatch[3]; // Currently unused
+            }
+
+            // Basic HTML escape for attributes
+            const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+            // Handle internal links (anchors) - create proper IDs
+            let finalHref = href;
+            if (href.startsWith('#')) {
+                const anchorText = href.substring(1);
+                finalHref = '#' + this.createHeaderId(anchorText);
+            }
+
+            // Determine if this is an external link
+            const isExternal = finalHref.startsWith('http') || finalHref.startsWith('https');
+            const targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+            out += `<a href="${esc(finalHref)}" class="theme-link"${targetAttr}>${linkText}</a>`;
+            i = k; // continue after ')'
+        }
+
+        return out;
+    }
+
+    /**
      * Remove specific sections from markdown before rendering
      * Currently: For variabler.md, remove the section starting at
      * H2 'Inlämningsuppgift: Berättelse' until the next H2/H1 or EOF
@@ -346,6 +445,18 @@ class MarkdownLoader {
     }
 
     /**
+     * Create a URL-friendly ID from a header title
+     */
+    createHeaderId(title) {
+        return title
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '') // Remove special characters except word chars, spaces, and hyphens
+            .replace(/\s+/g, '-') // Replace spaces with hyphens
+            .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+            .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+    }
+
+    /**
      * Escape HTML characters
      */
     escapeHtml(text) {
@@ -369,11 +480,23 @@ class MarkdownLoader {
      */
     basicMarkdownToHtml(markdown) {
         let html = markdown
-            // Headers (process from most specific to least specific)
-            .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold theme-text-heading mb-3 mt-5">$1</h4>')
-            .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold theme-text-heading mb-4 mt-6">$1</h3>')
-            .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold theme-text-heading mb-6 mt-8">$1</h2>')
-            .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold theme-text-heading mb-8">$1</h1>')
+            // Headers (process from most specific to least specific) with IDs
+            .replace(/^#### (.*$)/gim, (match, title) => {
+                const id = this.createHeaderId(title);
+                return `<h4 id="${id}" class="text-lg font-semibold theme-text-heading mb-3 mt-5">${title}</h4>`;
+            })
+            .replace(/^### (.*$)/gim, (match, title) => {
+                const id = this.createHeaderId(title);
+                return `<h3 id="${id}" class="text-xl font-semibold theme-text-heading mb-4 mt-6">${title}</h3>`;
+            })
+            .replace(/^## (.*$)/gim, (match, title) => {
+                const id = this.createHeaderId(title);
+                return `<h2 id="${id}" class="text-2xl font-bold theme-text-heading mb-6 mt-8">${title}</h2>`;
+            })
+            .replace(/^# (.*$)/gim, (match, title) => {
+                const id = this.createHeaderId(title);
+                return `<h1 id="${id}" class="text-3xl font-bold theme-text-heading mb-8">${title}</h1>`;
+            })
             
             // Code blocks
             .replace(/```java\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="theme-codeblock p-4 rounded-lg overflow-x-auto"><code class="language-java">$1</code></pre></div>')
@@ -423,6 +546,9 @@ class MarkdownLoader {
             // Paragraphs
             .replace(/\n\n/g, '</p><p class="mb-4">')
             .replace(/^\*(.+?)\*$/gm, '<p class="caption italic mb-4">$1</p>');
+
+        // Handle links
+        html = this.renderLinks(html);
 
         // Wrap in paragraphs and handle lists
         html = '<p class="mb-4">' + html + '</p>';
@@ -488,7 +614,7 @@ class MarkdownLoader {
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                         <div class="text-center lg:text-left lg:flex-1">
                             <h1 class="text-4xl font-bold mb-4">📺 Utskrifter i Java</h1>
-                            <p class="text-xl mb-6">Kommunicera med användaren genom text och grafik</p>
+                            <p class="text-xl mb-6">Kommunicera med användaren genom text i terminalen</p>
                             <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
                                 <span class="badge">System.out.println()</span>
                                 <span class="badge">Unicode</span>
@@ -582,7 +708,8 @@ class MarkdownLoader {
             const classes = isActive ? 'nav-link nav-link--active' : 'nav-link';
             nav += `
                 <a href="${page.name}.html" 
-                   class="${classes} px-6 py-3 rounded-lg font-semibold transition-colors flex items-center space-x-2">
+                   class="${classes} px-6 py-3 rounded-lg font-semibold transition-colors flex items-center space-x-2"
+                   target="_blank" rel="noopener noreferrer">
                     <span>${page.emoji}</span>
                     <span>${page.title}</span>
                 </a>`;
@@ -606,7 +733,7 @@ class MarkdownLoader {
         let links = [];
         pages.forEach(page => {
             if (page.name !== currentPage) {
-                links.push(`<a href="${page.name}.html" class="theme-link">${page.title}</a>`);
+                links.push(`<a href="${page.name}.html" class="theme-link" target="_blank" rel="noopener noreferrer">${page.title}</a>`);
             }
         });
 
