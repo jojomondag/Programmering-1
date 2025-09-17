@@ -29,6 +29,38 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 /* Force Tailwind gray text utilities to black (per requirement that all text is black) */
 .text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600, .text-gray-500, .text-gray-400 { color: var(--text) !important; }
 
+/* Enhanced video button animations */
+#videoPanelToggle {
+  animation: videoPulse 2s infinite;
+  box-shadow: 0 4px 15px var(--c5-20);
+}
+
+#videoPanelToggle:hover {
+  animation: none;
+  box-shadow: 0 6px 20px var(--c5-20);
+  filter: brightness(1.1);
+}
+
+@keyframes videoPulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 4px 15px var(--c5-20);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px var(--c5-20);
+  }
+}
+
+/* Video thumbnail hover effects */
+.video-thumbnail {
+  transition: all 0.3s ease;
+}
+
+.video-thumbnail:hover {
+  transform: scale(1.05);
+}
+
 /* Minimal fallback for Tailwind sizing utilities used by inline SVG icons
   Ensures icons remain visible if the Tailwind CDN fails to load */
 .w-4 { width: 1rem; }

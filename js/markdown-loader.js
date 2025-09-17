@@ -636,9 +636,12 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/4VXf87Xi7Wc/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2">
+                                        <span class="text-xl">🎬</span>
+                                        <span>Titta på videon</span>
+                                    </div>
                                     <div class="text-xs opacity-75">YouTube - Variabler del 8</div>
                                 </div>
                             </div>
@@ -660,9 +663,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/wwhqgfw_gYE/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Variabler del 9</div>
                                 </div>
                             </div>
@@ -684,9 +687,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/ReIa3r_b2z4/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Variabler del 10</div>
                                 </div>
                             </div>
@@ -708,9 +711,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/2Pse_BAay04/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Berättelse del 11</div>
                                 </div>
                             </div>
@@ -736,9 +739,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/P4-O5PUDsPA/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Operatörer del 12</div>
                                 </div>
                             </div>
@@ -760,9 +763,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/FQ5pAWibG7w/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - IfSatser del 13</div>
                                 </div>
                             </div>
@@ -784,9 +787,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/jDcItHE5ABE/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Projekt Frågesport del 14</div>
                                 </div>
                             </div>
@@ -808,9 +811,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/Nxk_6SbF5HE/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Filstruktur Studieteknik och Backup del 15</div>
                                 </div>
                             </div>
@@ -836,9 +839,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/2KLolyXLdVk/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Utskrifter del 1</div>
                                 </div>
                             </div>
@@ -860,9 +863,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/oV_fPt2FXcg/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Utskrifter del 2</div>
                                 </div>
                             </div>
@@ -884,9 +887,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/RcYz60rj5Q4/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Utskrifter del 3</div>
                                 </div>
                             </div>
@@ -908,9 +911,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/3Po3tLIP1o4/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Utskrifter del 4</div>
                                 </div>
                             </div>
@@ -932,9 +935,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/CN8L23L3_Wk/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Utskrifter del 5</div>
                                 </div>
                             </div>
@@ -956,9 +959,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/lC70-P36NNE/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Utskrifter del 6</div>
                                 </div>
                             </div>
@@ -980,9 +983,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/n7hRQ3qT92Q/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Utskrifter del 7</div>
                                 </div>
                             </div>
@@ -1008,9 +1011,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/oA_3B3dt98U/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - While Loopen del 16</div>
                                 </div>
                             </div>
@@ -1032,9 +1035,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/oTTjI2QyOxo/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - ForLoopen del 17</div>
                                 </div>
                             </div>
@@ -1056,9 +1059,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/ED7G1VK9CUc/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Nästlade IfSatser och Loopar del 18</div>
                                 </div>
                             </div>
@@ -1080,9 +1083,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/5bpNAb0Ki9o/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Random del 19</div>
                                 </div>
                             </div>
@@ -1108,9 +1111,9 @@ class MarkdownLoader {
                             <div class="flex items-center space-x-2">
                                 <img src="https://img.youtube.com/vi/tBhKaD2lGHQ/mqdefault.jpg" 
                                      alt="Video thumbnail" 
-                                     class="w-16 h-12 rounded object-cover">
+                                     class="w-20 h-15 rounded object-cover video-thumbnail">
                                 <div>
-                                    <div class="font-medium">▶️ Titta på videon</div>
+                                    <div class="font-medium text-base flex items-center gap-2"><span class="text-xl">🎬</span><span>Titta på videon</span></div>
                                     <div class="text-xs opacity-75">YouTube - Arrays del 20</div>
                                 </div>
                             </div>
