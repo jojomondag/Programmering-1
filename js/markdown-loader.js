@@ -1599,6 +1599,11 @@ window.initializeCollapsibleDemo = function() {
         const icon = block.querySelector('.collapsible-demo-icon');
         
         if (header && content && toggle && icon) {
+            // Initialize as expanded by default
+            content.classList.add('expanded');
+            icon.classList.add('expanded');
+            toggle.textContent = 'Dölj koden';
+            
             // Add click event listener
             header.addEventListener('click', function() {
                 const isExpanded = content.classList.contains('expanded');
@@ -1606,11 +1611,13 @@ window.initializeCollapsibleDemo = function() {
                 if (isExpanded) {
                     // Collapse
                     content.classList.remove('expanded');
+                    content.classList.add('collapsed');
                     icon.classList.remove('expanded');
                     toggle.textContent = 'Visa koden';
                 } else {
                     // Expand
                     content.classList.add('expanded');
+                    content.classList.remove('collapsed');
                     icon.classList.add('expanded');
                     toggle.textContent = 'Dölj koden';
                 }

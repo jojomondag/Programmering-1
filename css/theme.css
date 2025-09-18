@@ -280,7 +280,7 @@ blockquote { background: var(--c4-10) !important; border-color: var(--c4) !impor
 }
 
 .collapsible-demo-content {
-  max-height: 0;
+  max-height: 2000px;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
   background: #f8f9fa;
@@ -288,6 +288,11 @@ blockquote { background: var(--c4-10) !important; border-color: var(--c4) !impor
 
 .collapsible-demo-content.expanded {
   max-height: 2000px;
+  transition: max-height 0.3s ease-out;
+}
+
+.collapsible-demo-content.collapsed {
+  max-height: 0;
   transition: max-height 0.3s ease-in;
 }
 
