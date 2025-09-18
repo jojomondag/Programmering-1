@@ -36,9 +36,21 @@ Du kompilerar (rättar) då koden och om koden är utan fel exekveras (körs) ko
 
 **OBS!** Var gång du gör ändring eller tillägg i koden måste du köra denna process!
 
+
+## 🔍 Kodblock och måsvingar
+
+### Vad är kodblock?
+
+Kodblock är **grupper av kod** som hör ihop och definieras med måsvingar `{ }`. Tänk på dem som "behållare" som innehåller kod.
+
+### Varför kommer måsvingar i par?
+
+Varje öppnande `{` måste ha en motsvarande stängande `}`
+
+
 ## ⚠️ Viktigt: Var ska du skriva din kod?
 
-Alla ändringar eller tillägg i koden måste ske mellan de två mittersta `{ }` i din `Main.java`-fil.
+Alla ändringar eller tillägg i koden måste alltid ske mellan/inuti `{ }` i din `Main.java`-fil.
 
 ### Förklaring för nybörjare:
 
@@ -87,16 +99,6 @@ public class Main {
 - Titta alltid efter de två `{ }` som hör till `main`-metoden
 - Placera all din kod mellan dessa två måsvingar
 - Om du får fel när du kompilerar, kontrollera att din kod är på rätt plats!
-
-## 🔍 Kodblock och måsvingar
-
-### Vad är kodblock?
-
-Kodblock är **grupper av kod** som hör ihop och definieras med måsvingar `{ }`. Tänk på dem som "behållare" som innehåller kod.
-
-### Varför kommer måsvingar i par?
-
-Varje öppnande `{` måste ha en motsvarande stängande `}`
 
 ## Grundläggande Utskrifter
 
@@ -414,6 +416,8 @@ Nästa steg är att kombinera detta med **variabler** för att skapa interaktiva
 
 ### Uppgift 1 - Dina första utskrifter
 
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Utskrifter_Uppgift_1`
+
 Nu är det dags att göra ändringar i koden! Följ dessa steg:
 
 #### Steg 1: Kopiera utskriftsrader
@@ -458,6 +462,7 @@ System.out.print("\"Hello world!\"");
 #### Utmaning
 Skapa en syntax som skriver ut på skärmen: `Agent 007 - James Bond.` (minst en siffra ska vara utskrivet som ett tal)
 
+
 #### Uppgift: Variabler och utskrift
 Skapa följande rader med kod:
 ```java
@@ -470,7 +475,7 @@ Kompilera och exekvera programmet! Granska resultatet och se om du kan snygga ti
 
 ### Uppgift 2 - Berättelse
 
-Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Uppgift_2`
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Utskrifter_Uppgift_2`
 
 Du ska nu med de kunskaper du fått i tidigare uppgifter ta dig an följande utmaning:
 
@@ -485,13 +490,9 @@ Och så var sagan slut!
 
 **Svårigheten i denna uppgift**: Du får bara göra en `System.out.println();` 😉
 
-Lycka till!
-
-Färdig uppgift sparas och skickas in för redovisning i classRoom: `Uppgift_2`
-
 ### Uppgift 3 - GUI med JOptionPane
 
-Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Uppgift_3`
+Skapa ett nytt projekt enligt tidigare sätt. Namnge det till `Utskrifter_Uppgift_3`
 
 Skriv nu till helt i början av din programkod (allra längst upp i arbetsytan):
 ```java
@@ -506,4 +507,8 @@ System.exit(0);
 
 Kompilera och exekvera programmet. Vad händer?
 
+Färdig uppgift sparas och skickas in för redovisning i classRoom: Det jag vill att ni skall lämna in är Uppgifterna lämna in Main.java för varje projekt.
+
+
+Lycka till!
 </div>

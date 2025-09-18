@@ -225,3 +225,90 @@ blockquote { background: var(--c4-10) !important; border-color: var(--c4) !impor
   border: 1px solid var(--c3-20);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+
+/* Kollapsbara demo-block för react:demo kodblock */
+.collapsible-demo {
+  margin: 1rem 0;
+  border: 1px solid var(--c1-20);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.collapsible-demo-header {
+  background: var(--c1-10);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--c1-20);
+  transition: background-color 0.2s ease;
+}
+
+.collapsible-demo-header:hover {
+  background: var(--c1-20);
+}
+
+.collapsible-demo-title {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.collapsible-demo-toggle {
+  background: var(--c5);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.collapsible-demo-toggle:hover {
+  background: var(--c5);
+  filter: brightness(0.9);
+}
+
+.collapsible-demo-toggle:active {
+  transform: scale(0.95);
+}
+
+.collapsible-demo-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: #f8f9fa;
+}
+
+.collapsible-demo-content.expanded {
+  max-height: 2000px;
+  transition: max-height 0.3s ease-in;
+}
+
+.collapsible-demo-content pre {
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.collapsible-demo-content .code-container {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Ikon för expand/collapse */
+.collapsible-demo-icon {
+  transition: transform 0.2s ease;
+  font-size: 0.8rem;
+}
+
+.collapsible-demo-icon.expanded {
+  transform: rotate(180deg);
+}

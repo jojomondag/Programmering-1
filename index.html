@@ -52,70 +52,70 @@
         /* Responsive hero sections */
         .hero-gradient {
             background: linear-gradient(135deg, var(--c1-10), var(--c2-10));
-            padding: 2rem 1rem;
+            padding: 0.75rem 0.5rem !important;
         }
         
         @media (min-width: 640px) {
             .hero-gradient {
-                padding: 3rem 2rem;
+                padding: 1.5rem 1rem !important;
             }
         }
         
         @media (min-width: 768px) {
             .hero-gradient {
-                padding: 4rem 3rem;
+                padding: 2.5rem 2rem !important;
             }
         }
         
         @media (min-width: 1024px) {
             .hero-gradient {
-                padding: 6rem 4rem;
+                padding: 3.5rem 3rem !important;
             }
         }
         
         /* Responsive text sizes */
         h1 {
-            font-size: 1.875rem;
-            line-height: 2.25rem;
+            font-size: 1.25rem !important;
+            line-height: 1.5rem !important;
         }
         
         @media (min-width: 640px) {
             h1 {
-                font-size: 2.25rem;
-                line-height: 2.5rem;
+                font-size: 2rem !important;
+                line-height: 2.25rem !important;
             }
         }
         
         @media (min-width: 768px) {
             h1 {
-                font-size: 3rem;
-                line-height: 1;
+                font-size: 2.5rem !important;
+                line-height: 1 !important;
             }
         }
         
         @media (min-width: 1024px) {
             h1 {
-                font-size: 3.75rem;
-                line-height: 1;
+                font-size: 3rem !important;
+                line-height: 1 !important;
             }
         }
         
         h2 {
-            font-size: 1.5rem;
-            line-height: 2rem;
+            font-size: 1.25rem !important;
+            line-height: 1.5rem !important;
         }
         
         @media (min-width: 640px) {
             h2 {
-                font-size: 1.875rem;
-                line-height: 2.25rem;
+                font-size: 1.5rem !important;
+                line-height: 2rem !important;
             }
         }
         
         @media (min-width: 768px) {
             h2 {
-                font-size: 2.25rem;
-                line-height: 2.5rem;
+                font-size: 1.875rem !important;
+                line-height: 2.25rem !important;
             }
         }
         
@@ -179,10 +179,13 @@
         .topic-card {
             transition: all 0.3s ease;
             background: #fff;
-            padding: 1.5rem;
+            padding: 1rem;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
         }
         
         .topic-card.no-underline {
@@ -196,19 +199,19 @@
         
         @media (min-width: 640px) {
             .topic-card {
-                padding: 2rem;
+                padding: 1.5rem;
             }
         }
         
         @media (min-width: 768px) {
             .topic-card {
-                padding: 2.5rem;
+                padding: 2rem;
             }
         }
         
         @media (min-width: 1024px) {
             .topic-card {
-                padding: 3rem;
+                padding: 2.5rem;
             }
         }
         
@@ -219,21 +222,22 @@
         
         .feature-icon {
             background: linear-gradient(135deg, var(--c3-20), var(--c5-20));
-            width: 5rem;
-            height: 5rem;
+            width: 3rem;
+            height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 1rem;
-            font-size: 1.875rem;
-            margin: 0 auto 1rem auto;
+            border-radius: 0.75rem;
+            font-size: 1.25rem;
+            margin: 0 auto 0.75rem auto;
         }
         
         @media (min-width: 640px) {
             .feature-icon {
-                width: 5rem;
-                height: 5rem;
-                font-size: 1.875rem;
+                width: 4rem;
+                height: 4rem;
+                font-size: 1.5rem;
+                margin: 0 auto 1rem auto;
             }
         }
         
@@ -242,6 +246,7 @@
                 width: 5rem;
                 height: 5rem;
                 font-size: 1.875rem;
+                margin: 0 auto 1rem auto;
             }
         }
         
@@ -250,6 +255,7 @@
                 width: 5rem;
                 height: 5rem;
                 font-size: 1.875rem;
+                margin: 0 auto 1rem auto;
             }
         }
         
@@ -273,92 +279,137 @@
           border: 1px solid var(--c4-20);
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
+        
+        /* Mobile text size adjustments */
+        .topic-card h3 {
+            font-size: 1.125rem !important;
+            line-height: 1.5rem !important;
+        }
+        
+        .topic-card p {
+            font-size: 0.875rem !important;
+            line-height: 1.25rem !important;
+        }
+        
+        .topic-card .caption {
+            font-size: 0.75rem !important;
+            line-height: 1rem !important;
+        }
+        
+        @media (min-width: 640px) {
+            .topic-card h3 {
+                font-size: 1.25rem !important;
+                line-height: 1.75rem !important;
+            }
+            
+            .topic-card p {
+                font-size: 0.9375rem !important;
+                line-height: 1.5rem !important;
+            }
+            
+            .topic-card .caption {
+                font-size: 0.8125rem !important;
+                line-height: 1.125rem !important;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .topic-card h3 {
+                font-size: 1.5rem !important;
+                line-height: 2rem !important;
+            }
+            
+            .topic-card p {
+                font-size: 1rem !important;
+                line-height: 1.625rem !important;
+            }
+            
+            .topic-card .caption {
+                font-size: 0.875rem !important;
+                line-height: 1.25rem !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
     <div class="container mx-auto px-4 py-8 max-w-7xl">
         <!-- Hero Section -->
-        <header class="hero-gradient rounded-2xl p-12 mb-16 text-center">
-            <h1 class="text-5xl font-bold mb-6">Programmering 1</h1>
+        <header class="hero-gradient rounded-2xl mb-8 text-center">
+            <h1 class="font-bold mb-4">Programmering 1</h1>
         </header>
 
         <!-- Course Topics -->
         <section class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-center">Kursinnehåll</h2>
-            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+            <h2 class="font-bold mb-8 text-center">Kursinnehåll</h2>
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
 
                 <!-- Output Topic -->
-                <a href="utskrifter.html" class="topic-card rounded-2xl p-8 border block no-underline" target="_blank" rel="noopener noreferrer">
-                    <div class="text-center mb-6">
-                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+                <a href="utskrifter.html" class="topic-card rounded-2xl border block no-underline" target="_blank" rel="noopener noreferrer">
+                    <div class="text-center mb-4">
+                        <div class="feature-icon mx-auto mb-3">
                             📺
                         </div>
-                        <h3 class="text-2xl font-bold">Utskrifter i Java</h3>
+                        <h3 class="font-bold">Utskrifter i Java</h3>
                         <p class="caption">Kommunikation med användaren</p>
                     </div>
-                    <p class="mb-6 leading-relaxed">
-                        Upptäck hur du visar information för användaren genom olika utskriftsmetoder. 
-                        Från enkla textmeddelanden till avancerade formatering.
+                    <p class="leading-relaxed">
+                        Upptäck hur du visar information för användaren genom olika utskriftsmetoder i terminalen.
                     </p>
                 </a>
 
                 <!-- Variables Topic -->
-                <a href="variabler.html" class="topic-card rounded-2xl p-8 border block no-underline" target="_blank" rel="noopener noreferrer">
-                    <div class="text-center mb-6">
-                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+                <a href="variabler.html" class="topic-card rounded-2xl border block no-underline" target="_blank" rel="noopener noreferrer">
+                    <div class="text-center mb-4">
+                        <div class="feature-icon mx-auto mb-3">
                             🧠
                         </div>
-                        <h3 class="text-2xl font-bold">Variabler</h3>
+                        <h3 class="font-bold">Variabler</h3>
                         <p class="caption">Grunderna för datalagring</p>
                     </div>
-                    <p class="mb-6 leading-relaxed">
-                        Lär dig hur du skapar och använder variabler för att lagra olika typer av data. 
-                        Från enkla textvariabler till komplexa beräkningar.
+                    <p class="leading-relaxed">
+                        Lär dig hur du skapar och använder variabler för att lagra olika typer av data.
                     </p>
                 </a>
 
                 <!-- If-satser Topic -->
-                <a href="ifsatser.html" class="topic-card rounded-2xl p-8 border block no-underline" target="_blank" rel="noopener noreferrer">
-                    <div class="text-center mb-6">
-                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+                <a href="ifsatser.html" class="topic-card rounded-2xl border block no-underline" target="_blank" rel="noopener noreferrer">
+                    <div class="text-center mb-4">
+                        <div class="feature-icon mx-auto mb-3">
                             🔀
                         </div>
-                        <h3 class="text-2xl font-bold">If-satser</h3>
+                        <h3 class="font-bold">If-satser</h3>
                         <p class="caption">Villkorssatser och beslut</p>
                     </div>
-                    <p class="mb-6 leading-relaxed">
-                        Lär dig få programmet att välja mellan olika alternativ med hjälp av if-satser. 
-                        Från enkla jämförelser till komplexa villkor.
+                    <p class="leading-relaxed">
+                        Lär dig få programmet att välja mellan olika alternativ med hjälp av if-satser.
                     </p>
                 </a>
 
                 <!-- Loops Topic -->
-                <a href="loopar.html" class="topic-card rounded-2xl p-8 border block no-underline" target="_blank" rel="noopener noreferrer">
-                    <div class="text-center mb-6">
-                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+                <a href="loopar.html" class="topic-card rounded-2xl border block no-underline" target="_blank" rel="noopener noreferrer">
+                    <div class="text-center mb-4">
+                        <div class="feature-icon mx-auto mb-3">
                             🔄
                         </div>
-                        <h3 class="text-2xl font-bold">Loopar</h3>
+                        <h3 class="font-bold">Loopar</h3>
                         <p class="caption">Upprepa kod effektivt</p>
                     </div>
-                    <p class="mb-6 leading-relaxed">
-                        Lär dig skapa loopar för att upprepa kod. Från enkla räkningar till komplexa mönster 
-                        med for, while och do-while loopar.
+                    <p class="leading-relaxed">
+                        Lär dig skapa loopar för att upprepa kod med for, while och do-while loopar.
                     </p>
                 </a>
 
                 <!-- Arrays Topic -->
-                <a href="arrays.html" class="topic-card rounded-2xl p-8 border block no-underline" target="_blank" rel="noopener noreferrer">
-                    <div class="text-center mb-6">
-                        <div class="feature-icon w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+                <a href="arrays.html" class="topic-card rounded-2xl border block no-underline" target="_blank" rel="noopener noreferrer">
+                    <div class="text-center mb-4">
+                        <div class="feature-icon mx-auto mb-3">
                             📊
                         </div>
-                        <h3 class="text-2xl font-bold">Arrays</h3>
+                        <h3 class="font-bold">Arrays</h3>
                         <p class="caption">Samlingar av data</p>
                     </div>
-                    <p class="mb-6 leading-relaxed">
-                        Lär dig arbeta med arrays för att lagra och hantera samlingar av data. 
-                        Från grundläggande array-syntax till sortering och slumpgenerering.
+                    <p class="leading-relaxed">
+                        Lär dig arbeta med arrays för att lagra och hantera samlingar av data.
                     </p>
                 </a>
 
@@ -367,20 +418,18 @@
         </section>
 
         <!-- Footer -->
-        <footer class="text-center py-12 mt-16" style="border-top: 1px solid var(--c2);">
-            <p class="text-lg font-semibold mb-2">Programmering 1 - Kursöversikt</p>
-            <p class="text-sm">Lär dig Java-programmering genom praktiska exempel och interaktiva uppgifter</p>
-            <div class="mt-4 flex justify-center space-x-6">
-                <a href="utskrifter.html" class="theme-link" target="_blank" rel="noopener noreferrer">Utskrifter</a>
-                <span class="caption">•</span>
-                <a href="variabler.html" class="theme-link" target="_blank" rel="noopener noreferrer">Variabler</a>
-                <span class="caption">•</span>
-                <a href="ifsatser.html" class="theme-link" target="_blank" rel="noopener noreferrer">If-satser</a>
-                <span class="caption">•</span>
-                <a href="loopar.html" class="theme-link" target="_blank" rel="noopener noreferrer">Loopar</a>
-                <span class="caption">•</span>
-                <a href="arrays.html" class="theme-link" target="_blank" rel="noopener noreferrer">Arrays</a>
-                
+        <footer class="text-center py-8 mt-12" style="border-top: 1px solid var(--c2);">
+            <p class="text-base font-semibold mb-2">Programmering 1 - Kursöversikt</p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
+                <a href="utskrifter.html" class="theme-link text-sm" target="_blank" rel="noopener noreferrer">Utskrifter</a>
+                <span class="hidden sm:inline caption">•</span>
+                <a href="variabler.html" class="theme-link text-sm" target="_blank" rel="noopener noreferrer">Variabler</a>
+                <span class="hidden sm:inline caption">•</span>
+                <a href="ifsatser.html" class="theme-link text-sm" target="_blank" rel="noopener noreferrer">If-satser</a>
+                <span class="hidden sm:inline caption">•</span>
+                <a href="loopar.html" class="theme-link text-sm" target="_blank" rel="noopener noreferrer">Loopar</a>
+                <span class="hidden sm:inline caption">•</span>
+                <a href="arrays.html" class="theme-link text-sm" target="_blank" rel="noopener noreferrer">Arrays</a>
             </div>
         </footer>
     </div>

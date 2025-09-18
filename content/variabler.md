@@ -214,7 +214,7 @@ Namn: Anna
 
 #### Steg för steg:
 
-1. **Skapa ett nytt projekt** med namnet `Valfritt Namn`
+1. **Skapa ett nytt projekt** Namnge det till `Variabler_Uppgift_1`
 2. **Efter `public static void main(String[] args) {`** ska du skapa tre minnesplatser av typen String
 3. **Ge minnesplatserna namnen:** `kyl`, `frys` och `skafferi`
 4. **Tänk dig att du handlar följande varor:** bullar, mjölk och glass (dessa är din data)
@@ -248,7 +248,7 @@ I skafferiet har jag: bullar
 
 #### Steg för steg:
 
-1. **Skapa ett nytt projekt** med namnet `Uppgift_2`
+1. **Skapa ett nytt projekt** med namnet `Variabler_Uppgift_2`
 2. **Redan på rad 1** innan `public class Main` ska du skriva: `import java.util.Scanner;`
 3. **Skriv efter `public static void main(String[] args) {`** `Scanner scan = new Scanner(System.in);`
 4. **Skapa en variabel/minnesplats** för lagring av text
@@ -313,7 +313,7 @@ Hello Mr Bond, James Bond
 
 #### Steg för steg:
 
-1. **Skapa nytt projekt** med namnet: `Uppgift_3`
+1. **Skapa nytt projekt** med namnet: `Variabler_Uppgift_3`
 2. **Skapa 3 minnesplatser** av variabeltypen `int` - ge dem namnen: `Tal1`, `Tal2` och `Summa`
 3. **Ge minnesplatserna `Tal1` och `Tal2`** valfritt heltal. `Summa` ska ha värdet 0
 4. **Gör en matematisk uträkning:** `Summa = Tal1 + Tal2;`
@@ -383,7 +383,7 @@ Förklaring: Multiplikation utförs först: 2 + (2 * 2) = 2 + 4 = 6
 
 #### Steg för steg:
 
-1. **Skapa nytt projekt** med namnet: `Uppgift_4`
+1. **Skapa nytt projekt** med namnet: `Variabler_Uppgift_4`
 2. **Skapa en minnesplats** av variabeltyp `double` och en av typen `int`
 3. **Ge båda minnesplatserna** värdet 7
 4. **Skriv ut minnesplatserna** efter varandra och jämför resultatet
@@ -454,7 +454,7 @@ Division: 10.5 / 2.5 = 4.2
 
 ### Uppgift 5: Temperaturomvandlare
 
-**Skapa nytt projekt med namnet:** `Uppgift_5`
+**Skapa nytt projekt med namnet:** `Variabler_Uppgift_5`
 
 I detta program ska du ge en användare möjligheten att omvandla en temperatur i Fahrenheit till Celsius.
 

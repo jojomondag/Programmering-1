@@ -101,7 +101,16 @@ class MarkdownLoader {
                     
                     const terminalOutput = this.stripBoundaryNewlines(parts[1]);
                     
-                    codeBlocks.push(`<div class="demo-grid mb-8">
+                    codeBlocks.push(`<div class="collapsible-demo mb-8">
+<div class="collapsible-demo-header">
+<span class="collapsible-demo-title">💡 Visa koden</span>
+<button class="collapsible-demo-toggle">
+<span class="collapsible-demo-icon">▼</span>
+Visa koden
+</button>
+</div>
+<div class="collapsible-demo-content">
+<div class="demo-grid">
 <div class="code-container relative">
 <button onclick="copyCode(this)" class="copy-button">Kopiera</button>
 <pre class="theme-codeblock p-4 rounded-lg overflow-x-auto h-full">
@@ -119,6 +128,8 @@ class MarkdownLoader {
 </div>
 <div class="terminal-body">
 <pre class="terminal-output">${this.escapeHtml(terminalOutput)}</pre>
+</div>
+</div>
 </div>
 </div>
 </div>`);
@@ -141,11 +152,22 @@ class MarkdownLoader {
                         
                         cleanCode = normalizedLines.join('\n').replace(/^\n+|\n+$/g, '');
                     }
-                    codeBlocks.push(`<div class="code-container relative mb-6">
+                    codeBlocks.push(`<div class="collapsible-demo mb-6">
+<div class="collapsible-demo-header">
+<span class="collapsible-demo-title">💡 Visa koden</span>
+<button class="collapsible-demo-toggle">
+<span class="collapsible-demo-icon">▼</span>
+Visa koden
+</button>
+</div>
+<div class="collapsible-demo-content">
+<div class="code-container relative">
 <button onclick="copyCode(this)" class="copy-button">Kopiera</button>
 <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
 <code class="${langClass} font-mono">${this.escapeHtml(cleanCode)}</code>
 </pre>
+</div>
+</div>
 </div>`);
                 }
             } else {
@@ -1564,3 +1586,42 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Initialize collapsible demo blocks functionality
+window.initializeCollapsibleDemo = function() {
+    // Find all collapsible demo blocks
+    const collapsibleBlocks = document.querySelectorAll('.collapsible-demo');
+    
+    collapsibleBlocks.forEach(block => {
+        const header = block.querySelector('.collapsible-demo-header');
+        const content = block.querySelector('.collapsible-demo-content');
+        const toggle = block.querySelector('.collapsible-demo-toggle');
+        const icon = block.querySelector('.collapsible-demo-icon');
+        
+        if (header && content && toggle && icon) {
+            // Add click event listener
+            header.addEventListener('click', function() {
+                const isExpanded = content.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    // Collapse
+                    content.classList.remove('expanded');
+                    icon.classList.remove('expanded');
+                    toggle.textContent = 'Visa koden';
+                } else {
+                    // Expand
+                    content.classList.add('expanded');
+                    icon.classList.add('expanded');
+                    toggle.textContent = 'Dölj koden';
+                }
+            });
+        }
+    });
+};
+
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', window.initializeCollapsibleDemo);
+} else {
+    window.initializeCollapsibleDemo();
+}

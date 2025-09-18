@@ -256,6 +256,11 @@
                         Prism.highlightAll();
                     }, 300);
                 }
+                
+                // Initialize collapsible demo blocks
+                if (window.initializeCollapsibleDemo) {
+                    window.initializeCollapsibleDemo();
+                }
             } catch (error) {
                 console.error('Error initializing page:', error);
                 const mainContent = document.getElementById('mainContent');
