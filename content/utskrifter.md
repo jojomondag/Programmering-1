@@ -1,3 +1,5 @@
+<div class="info-section">
+
 ## Grund-syntaxen för utskrifter
 
 [Grund-syntaxen](https://www.codebean.se/syntax-och-regler/) som används för att "skriva ut data på skärmen" från ett program är:
@@ -300,7 +302,7 @@ Namn:		Lisa
 Hej Lisa! ☺
 ```
 
-## Färgad text i terminalen
+## (Extra) Färgad text i terminalen
 
 Följande kod fungerar inte med alla kompilatorer men det ska fungera i IntelliJ:
 
@@ -408,6 +410,7 @@ Prova att skapa en berättelse med endast en `System.out.println()` i [Uppgift 2
 
 Nästa steg är att kombinera detta med **variabler** för att skapa interaktiva program!
 
+</div>
 <div class="section-separator"></div>
 
 <div class="uppgifter-section">

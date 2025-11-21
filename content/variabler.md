@@ -1,3 +1,5 @@
+<div class="info-section">
+
 # Variabler
 
 Variabler används för att lagra data. Beroende på form av data skapas minnesplatser med anpassning för tänkt datainnehåll.
@@ -119,6 +121,43 @@ Skriv ditt namn: Kalle
 Hej Kalle
 ```
 
+## Viktiga Scanner-metoder
+
+| Metod | Beskrivning | Exempel |
+|-------|-------------|---------|
+| `nextLine()` | Läser en hel rad text | `String text = scanner.nextLine();` |
+| `nextInt()` | Läser ett heltal | `int nummer = scanner.nextInt();` |
+| `nextDouble()` | Läser ett decimaltal | `double värde = scanner.nextDouble();` |
+
+## Vanliga Misstag
+
+⚠️ **Varning:** När du använder `nextInt()` följt av `nextLine()` kan du få problem med radbrytningar. Använd en extra `scanner.nextLine()` för att "äta upp" radbrytningen.
+
+```react:demo title="Lösning för Scanner-problem"
+import java.util.Scanner;
+
+public class ScannerProblem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Ange ett nummer: ");
+        int nummer = scanner.nextInt();
+        scanner.nextLine(); // Äter upp radbrytningen
+        
+        System.out.print("Ange ditt namn: ");
+        String namn = scanner.nextLine();
+        
+        System.out.println("Nummer: " + nummer);
+        System.out.println("Namn: " + namn);
+    }
+}
+---
+Ange ett nummer: 42
+Ange ditt namn: Anna
+Nummer: 42
+Namn: Anna
+```
+
 ## Heltal (int-variabler)
 
 Heltal används för matematiska beräkningar. Testa dina kunskaper i [Uppgift 3](#uppgift-3-skapa-minnesplatser-av-variabeltypen-int).
@@ -157,42 +196,7 @@ public class DoubleExempel {
 Decimaltal: 3.14
 ```
 
-## Viktiga Scanner-metoder
 
-| Metod | Beskrivning | Exempel |
-|-------|-------------|---------|
-| `nextLine()` | Läser en hel rad text | `String text = scanner.nextLine();` |
-| `nextInt()` | Läser ett heltal | `int nummer = scanner.nextInt();` |
-| `nextDouble()` | Läser ett decimaltal | `double värde = scanner.nextDouble();` |
-
-## Vanliga Misstag
-
-⚠️ **Varning:** När du använder `nextInt()` följt av `nextLine()` kan du få problem med radbrytningar. Använd en extra `scanner.nextLine()` för att "äta upp" radbrytningen.
-
-```react:demo title="Lösning för Scanner-problem"
-import java.util.Scanner;
-
-public class ScannerProblem {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Ange ett nummer: ");
-        int nummer = scanner.nextInt();
-        scanner.nextLine(); // Äter upp radbrytningen
-        
-        System.out.print("Ange ditt namn: ");
-        String namn = scanner.nextLine();
-        
-        System.out.println("Nummer: " + nummer);
-        System.out.println("Namn: " + namn);
-    }
-}
----
-Ange ett nummer: 42
-Ange ditt namn: Anna
-Nummer: 42
-Namn: Anna
-```
 
 ## Sammanfattning
 
@@ -204,6 +208,7 @@ Namn: Anna
 
 **Nästa steg:** Lär dig mer om **if-satser** för att skapa villkorsstyrd kod!
 
+</div>
 <div class="section-separator"></div>
 
 <div class="uppgifter-section">

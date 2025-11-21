@@ -1,3 +1,5 @@
+<div class="info-section">
+
 # Loopar - for och while satser
 
 ## Förklaring
@@ -181,6 +183,7 @@ Loopar är kraftfulla verktyg för att upprepa kod:
 
 **Nästa steg:** Lär dig om **arrays** för att lagra och bearbeta samlingar av data!
 
+</div>
 <div class="section-separator"></div>
 
 <div class="uppgifter-section">
@@ -402,5 +405,159 @@ Som du ser i bilden ovan så får du kanske inte några snygga kolumner i ditt r
 Skriv istället för `System.out.print( )` → `System.out.format( "%4d" , dinVariabel )`
 
 Du ska efter detta få en betydligt snyggare utskrift.
+
+### Uppgift 9: Högt-Lågt-Spel
+
+Du ska skapa ett högt-lågt-spel. Datorn ska först slumpa fram ett tal mellan 0 och 100. Sedan gissar spelaren vilket tal det är, varefter datorn svarar med "för högt" eller "för lågt". Programmet fortsätter tills spelaren har gissat rätt.
+
+#### Förberedelser
+
+```java
+import java.util.Scanner;
+
+// Skapa följande kod:
+int slump = 0;
+slump = ((int)(Math.random() * 100 + 1));  //slumpar tal upp till 100, +1 undviker siffran 0
+```
+
+#### Instruktioner
+
+1. Använd en loop (t.ex. `while` eller `do-while`) för att låta spelaren gissa tills de gissar rätt.
+2. Om gissningen är högre än det slumpade talet – skriv ut "Mindre".
+3. Om gissningen är lägre än det slumpade talet – skriv ut "Högre".
+4. Om gissningen är rätt – skriv ut "Rätt gissat!" och avsluta loopen.
+5. Räkna antalet gissningar och skriv ut det på slutet.
+
+```react:demo title="Högt-Lågt-Spel exempel"
+import java.util.Scanner;
+
+public class HogtLagtSpel {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        
+        int slump = ((int)(Math.random() * 100 + 1));
+        int gissning = 0;
+        int antalGissningar = 0;
+        
+        System.out.println("Välkommen till Högt-Lågt-spelet!");
+        System.out.println("Gissa ett tal mellan 1 och 100");
+        
+        while (gissning != slump) {
+            System.out.print("Din gissning: ");
+            gissning = scan.nextInt();
+            antalGissningar++;
+            
+            if (gissning > slump) {
+                System.out.println("Mindre");
+            } else if (gissning < slump) {
+                System.out.println("Högre");
+            } else {
+                System.out.println("Rätt gissat!");
+                System.out.println("Du behövde " + antalGissningar + " gissningar");
+            }
+        }
+    }
+}
+---
+Välkommen till Högt-Lågt-spelet!
+Gissa ett tal mellan 1 och 100
+Din gissning: 50
+Högre
+Din gissning: 75
+Mindre
+Din gissning: 62
+Rätt gissat!
+Du behövde 3 gissningar
+```
+
+### Uppgift 10: 21-spel (Black Jack)
+
+*(För högre betyg)*
+
+Skriv ett 21-spel (Black Jack). För att göra det lite enklare så räcker det att slumpa ett tal mellan 1 och 13.
+
+#### Regler:
+- Datorn spelar bank och måste "ta kort" så länge den har under 17 poäng.
+- Spelaren får välja om hen vill ha fler kort (J/N).
+- Målet är att komma så nära 21 som möjligt utan att gå över.
+
+```react:demo title="21-spel exempel"
+import java.util.Scanner;
+
+public class TjugoettSpel {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String svar;
+        
+        do {
+            int spelarPoang = 0;
+            int bankPoang = 0;
+            
+            System.out.println("\n=== NYTT SPEL ===");
+            
+            // Spelarens tur
+            do {
+                int kort = (int)(Math.random() * 13 + 1);
+                spelarPoang += kort;
+                System.out.println("Du fick kort: " + kort);
+                System.out.println("Dina poäng: " + spelarPoang);
+                
+                if (spelarPoang >= 21) break;
+                
+                System.out.print("Vill du ha ett till kort? (J/N): ");
+                svar = scan.next();
+            } while (svar.equalsIgnoreCase("J"));
+            
+            // Bankens tur (om spelaren inte spruckit)
+            if (spelarPoang <= 21) {
+                System.out.println("\nBankens tur:");
+                while (bankPoang < 17) {
+                    int kort = (int)(Math.random() * 13 + 1);
+                    bankPoang += kort;
+                    System.out.println("Banken fick kort: " + kort);
+                    System.out.println("Bankens poäng: " + bankPoang);
+                }
+            }
+            
+            // Resultat
+            System.out.println("\n--- RESULTAT ---");
+            if (spelarPoang > 21) {
+                System.out.println("Du fick över 21 - Banken vinner!");
+            } else if (bankPoang > 21) {
+                System.out.println("Banken fick över 21 - Du vinner!");
+            } else if (spelarPoang > bankPoang) {
+                System.out.println("Du vinner!");
+            } else if (bankPoang > spelarPoang) {
+                System.out.println("Banken vinner!");
+            } else {
+                System.out.println("Oavgjort!");
+            }
+            
+            System.out.print("\nVill du spela igen? (J/N): ");
+            svar = scan.next();
+            
+        } while (svar.equalsIgnoreCase("J"));
+    }
+}
+---
+=== NYTT SPEL ===
+Du fick kort: 8
+Dina poäng: 8
+Vill du ha ett till kort? (J/N): J
+Du fick kort: 10
+Dina poäng: 18
+Vill du ha ett till kort? (J/N): N
+
+Bankens tur:
+Banken fick kort: 10
+Bankens poäng: 10
+Banken fick kort: 8
+Bankens poäng: 18
+
+--- RESULTAT ---
+Oavgjort!
+
+Vill du spela igen? (J/N): N
+```
 
 </div>

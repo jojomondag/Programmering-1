@@ -1,3 +1,5 @@
+<div class="info-section">
+
 # Arrays
 
 ## Förklaring
@@ -179,6 +181,7 @@ Arrays är kraftfulla verktyg för att lagra och hantera samlingar av data:
 
 **Nästa steg:** Träna på dessa övningar för att behärska arrays i Java!
 
+</div>
 <div class="section-separator"></div>
 
 <div class="uppgifter-section">

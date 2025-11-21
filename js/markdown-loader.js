@@ -12,7 +12,7 @@ class MarkdownLoader {
     async loadMarkdownContent(filename) {
         try {
             console.log(`Loading markdown content for: ${filename}`);
-            
+
             // Check cache first
             if (this.cache.has(filename)) {
                 console.log(`Using cached content for: ${filename}`);
@@ -24,20 +24,20 @@ class MarkdownLoader {
             if (!response.ok) {
                 throw new Error(`Failed to load ${filename}.md: ${response.status}`);
             }
-            
+
             let markdownText = await response.text();
             console.log(`Loaded ${markdownText.length} characters from ${filename}.md`);
 
             // Preprocess: strip sections that should no longer be rendered
             markdownText = this.filterSections(markdownText, filename);
-            
+
             // Render using built-in function
             const htmlContent = this.markdownToHtml(markdownText);
-            
+
             // Cache the result
             this.cache.set(filename, htmlContent);
             console.log(`Cached and returning content for: ${filename}`);
-            
+
             return htmlContent;
         } catch (error) {
             console.error('Error loading markdown content:', error);
@@ -53,13 +53,22 @@ class MarkdownLoader {
      */
     markdownToHtml(markdown) {
         let html = markdown;
-        
+
         // Handle code blocks first (to avoid processing content inside them)
         const codeBlocks = [];
+        // Find separator index to determine if we are in the assignment section
+        const separatorIndex = html.indexOf('<div class="section-separator">');
+
         // Accept any info string after the ``` (handles "react:..." tokens and normal languages)
-        html = html.replace(/```([^\n]*)\n([\s\S]*?)\n```/g, (match, info, code) => {
+        html = html.replace(/```([^\n]*)\n([\s\S]*?)\n```/g, (match, info, code, offset) => {
             const index = codeBlocks.length;
             let langClass = '';
+
+            // Check if this block is in the assignment section
+            const isAssignment = separatorIndex !== -1 && offset > separatorIndex;
+            const toggleText = isAssignment ? 'Visa uppgift' : 'Visa koden';
+            const helperText = isAssignment ? '<span class="text-sm text-gray-500 italic mr-2">Försök lös det själv</span>' : '';
+            const assignmentAttr = isAssignment ? 'data-is-assignment="true"' : '';
 
             if (info) {
                 // Extract the first token (e.g. "java", "react:freeflow", "react:demo language=java")
@@ -78,38 +87,41 @@ class MarkdownLoader {
                 if (parts.length === 2) {
                     // Clean up the Java code by normalizing indentation
                     let javaCode = this.stripBoundaryNewlines(parts[0]);
-                    
+
                     // Normalize indentation - find minimum indentation and adjust all lines
                     const lines = javaCode.split('\n');
                     const nonEmptyLines = lines.filter(line => line.trim().length > 0);
-                    
+
                     if (nonEmptyLines.length > 0) {
                         // Find minimum indentation
                         const minIndent = Math.min(...nonEmptyLines.map(line => {
                             const match = line.match(/^(\s*)/);
                             return match ? match[1].length : 0;
                         }));
-                        
+
                         // Remove minimum indentation from all lines
                         const normalizedLines = lines.map(line => {
                             if (line.trim().length === 0) return line; // Keep empty lines as is
                             return line.substring(minIndent);
                         });
-                        
+
                         javaCode = normalizedLines.join('\n').replace(/^\n+|\n+$/g, '');
                     }
-                    
+
                     const terminalOutput = this.stripBoundaryNewlines(parts[1]);
-                    
-                    codeBlocks.push(`<div class="collapsible-demo mb-8">
+
+                    codeBlocks.push(`<div class="collapsible-demo mb-8" ${assignmentAttr}>
 <div class="collapsible-demo-header">
-<span class="collapsible-demo-title">💡 Visa koden</span>
+<span class="collapsible-demo-title">💡 ${toggleText}</span>
+<div class="flex items-center">
+${helperText}
 <button class="collapsible-demo-toggle">
 <span class="collapsible-demo-icon">▼</span>
-Visa koden
+${toggleText}
 </button>
 </div>
-<div class="collapsible-demo-content">
+</div>
+<div class="collapsible-demo-content collapsed">
 <div class="demo-grid">
 <div class="code-container relative">
 <button onclick="copyCode(this)" class="copy-button">Kopiera</button>
@@ -138,29 +150,32 @@ Visa koden
                     let cleanCode = this.stripBoundaryNewlines(code);
                     const lines = cleanCode.split('\n');
                     const nonEmptyLines = lines.filter(line => line.trim().length > 0);
-                    
+
                     if (nonEmptyLines.length > 0) {
                         const minIndent = Math.min(...nonEmptyLines.map(line => {
                             const match = line.match(/^(\s*)/);
                             return match ? match[1].length : 0;
                         }));
-                        
+
                         const normalizedLines = lines.map(line => {
                             if (line.trim().length === 0) return line;
                             return line.substring(minIndent);
                         });
-                        
+
                         cleanCode = normalizedLines.join('\n').replace(/^\n+|\n+$/g, '');
                     }
-                    codeBlocks.push(`<div class="collapsible-demo mb-6">
+                    codeBlocks.push(`<div class="collapsible-demo mb-6" ${assignmentAttr}>
 <div class="collapsible-demo-header">
-<span class="collapsible-demo-title">💡 Visa koden</span>
+<span class="collapsible-demo-title">💡 ${toggleText}</span>
+<div class="flex items-center">
+${helperText}
 <button class="collapsible-demo-toggle">
 <span class="collapsible-demo-icon">▼</span>
-Visa koden
+${toggleText}
 </button>
 </div>
-<div class="collapsible-demo-content">
+</div>
+<div class="collapsible-demo-content collapsed">
 <div class="code-container relative">
 <button onclick="copyCode(this)" class="copy-button">Kopiera</button>
 <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
@@ -175,18 +190,18 @@ Visa koden
                 let cleanCode = this.stripBoundaryNewlines(code);
                 const lines = cleanCode.split('\n');
                 const nonEmptyLines = lines.filter(line => line.trim().length > 0);
-                
+
                 if (nonEmptyLines.length > 0) {
                     const minIndent = Math.min(...nonEmptyLines.map(line => {
                         const match = line.match(/^(\s*)/);
                         return match ? match[1].length : 0;
                     }));
-                    
+
                     const normalizedLines = lines.map(line => {
                         if (line.trim().length === 0) return line;
                         return line.substring(minIndent);
                     });
-                    
+
                     cleanCode = normalizedLines.join('\n').replace(/^\n+|\n+$/g, '');
                 }
                 codeBlocks.push(`<div class="code-container relative mb-6">
@@ -200,26 +215,26 @@ Visa koden
         });
 
         // Headers (process from most specific to least specific) with IDs
-    html = html.replace(/^#### (.*$)/gim, (match, title) => {
-        const id = this.createHeaderId(title);
-        return `<h4 id="${id}" class="text-lg font-semibold theme-text-heading mb-3 mt-5">${title}</h4>`;
-    });
-    html = html.replace(/^### (.*$)/gim, (match, title) => {
-        const id = this.createHeaderId(title);
-        return `<h3 id="${id}" class="text-xl font-semibold theme-text-heading mb-4 mt-6">${title}</h3>`;
-    });
-    html = html.replace(/^## (.*$)/gim, (match, title) => {
-        const id = this.createHeaderId(title);
-        return `<h2 id="${id}" class="text-2xl font-bold theme-text-heading mb-6 mt-8">${title}</h2>`;
-    });
-    html = html.replace(/^# (.*$)/gim, (match, title) => {
-        const id = this.createHeaderId(title);
-        return `<h1 id="${id}" class="text-3xl font-bold theme-text-heading mb-8 mt-8">${title}</h1>`;
-    });
+        html = html.replace(/^#### (.*$)/gim, (match, title) => {
+            const id = this.createHeaderId(title);
+            return `<h4 id="${id}" class="text-lg font-semibold theme-text-heading mb-3 mt-5">${title}</h4>`;
+        });
+        html = html.replace(/^### (.*$)/gim, (match, title) => {
+            const id = this.createHeaderId(title);
+            return `<h3 id="${id}" class="text-xl font-semibold theme-text-heading mb-4 mt-6">${title}</h3>`;
+        });
+        html = html.replace(/^## (.*$)/gim, (match, title) => {
+            const id = this.createHeaderId(title);
+            return `<h2 id="${id}" class="text-2xl font-bold theme-text-heading mb-6 mt-8">${title}</h2>`;
+        });
+        html = html.replace(/^# (.*$)/gim, (match, title) => {
+            const id = this.createHeaderId(title);
+            return `<h1 id="${id}" class="text-3xl font-bold theme-text-heading mb-8 mt-8">${title}</h1>`;
+        });
 
         // Bold and italic
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
-    html = html.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+        html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
+        html = html.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
 
         // Images - ![alt text](image path)
         html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
@@ -232,31 +247,31 @@ Visa koden
             </div>`;
         });
 
-    // Links (support URLs with balanced parentheses)
-    html = this.renderLinks(html);
+        // Links (support URLs with balanced parentheses)
+        html = this.renderLinks(html);
 
         // Inline code
-    html = html.replace(/`([^`]+)`/g, '<code class="theme-inline-code px-2 py-1 rounded text-sm font-mono">$1</code>');
+        html = html.replace(/`([^`]+)`/g, '<code class="theme-inline-code px-2 py-1 rounded text-sm font-mono">$1</code>');
 
         // Tables - more robust approach using line-by-line processing
         const lines = html.split('\n');
         const processedLines = [];
         let i = 0;
-        
+
         while (i < lines.length) {
             const line = lines[i];
-            
+
             // Check if this line starts a table (contains | characters)
             if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
                 const tableLines = [];
                 let j = i;
-                
+
                 // Collect all table lines
                 while (j < lines.length && lines[j].trim().startsWith('|') && lines[j].trim().endsWith('|')) {
                     tableLines.push(lines[j]);
                     j++;
                 }
-                
+
                 // Check if we have at least 3 lines (header, separator, data)
                 if (tableLines.length >= 3) {
                     // Check if second line is a separator (contains dashes)
@@ -264,17 +279,17 @@ Visa koden
                     if (separatorLine.includes('-') && separatorLine.includes('|')) {
                         // Process the table - handle escaped pipes
                         const headerCells = tableLines[0].replace(/\\\|/g, '&#124;').split('|').map(cell => cell.trim()).filter(cell => cell);
-                        const dataRows = tableLines.slice(2).map(row => 
+                        const dataRows = tableLines.slice(2).map(row =>
                             row.replace(/\\\|/g, '&#124;').split('|').map(cell => cell.trim()).filter(cell => cell)
                         );
-                        
+
                         let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse theme-table">';
                         tableHtml += '<thead class="theme-table-head"><tr>';
                         headerCells.forEach(cell => {
                             tableHtml += `<th class="theme-table-th">${cell}</th>`;
                         });
                         tableHtml += '</tr></thead><tbody>';
-                        
+
                         dataRows.forEach(row => {
                             if (row.length > 0) {
                                 tableHtml += '<tr>';
@@ -286,7 +301,7 @@ Visa koden
                                 tableHtml += '</tr>';
                             }
                         });
-                        
+
                         tableHtml += '</tbody></table></div>';
                         processedLines.push(tableHtml);
                         i = j; // Skip the processed table lines
@@ -294,22 +309,22 @@ Visa koden
                     }
                 }
             }
-            
+
             processedLines.push(line);
             i++;
         }
-        
+
         html = processedLines.join('\n');
 
         // Blockquotes
-    html = html.replace(/^> (.+)$/gm, '<blockquote class="theme-blockquote italic mb-4">$1<\/blockquote>');
+        html = html.replace(/^> (.+)$/gm, '<blockquote class="theme-blockquote italic mb-4">$1<\/blockquote>');
 
         // Lists - handle unordered (-, *) and ordered (1., 2.) items
         // Unordered list items
-    html = html.replace(/^\s*[-*] (.+)$/gm, '<li data-ul="1" class="theme-list-item mb-2">$1<\/li>');
+        html = html.replace(/^\s*[-*] (.+)$/gm, '<li data-ul="1" class="theme-list-item mb-2">$1<\/li>');
 
         // Ordered list items (supports 1. item or 1) item)
-    html = html.replace(/^\s*\d+[\.)] (.+)$/gm, '<li data-ol="1" class="theme-list-item mb-2">$1<\/li>');
+        html = html.replace(/^\s*\d+[\.)] (.+)$/gm, '<li data-ol="1" class="theme-list-item mb-2">$1<\/li>');
 
         // Wrap consecutive unordered list items in <ul>
         html = html.replace(/(<li[^>]*data-ul="1"[^>]*>[\s\S]*?<\/li>(?:\s*<li[^>]*data-ul="1"[^>]*>[\s\S]*?<\/li>)*)/g, (match) => {
@@ -321,20 +336,20 @@ Visa koden
             return `<ol class="theme-ol space-y-2 mb-6 ml-4">${match}<\/ol>`;
         });
 
-    // Ensure content after a list starts a new paragraph
-    html = html.replace(/(<\/ul>|<\/ol>)(\s*)(?=\S)/g, '$1\n\n');
+        // Ensure content after a list starts a new paragraph
+        html = html.replace(/(<\/ul>|<\/ol>)(\s*)(?=\S)/g, '$1\n\n');
 
-    // Handle emoji and special formatting
-           html = html.replace(/^(\*.*?\*)$/gm, '<p class="theme-caption italic mb-4">$1</p>');
+        // Handle emoji and special formatting
+        html = html.replace(/^(\*.*?\*)$/gm, '<p class="theme-caption italic mb-4">$1</p>');
 
         // Convert line breaks to paragraphs
         html = html.split('\n\n').map(paragraph => {
             paragraph = paragraph.trim();
-            if (paragraph && 
-                !paragraph.includes('<h') && 
-                !paragraph.includes('<div') && 
-                !paragraph.includes('<ul') && 
-                !paragraph.includes('<ol') && 
+            if (paragraph &&
+                !paragraph.includes('<h') &&
+                !paragraph.includes('<div') &&
+                !paragraph.includes('<ul') &&
+                !paragraph.includes('<ol') &&
                 !paragraph.includes('<blockquote') &&
                 !paragraph.includes('___CODE_BLOCK_')) {
                 return `<p class="theme-paragraph mb-4 leading-relaxed">${paragraph}</p>`;
@@ -346,6 +361,19 @@ Visa koden
         codeBlocks.forEach((codeBlock, index) => {
             html = html.replace(`___CODE_BLOCK_${index}___`, codeBlock);
         });
+
+        // Handle section separator to wrap the first part (Information) in a container
+        // Handle section separator to wrap the first part (Information) in a container
+        // Note: Wrapper is now explicitly added in markdown files, so we don't need to add it here.
+        // if (html.includes('<div class="section-separator">')) {
+        //     const parts = html.split('<div class="section-separator">');
+        //     if (parts.length >= 2) {
+        //         // Wrap the first part (Information)
+        //         const infoSection = `<div class="info-section">${parts[0]}</div>`;
+        //         // Reassemble with the separator and the rest (Assignments)
+        //         html = infoSection + '<div class="section-separator">' + parts.slice(1).join('<div class="section-separator">');
+        //     }
+        // }
 
         return html;
     }
@@ -519,33 +547,33 @@ Visa koden
                 const id = this.createHeaderId(title);
                 return `<h1 id="${id}" class="text-3xl font-bold theme-text-heading mb-8">${title}</h1>`;
             })
-            
+
             // Code blocks
             .replace(/```java\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="theme-codeblock p-4 rounded-lg overflow-x-auto"><code class="language-java">$1</code></pre></div>')
             .replace(/```(.*?)\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="theme-codeblock p-4 rounded-lg overflow-x-auto"><code class="language-$1">$2</code></pre></div>')
             .replace(/```\n([\s\S]*?)\n```/g, '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre class="theme-codeblock p-4 rounded-lg overflow-x-auto"><code>$1</code></pre></div>')
-            
+
             // Inline code
             .replace(/`([^`]+)`/g, '<code class="theme-inline-code">$1</code>')
-            
+
             // Bold and italic
             .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
             .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
-            
+
             // Tables
             .replace(/\|(.+)\|\n\|[-\s|]+\|\n((?:\|.+\|\n?)*)/g, (match, header, rows) => {
                 const headerCells = header.split('|').map(cell => cell.trim()).filter(cell => cell);
-                const rowsArray = rows.trim().split('\n').map(row => 
+                const rowsArray = rows.trim().split('\n').map(row =>
                     row.split('|').map(cell => cell.trim()).filter(cell => cell)
                 );
-                
+
                 let tableHtml = '<div class="overflow-x-auto mb-6"><table class="w-full border-collapse theme-table">';
                 tableHtml += '<thead class="theme-table-head"><tr>';
                 headerCells.forEach(cell => {
                     tableHtml += `<th class="theme-table-th">${cell}</th>`;
                 });
                 tableHtml += '</tr></thead><tbody>';
-                
+
                 rowsArray.forEach(row => {
                     tableHtml += '<tr>';
                     row.forEach(cell => {
@@ -553,18 +581,18 @@ Visa koden
                     });
                     tableHtml += '</tr>';
                 });
-                
+
                 tableHtml += '</tbody></table></div>';
                 return tableHtml;
             })
-            
+
             // Lists
             .replace(/^\* (.+)$/gm, '<li class="mb-2">$1</li>')
             .replace(/^- (.+)$/gm, '<li class="mb-2">$1</li>')
-            
+
             // Blockquotes
             .replace(/^> (.+)$/gm, '<blockquote class="border-l-4 p-4 italic mb-4">$1</blockquote>')
-            
+
             // Paragraphs
             .replace(/\n\n/g, '</p><p class="mb-4">')
             .replace(/^\*(.+?)\*$/gm, '<p class="caption italic mb-4">$1</p>');
@@ -585,7 +613,7 @@ Visa koden
      */
     addCopyButtons(html) {
         // Replace code blocks with copy button containers
-        return html.replace(/<div class="code-container relative mb-6"><pre([^>]*)><code([^>]*)>/g, 
+        return html.replace(/<div class="code-container relative mb-6"><pre([^>]*)><code([^>]*)>/g,
             '<div class="code-container relative mb-6"><button onclick="copyCode(this)" class="copy-button">Kopiera</button><pre$1><code$2>');
     }
 
@@ -759,7 +787,7 @@ Visa koden
             }
         });
 
-    return links.join('<span class="caption mx-2">•</span>');
+        return links.join('<span class="caption mx-2">•</span>');
     }
 
     /**
@@ -1272,7 +1300,7 @@ Visa koden
             `
         };
 
-    return videoContent[pageName] || '<p class="caption">Inget videoinnehåll tillgängligt.</p>';
+        return videoContent[pageName] || '<p class="caption">Inget videoinnehåll tillgängligt.</p>';
     }
 }
 
@@ -1284,7 +1312,7 @@ function toggleDescription(descId) {
     const description = document.getElementById(descId);
     const arrowId = descId.replace('desc', 'arrow');
     const arrow = document.getElementById(arrowId);
-    
+
     if (description.classList.contains('hidden')) {
         description.classList.remove('hidden');
         arrow.style.transform = 'rotate(180deg)';
@@ -1588,38 +1616,59 @@ style.textContent = `
 document.head.appendChild(style);
 
 // Initialize collapsible demo blocks functionality
-window.initializeCollapsibleDemo = function() {
+window.initializeCollapsibleDemo = function () {
     // Find all collapsible demo blocks
     const collapsibleBlocks = document.querySelectorAll('.collapsible-demo');
-    
-    collapsibleBlocks.forEach(block => {
+
+    collapsibleBlocks.forEach((block, index) => {
         const header = block.querySelector('.collapsible-demo-header');
         const content = block.querySelector('.collapsible-demo-content');
         const toggle = block.querySelector('.collapsible-demo-toggle');
         const icon = block.querySelector('.collapsible-demo-icon');
-        
+
+        // Unique key for this block based on page path and index
+        const storageKey = 'collapsibleState_' + window.location.pathname + '_' + index;
+
+        // Check if this is an assignment block
+        const isAssignment = block.getAttribute('data-is-assignment') === 'true';
+        const showText = isAssignment ? 'Visa uppgift' : 'Visa koden';
+        const hideText = isAssignment ? 'Dölj uppgift' : 'Dölj koden';
+
         if (header && content && toggle && icon) {
-            // Initialize as expanded by default
-            content.classList.add('expanded');
-            icon.classList.add('expanded');
-            toggle.textContent = 'Dölj koden';
-            
+            // Load saved state or default to collapsed
+            const savedState = localStorage.getItem(storageKey);
+            const shouldBeExpanded = savedState === 'expanded';
+
+            if (shouldBeExpanded) {
+                content.classList.add('expanded');
+                content.classList.remove('collapsed');
+                icon.classList.add('expanded');
+                toggle.textContent = hideText;
+            } else {
+                content.classList.remove('expanded');
+                content.classList.add('collapsed');
+                icon.classList.remove('expanded');
+                toggle.textContent = showText;
+            }
+
             // Add click event listener
-            header.addEventListener('click', function() {
+            header.addEventListener('click', function () {
                 const isExpanded = content.classList.contains('expanded');
-                
+
                 if (isExpanded) {
                     // Collapse
                     content.classList.remove('expanded');
                     content.classList.add('collapsed');
                     icon.classList.remove('expanded');
-                    toggle.textContent = 'Visa koden';
+                    toggle.textContent = showText;
+                    localStorage.setItem(storageKey, 'collapsed');
                 } else {
                     // Expand
                     content.classList.add('expanded');
                     content.classList.remove('collapsed');
                     icon.classList.add('expanded');
-                    toggle.textContent = 'Dölj koden';
+                    toggle.textContent = hideText;
+                    localStorage.setItem(storageKey, 'expanded');
                 }
             });
         }
